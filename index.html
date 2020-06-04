@@ -1,0 +1,125 @@
+---
+layout: default
+title: CUSail Navigation Team
+---
+<!doctype html>
+
+<div class="full" id="parallax">
+  <div class="full headline">
+    <h1>CUSail Navigation Team</h1>
+    <h2>Resource Site</h2>
+  </div>
+</div>
+
+<div class="main_content">
+  <h1 class="section_headline">About the Navigation Team</h1>
+  <p>
+    The Navigation Subteam works with the boat’s electrical and software components. They work on PCB design, sensor
+    integration, sailing algorithms, computer vision, power management, radio communication, and servo motor control.
+  </p>
+
+  <h1 class="section_headline">Competition Events</h1>
+  <p>
+    CUSail competes in the annual <a href="https://www.sailbot.org/">Sailbot International Robotic Sailing
+      Regatta</a>. We generally do not compete in all eight of the events (e.g. the mechanical team does not design
+    the boat to be able to compete in payload). Below is a summary of all events; however, full details, including
+    scoring, see the <a href="https://www.sailbot.org/wp-content/uploads/2019/05/SailBot-2019-Events.pdf">Sailbot
+      Events Page</a>.
+  </p>
+
+  <table id="events_table" style="width:100%; text-align: left;">
+    <tr>
+      <td class="event_name" style="width:20%">Presentation</td>
+      <td>
+        Each team will present their project to a panel of experts in the areas of control
+        theory, systems engineering, and naval architecture. Twenty minutes are allowed for the presentation and ten
+        for Q&A.
+      </td>
+    </tr>
+    <tr>
+      <td class="event_name">Fleet Race</td>
+      <td>
+        The boats will sail between two
+        buoys (Start/Finish Line) and then sail around
+        two other buoys before returning to the
+        Start/Finish Line. Remote control must be used
+        for steering. All boats will sail together.
+      </td>
+    </tr>
+    <tr>
+      <td class="event_name">Endurance</td>
+      <td>
+        The boats will sail around 4 buoys
+        (passing within 10m inside of buoy is okay) for up
+        to 7 hours.
+      </td>
+    </tr>
+    <tr>
+      <td class="event_name">Station Keeping</td>
+      <td>
+        The boat will enter a 40 x 40 m box and
+        attempt to stay inside the box for 5 minutes. It must
+        then exit within 30 seconds to avoid a penalty.
+      </td>
+    </tr>
+    <tr>
+      <td class="event_name">Precision Navigation</td>
+      <td>
+        The boat will start
+        between two buoys and then will
+        autonomously sail a course around
+        two buoys and then return between
+        the two start buoys.
+      </td>
+    </tr>
+    <tr>
+      <td class="event_name">Payload</td>
+      <td>
+        Each boat starts between two
+        buoys and will load a (non
+        -human) cargo of
+        their choice and sail around a buoy and
+        return. RC or autonomous control is allowed.
+      </td>
+    </tr>
+    <tr>
+      <td class="event_name">Collision Avoidance</td>
+      <td>
+        The boat will start between two
+        buoys and will sail autonomously on a reach
+        to another buoy and return. Sometime during
+        the trip a manned boat will approach on a
+        collision course. RC is not permitted after the
+        start.
+      </td>
+    </tr>
+    <tr>
+      <td class="event_name">Search</td>
+      <td>
+        An orange buoy will be placed
+        somewhere within 100 m of a reference position.
+        The boat must locate, touch, and signal* such
+        within 10 minutes of entering the search area. RC is
+        not allowed after entering the search area. (*Signal
+        means 1) white strobe on boat and/or signal to a
+        shore station and 2) either turn into wind or
+        assume station-keeping mode.)
+      </td>
+    </tr>
+  </table>
+
+  <h1 id="guides" class="section_headline">How-To Guides</h1>
+  <div id="guides_layout">
+    {% for post in site.posts %}
+    {% if post.layout == "landing" %}
+    <a href="{{ site.baseurl }}{{ post.url }}">
+      <img src="{{ site.baseurl }}/images/{{ post.logo }}" />
+      <h4>{{ post.title | remove: "Guides" }}</h4>
+    </a>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<script src="./js/parallax.js"></script>
+<script>parallax("parallax");</script>

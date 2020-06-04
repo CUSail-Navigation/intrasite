@@ -1,0 +1,22 @@
+---
+layout: default
+---
+<div class=main_content>
+  <h1 class="page_title">{{  page.title }}</h1>
+
+  {% for category in page.categories %}
+  <h2 class="subsection_header">{{ category }}</h2>
+  <div id="guides_layout">
+    {% for post in site.posts %}
+    {% for cat in post.categories %}
+    {% if cat == category and post.url != page.url %}
+    <a href="{{ site.baseurl }}{{ post.url }}">
+      <img src="{{ site.baseurl }}/images/{{ post.logo }}" />
+      <h4>{{ post.title }}</h4>
+    </a>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>
