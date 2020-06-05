@@ -51,11 +51,13 @@ function displayExistingGoals() {
         add_html += '</li>';
       }
       add_html += '</ul>';
+
+      // set the html after the last request returns
+      if (i === milestone_num.length - 1) {
+        goals.innerHTML = add_html;
+      }
     };
 
     xhr.send();
-
-    // make and display the html
   }
-  goals.innerHTML = add_html;
 }
