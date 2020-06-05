@@ -6,8 +6,7 @@ $(document).ready(function () {
     type: "GET",
     crossDomain: true,
     success: function (response) {
-      var resp = JSON.parse(response)
-      alert(resp.status);
+      console.log(response)
     },
     error: function (xhr, status) {
       alert("error");
