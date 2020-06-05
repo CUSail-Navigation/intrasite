@@ -318,6 +318,29 @@ table {
 }
 
 #loadIcon img {
-  height: 400;
-  width: 500;
+  height: 400px;
+  width: 500px;
+}
+
+/* progress goal layout */
+#goals_layout {
+  display: flex;
+  background-color: #f2f2f2;
+  border: #7ec6cf;
+  border-radius: 3%;
+  border-width: 2px;
+  border-style: solid;
+}
+
+#goals_layout h2 {
+  color: #7ec6cf;
+  text-align: left;
+}
+
+#goal_creator {
+  display: block;
+}
+
+#goals_layout ul {
+  list-style: none;
 }
