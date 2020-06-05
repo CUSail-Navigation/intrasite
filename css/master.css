@@ -323,6 +323,10 @@ table {
 }
 
 /* progress goal layout */
+#goal_header {
+  margin-top: 5%;
+}
+
 #goals_layout {
   display: flex;
   background-color: #f2f2f2;
@@ -343,4 +347,9 @@ table {
 
 #goals_layout ul {
   list-style: none;
+}
+
+#goal_creator img {
+  width: 50px;
+  height: 500px;
 }
