@@ -61,5 +61,5 @@ function displayExistingGoals() {
   }
   goals.innerHTML = add_html;
   var load_icon = document.getElementById('loadIcon');
-  load_icon.visible = false;
+  load_icon.style.visibility = 'hidden';
 }
