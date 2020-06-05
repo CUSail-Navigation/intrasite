@@ -25,10 +25,15 @@ if (temp_code) {
   console.log(access_url);
   var xhr = new XMLHttpRequest();
   xhr.open("POST", access_url, true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Accept', 'application/json');
   xhr.onreadystatechange = function () { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       console.log(this.responseText);
+      var ret_data = JSON.parse(this.responseText);
+      var redir = 'https://cusail-navigation.github.io/intrasite/progress2020-2021';
+      redir += '?auth=';
+      redir += ret_data.access_token;
+      window.location.replace(redir);
     }
   }
   xhr.send();
