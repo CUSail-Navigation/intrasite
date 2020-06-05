@@ -1,8 +1,15 @@
 $(document).ready(function () {
-  const login_url = 'https://cors.io/?https://github.com/login/oauth/authorize?client_id=aea1d3ebf253d278dee2';
-  $.get(
-    login_url, function (data, status) {
-      console.log('${data}')
+  const login_url = 'https://github.com/login/oauth/authorize?client_id=aea1d3ebf253d278dee2';
+  $.ajax({
+    url: login_url,
+    type: "GET",
+    crossDomain: true,
+    success: function (response) {
+      var resp = JSON.parse(response)
+      alert(resp.status);
+    },
+    error: function (xhr, status) {
+      alert("error");
     }
-  )
+  });
 })
