@@ -24,10 +24,11 @@ function displayExistingGoals() {
     var xhr = new XMLHttpRequest();
     var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
     get_url += '?milestone=' + milestone_num[i];
-    xhr.open('GET', get_url, true);
+    xhr.open('GET', get_url, false);
     xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
+    xhr.send();
 
-    xhr.onload = function () {
+    if (xhr.status === 200) {
       console.log(this.responseText);
       var ret_data = JSON.parse(this.responseText);
 
@@ -51,13 +52,7 @@ function displayExistingGoals() {
         add_html += '</li>';
       }
       add_html += '</ul>';
-
-      // set the html after the last request returns
-      if (i === milestone_num.length - 1) {
-        goals.innerHTML = add_html;
-      }
-    };
-
-    xhr.send();
+    }
   }
+  goals.innerHTML = add_html;
 }
