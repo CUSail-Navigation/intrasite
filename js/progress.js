@@ -52,7 +52,7 @@ function displayExistingGoals() {
         }
         add_html += '</ul>';
 
-        add_html += '<p>' + ret_data[j].body + '</p>';
+        add_html += '<p><b>' + ret_data[j].body + '</b></p>';
         add_html += '</li>';
         add_html += '<button type="button">Edit Goal</button>';
       }
