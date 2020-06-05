@@ -5,7 +5,7 @@ $(document).ready(function () {
     type: "GET",
     crossDomain: true,
     success: function (response) {
-      document.write(response);
+      console.log(response);
     },
     error: function (xhr, status) {
       alert(":(");
