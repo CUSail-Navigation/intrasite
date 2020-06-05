@@ -31,7 +31,7 @@ function displayExistingGoals() {
     if (xhr.status === 200) {
       var ret_data = JSON.parse(xhr.responseText);
 
-      add_html += '<ul id="goal_sublayout">';
+      add_html += '<div id="goal_sublayout"><ul>';
       var j;
       for (j = 0; j < ret_data.length; j++) {
         add_html += '<li>';
@@ -56,7 +56,7 @@ function displayExistingGoals() {
         add_html += '</li>';
         add_html += '<button type="button">Edit Goal</button>';
       }
-      add_html += '</ul>';
+      add_html += '</ul></div>';
     }
   }
   goals.innerHTML = add_html;
