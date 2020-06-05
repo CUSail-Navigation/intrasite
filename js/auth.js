@@ -5,10 +5,10 @@ $(document).ready(function () {
     type: "GET",
     crossDomain: true,
     success: function (response) {
-      document.write(response)
+      document.write(response);
     },
     error: function (xhr, status) {
-      alert("error");
+      alert(":(");
     }
   });
 })
