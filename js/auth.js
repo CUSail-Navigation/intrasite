@@ -31,7 +31,7 @@ if (temp_code) {
       console.log(this.responseText);
     }
   }
-  xhr.send(send_data);
+  xhr.send();
 } else {
   // somehow bypassed, send them back
   window.location.replace('https://github.com/login/oauth/authorize?client_id=aea1d3ebf253d278dee2&redirect_uri=https://cusail-navigation.github.io/intrasite/progress_gateway');
