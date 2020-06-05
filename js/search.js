@@ -2,7 +2,7 @@
   function displaySearchResults(results, store) {
     var searchResults = document.getElementById('guides_layout');
 
-    if (results.length) { // Are there any results?
+    if (results.length) {
       var appendString = '';
 
       for (var i = 0; i < results.length; i++) {  // Iterate over the results
@@ -60,6 +60,6 @@
     });
 
     var results = idx.search(searchTerm); // Get lunr to perform a search
-    displaySearchResults(results, window.store); // We'll write this in the next section
+    displaySearchResults(results, window.store);
   }
 })();
