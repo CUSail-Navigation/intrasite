@@ -304,3 +304,13 @@ table {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+/* loading icon for synchronous get requests */
+#loadIcon {
+  height: 100%;
+  width: 100%;
+  background-color: #000000;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
