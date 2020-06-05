@@ -30,7 +30,7 @@ function displayExistingGoals() {
 
     if (xhr.status === 200) {
       console.log(this.responseText);
-      var ret_data = JSON.parse(this.responseText);
+      var ret_data = JSON.parse(xhr.responseText);
 
       add_html += '<ul id="goal_sublayout">';
       var j;
