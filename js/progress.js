@@ -24,24 +24,26 @@ function displayExistingGoals() {
     var xhr = new XMLHttpRequest();
     var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
     get_url += '?milestone=' + milestone_num[i];
-    xhr.open('GET', get_url, false);
+    xhr.open('GET', get_url, false); // synch is deprecated, but screw it
     xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
     xhr.send();
 
     if (xhr.status === 200) {
-      console.log(this.responseText);
       var ret_data = JSON.parse(xhr.responseText);
 
       add_html += '<ul id="goal_sublayout">';
       var j;
       for (j = 0; j < ret_data.length; j++) {
         add_html += '<li>';
-
         add_html += '<h3 id="goal_title">' + ret_data[j].title + '</h3>';
+
+        add_html += '<div id="goal_creator">';
         add_html += '<img src="' + ret_data[j].user.avatar_url + '" />';
-        add_html += '<h3 id="goal_creator">' + ret_data[j].user.login + '</h3>';
+        add_html += '<h3>' + ret_data[j].user.login + '</h3>';
+        add_html += '</div>';
 
         add_html += '<ul id="goal_assignees">';
+        add_html += '<h4>Team Members</h4>';
         var k;
         for (k = 0; k < ret_data[j].assignees; k++) {
           add_html += '<li>' + ret_data[j].assignees[k].login + '</li>';
