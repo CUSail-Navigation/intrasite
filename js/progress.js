@@ -35,15 +35,14 @@ function displayExistingGoals() {
       var j;
       for (j = 0; j < ret_data.length; j++) {
         add_html += '<li>';
-        add_html += '<h3 id="goal_title">' + ret_data[j].title + '</h3>';
-
         add_html += '<div id="goal_creator">';
         add_html += '<img src="' + ret_data[j].user.avatar_url + '" />';
         add_html += '<h3>' + ret_data[j].user.login + '</h3>';
         add_html += '</div>';
+        add_html += '<h3 id="goal_title">' + ret_data[j].title + '</h3>';
 
         add_html += '<ul id="goal_assignees">';
-        add_html += '<h4>Team Members</h4>';
+        add_html += '<h4>Team Members:</h4>';
         var k;
         for (k = 0; k < ret_data[j].assignees.length; k++) {
           add_html += '<li>' + ret_data[j].assignees[k].login + '</li>';
@@ -55,6 +54,7 @@ function displayExistingGoals() {
 
         add_html += '<p>' + ret_data[j].body + '</p>';
         add_html += '</li>';
+        add_html += '<button type="button">Edit Goal</button>';
       }
       add_html += '</ul>';
     }
