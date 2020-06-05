@@ -1,2 +1,22 @@
-var query = window.location.search.substring(1);
-console.log(query);
+function getQueryVariable(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split('&');
+
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split('=');
+
+    if (pair[0] === variable) {
+      return decodeURIComponent(pair[1].replace(/\+/g, '%20'));
+    }
+  }
+}
+
+var temp_code = getQueryVariable('code');
+console.log(temp_code);
+
+if (temp_code) {
+  // get access token
+} else {
+  // somehow bypassed, send them back
+  window.location.replace('https://github.com/login/oauth/authorize?client_id=aea1d3ebf253d278dee2&redirect_uri=https://cusail-navigation.github.io/intrasite/progress2020-2021');
+}
