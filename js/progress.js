@@ -45,9 +45,11 @@ function displayExistingGoals() {
         add_html += '<ul id="goal_assignees">';
         add_html += '<h4>Team Members</h4>';
         var k;
-        console.log(ret_data[j].assignees);
-        for (k = 0; k < ret_data[j].assignees; k++) {
+        for (k = 0; k < ret_data[j].assignees.length; k++) {
           add_html += '<li>' + ret_data[j].assignees[k].login + '</li>';
+        }
+        if (ret_data[j].assignees.length < 1) {
+          add_html += '<li>No one is assigned. Edit this goal to add someone.</li>';
         }
         add_html += '</ul>';
 
