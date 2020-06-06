@@ -49,7 +49,11 @@ function displayExistingGoals() {
 
         add_html += '<div id="goal_creator">';
         add_html += '<h3>' + ret_data[j].title + '</h3>';
-        add_html += '<h4>Created by ' + ret_data[j].user.login + ' on ' + parseDate(ret_data[j].created_at) + '</h4>';
+        add_html += '<h4>Created by ' + ret_data[j].user.login + ' on ' + parseDate(ret_data[j].created_at);
+        if (ret_data[j].closed_at) {
+          add_html += ' - Completed';
+        }
+        add_html += '</h4>';
         add_html += '</div></div>';
 
 
