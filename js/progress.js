@@ -23,7 +23,7 @@ function makeNewGoal() {
   var layout = document.getElementById('make_new_goal');
   layout.style.visibility = 'visible';
   $("html, body").delay(2000).animate({
-    scrollTop: $('"make_new_goal"').offset().top
+    scrollTop: $('#make_new_goal').offset().top
   }, 2000);
 }
 

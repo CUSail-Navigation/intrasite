@@ -407,9 +407,9 @@ table {
   background-color: navy;
   color: white;
   border-radius: 4px;
-  border-color: crimson;
+  /* border-color: crimson;
   border-style: solid;
-  border-width: 1px;
+  border-width: 1px; */
 }
 
 #make_new_goal {
