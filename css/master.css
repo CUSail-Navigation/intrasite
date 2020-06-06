@@ -465,7 +465,9 @@ table {
 }
 
 #goal_title_input {
-  width: max-content;
+  flex-basis: 100%;
+  font-size: large;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 #goal_adder_overall p {

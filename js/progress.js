@@ -67,6 +67,7 @@ function submitNewGoal() {
   xhr.open("POST", post_url, true);
   var token = 'token ' + auth_code;
   xhr.setRequestHeader('Authorization', token);
+  xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.onreadystatechange = function () { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
       var redir = 'https://cusail-navigation.github.io/intrasite/progress2020-2021';
@@ -126,7 +127,6 @@ function setupNewGoalForm() {
   let xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.github.com/orgs/cusail-navigation/members', true);
   xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
-  xhr.setRequestHeader('Content-Type', 'application/json');
 
   xhr.onload = function () {
     let ret_data = JSON.parse(this.responseText);
