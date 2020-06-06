@@ -406,6 +406,7 @@ table {
   background-color: navy;
   color: white;
   border-radius: 4px;
+  font-family: Georgia, serif;
   /* border-color: crimson;
   border-style: solid;
   border-width: 1px; */
@@ -423,4 +424,62 @@ table {
   border-radius: 8px;
   padding: 10px;
   font-size: large;
+  font-family: Georgia, serif;
+}
+
+#make_new_goal h2 {
+  margin-bottom: 10px;
+}
+
+#goal_adder_overall {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+#goal_adder_overall ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  padding-left: 2px;
+  color: black;
+  opacity: 1; /* Firefox */
+}
+
+#goal_adder_overall :-ms-input-placeholder { /* Internet Explorer 10-11 */
+  padding-left: 2px;
+  color: black;
+}
+
+#goal_adder_overall ::-ms-input-placeholder { /* Microsoft Edge */
+  padding-left: 2px;
+  color: black;
+}
+
+#goal_adder_top {
+  display: flex;
+  flex-direction: row;
+}
+
+#goal_title_input {
+  width: max-content;
+}
+
+#goal_adder_overall p {
+  margin-top: 20px;
+}
+
+#members_selector {
+  margin-bottom: 20px;
+}
+
+#goal_body_input {
+  width: max-content;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  resize: none;
+}
+
+#goal_adder_overall button {
+  background-color: crimson;
+  color: white;
+  border-radius: 4px;
+  padding: 10px;
+  font-family: Georgia, serif;
 }

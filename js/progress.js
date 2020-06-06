@@ -52,7 +52,7 @@ function submitNewGoal() {
 
   req.assignees = people;
   req.body = document.getElementById('goal_body_input').value;
-  var jsonString = JSON.stringify(obj);
+  var jsonString = JSON.stringify(req);
   console.log(jsonString);
 
   var xhr = new XMLHttpRequest();
@@ -90,7 +90,9 @@ function setupNewGoalForm() {
   add_html += '<h2 id="goal_adder_label">Add a New Goal</h2>';
   add_html += '<p>Note: any member can add a goal, but only an admin (Courtney) can delete one...</p>';
 
-  add_html += '<input id="goal_title_input" type="text" name="goal_title" placeholder="New Goal Title..."></input>'
+  add_html += '<div id="goal_adder_overall">';
+  add_html += '<div id="goal_adder_top">';
+  add_html += '<input id="goal_title_input" type="text" name="goal_title" placeholder="New Goal Title..."></input>';
 
   add_html += '<label for="milestone">Due Date</label>';
   add_html += '<select id="milestone_selector" name="milestone">';
@@ -98,14 +100,15 @@ function setupNewGoalForm() {
   for (i = 0; i < milestone_num.length; i++) {
     add_html += '<option value="' + milestone_num[i] + '">' + milestone_str[i] + '</option>';
   }
-  add_html += '</select>';
+  add_html += '</select></div>';
 
   // add this in later so it can be asynch
   add_html += '<p>Assign Team Members:</p>';
   add_html += '<div id="members_selector"></div>';
 
-  add_html += '<textarea id="goal_body_input" name="body">A couple sentences about what this goal is, what you need to do to accomplish it, etc.</textarea>';
+  add_html += '<textarea id="goal_body_input" name="body" placeholder="A couple sentences about what this goal is, what you need to do to accomplish it, etc."></textarea>';
   add_html += '<button onclick="submitNewGoal()" type="button">Submit Goal</button>';
+  add_html += '</div>';
   layout.innerHTML = add_html;
 
   // now use a get request to get the org members
@@ -164,8 +167,9 @@ function displayExistingGoals() {
         if (ret_data[j].state.includes("closed")) {
           add_html += ' • Completed on ' + parseDate(ret_data[j].closed_at);
         }
-        add_html += '</p>';
-        add_html += '</div></div>';
+        add_html += '</p></div>';
+        add_html += '<button onclick="updateGoal(' + ret_data[j].number + ')" ' + 'type="button">Edit Goal</button>';
+        add_html += '</div>';
 
         var people = '';
         var k;
@@ -182,7 +186,6 @@ function displayExistingGoals() {
         add_html += people + '</p>';
 
         add_html += '<p><b>' + ret_data[j].body + '</b></p>';
-        add_html += '<button onclick="updateGoal(' + ret_data[j].number + ')" ' + 'type="button">Edit Goal</button>';
         add_html += '</li>';
       }
       add_html += '</ul></div>';
