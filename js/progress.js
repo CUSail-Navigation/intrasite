@@ -45,7 +45,7 @@ function submitNewGoal() {
   var req = new Object();
   // req.title = document.getElementById('goal_title_input').value;
   req.title = "test title hardcoded 3"
-  req.milestone = document.getElementById('milestone_selector').value;
+  req.milestone = parseInt(document.getElementById('milestone_selector').value, 10);
 
   // add assignees
   let options = document.getElementById('members_selector').childNodes;

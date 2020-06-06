@@ -368,6 +368,7 @@ table {
 
 #goal_creator {
   display: block;
+  flex-basis: 100%;
 }
 
 #goal_sublayout ul {
@@ -380,8 +381,8 @@ table {
   flex-basis: min-content;
   margin-left: 50px;
   margin-right: 0px;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 #goal_sublayout p, #goal_sublayout h4 {
@@ -401,7 +402,7 @@ table {
 #goal_sublayout button {
   margin-left: 50px;
   margin-right: 50px;
-  margin-top: 0px;
+  margin-top: 20px;
   text-align: right;
   padding: 10px;
   margin-bottom: 50px;
@@ -409,6 +410,7 @@ table {
   color: white;
   border-radius: 4px;
   font-family: Georgia, serif;
+  width: fit-content;
   /* border-color: crimson;
   border-style: solid;
   border-width: 1px; */
@@ -434,7 +436,7 @@ table {
 }
 
 #goal_adder_overall {
-  margin-top: 50px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -458,6 +460,8 @@ table {
 #goal_adder_top {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 #goal_title_input {
