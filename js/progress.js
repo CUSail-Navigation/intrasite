@@ -48,15 +48,15 @@ function displayExistingGoals() {
         add_html += '<img src="' + ret_data[j].user.avatar_url + '" />';
 
         add_html += '<div id="goal_creator">';
-        add_html += '<h3>' + ret_data[j].title + '</h3>';
-        add_html += '<h4>Created by ' + ret_data[j].user.login + ' on ' + parseDate(ret_data[j].created_at);
+        add_html += '<h4>' + ret_data[j].title + '</h4>';
+        add_html += '<p>Created by ' + ret_data[j].user.login + ' on ' + parseDate(ret_data[j].created_at);
         if (ret_data[j].closed_at) {
           add_html += ' - Completed';
         }
-        add_html += '</h4>';
+        add_html += '</p>';
         add_html += '</div></div>';
 
-        add_html += '<h4 id="goal_assignees">Assigned Team Members: ';
+        add_html += '<p id="goal_assignees">Assigned Team Members: ';
         var people = '';
         var k;
         for (k = 0; k < ret_data[j].assignees.length; k++) {
@@ -67,11 +67,11 @@ function displayExistingGoals() {
         } else {
           people = people.substring(0, people.length - 2);
         }
-        add_html += people + '</h4>';
+        add_html += people + '</p>';
 
         add_html += '<p><b>' + ret_data[j].body + '</b></p>';
-        add_html += '</li>';
         add_html += '<button type="button">Edit Goal</button>';
+        add_html += '</li>';
       }
       add_html += '</ul></div>';
     }
