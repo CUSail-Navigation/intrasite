@@ -335,6 +335,7 @@ table {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: left;
 }
 
 #goal_sublayout ul li {
