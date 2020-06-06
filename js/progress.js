@@ -31,50 +31,51 @@ function submitNewGoal() {
   var auth_code = getQueryVariable('auth');
   var post_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues'
 
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", 'https://api.github.com/user', true);
-  var token = 'token ' + auth_code;
-  xhr.setRequestHeader('Authorization', token);
-  xhr.onreadystatechange = function () { // Call a function when the state changes.
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      console.log(this.responseText);
-    }
-  }
-  xhr.send();
-
-  // var req = new Object();
-  // req.title = document.getElementById('goal_title_input').value;
-  // req.milestone = document.getElementById('milestone_selector').value;
-
-  // // add assignees
-  // let options = document.getElementById('members_selector').childNodes;
-  // let people = [];
-  // // even numbers are checkboxes
-  // let i;
-  // for (i = 0; i < options; i += 2) {
-  //   if (options[i].checked) {
-  //     people.push(options[i].value);
-  //   }
-  // }
-
-  // req.assignees = people;
-  // req.body = document.getElementById('goal_body_input').value;
-  // var jsonString = JSON.stringify(req);
-  // console.log(jsonString);
-
   // var xhr = new XMLHttpRequest();
-  // xhr.open("POST", post_url, true);
+  // xhr.open("GET", 'https://api.github.com/user', true);
   // var token = 'token ' + auth_code;
   // xhr.setRequestHeader('Authorization', token);
   // xhr.onreadystatechange = function () { // Call a function when the state changes.
-  //   if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
-  //     var redir = 'https://cusail-navigation.github.io/intrasite/progress2020-2021';
-  //     redir += '?auth=';
-  //     redir += auth_code;
-  //     window.location.replace(redir);
+  //   if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+  //     console.log(this.responseText);
   //   }
   // }
-  // xhr.send(jsonString);
+  // xhr.send();
+
+  var req = new Object();
+  // req.title = document.getElementById('goal_title_input').value;
+  req.title = "test title hardcoded 3"
+  req.milestone = document.getElementById('milestone_selector').value;
+
+  // add assignees
+  let options = document.getElementById('members_selector').childNodes;
+  let people = [];
+  // even numbers are checkboxes
+  let i;
+  for (i = 0; i < options; i += 2) {
+    if (options[i].checked) {
+      people.push(options[i].value);
+    }
+  }
+
+  req.assignees = people;
+  req.body = document.getElementById('goal_body_input').value;
+  var jsonString = JSON.stringify(req);
+  console.log(jsonString);
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", post_url, true);
+  var token = 'token ' + auth_code;
+  xhr.setRequestHeader('Authorization', token);
+  xhr.onreadystatechange = function () { // Call a function when the state changes.
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
+      var redir = 'https://cusail-navigation.github.io/intrasite/progress2020-2021';
+      redir += '?auth=';
+      redir += auth_code;
+      window.location.replace(redir);
+    }
+  }
+  xhr.send(jsonString);
 }
 
 function updateGoal(issue_id) {
