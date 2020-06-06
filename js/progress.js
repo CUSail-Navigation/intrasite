@@ -36,7 +36,7 @@ function submitNewGoal() {
   var token = 'token ' + auth_code;
   xhr.setRequestHeader('Authorization', token);
   xhr.onreadystatechange = function () { // Call a function when the state changes.
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       console.log(this.responseText);
     }
   }
