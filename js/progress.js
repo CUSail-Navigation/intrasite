@@ -20,7 +20,15 @@ function parseDate(date_str) {
 }
 
 function makeNewGoal() {
-  console.log("pressed button");
+  var layout = document.getElementById('make_new_goal');
+  layout.style.visibility = 'visible';
+  $("html, body").delay(2000).animate({
+    scrollTop: $('"make_new_goal"').offset().top
+  }, 2000);
+}
+
+function setupNewGoalForm() {
+  //var layout = document.getElementById()
 }
 
 function displayExistingGoals() {
@@ -70,7 +78,7 @@ function displayExistingGoals() {
           add_html += '<p id="goal_assignees">';
           people += 'No one is assigned to this goal. Edit this goal to add someone.';
         } else {
-          add_html += '<p id="goal_assignees">Assigned Team Member(s): ';
+          add_html += '<p id="goal_assignees">Assigned Team Members: ';
           people = people.substring(0, people.length - 2);
         }
         add_html += people + '</p>';

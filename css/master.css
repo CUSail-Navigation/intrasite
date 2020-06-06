@@ -409,4 +409,9 @@ table {
   border-radius: 4px;
   border-color: crimson;
   border-style: solid;
+  border-width: 1px;
+}
+
+#make_new_goal {
+  visibility: hidden;
 }
