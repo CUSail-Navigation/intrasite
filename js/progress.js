@@ -52,7 +52,7 @@ function displayExistingGoals() {
         add_html += '<h4>' + ret_data[j].title + '</h4>';
         add_html += '<p>Created by ' + ret_data[j].user.login + ' on ' + parseDate(ret_data[j].created_at);
         if (ret_data[j].state.includes("closed")) {
-          add_html += ' - Completed on ' + parseDate(ret_data[j].closed_at);
+          add_html += ' • Completed on ' + parseDate(ret_data[j].closed_at);
         }
         add_html += '</p>';
         add_html += '</div></div>';

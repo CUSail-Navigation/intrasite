@@ -384,12 +384,16 @@ table {
 }
 
 #goal_sublayout p, #goal_sublayout button, #goal_sublayout h4 {
-  margin: 15px;
+  margin: 50px;
   margin-top: 0px;
 }
 
 #goal_sublayout h4 {
   text-transform: capitalize;
   font-size: medium;
-  margin-top: 15px;
+  margin-top: 50px;
+}
+
+#goal_sublayout button {
+  padding: 15px;
 }
