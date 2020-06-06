@@ -32,6 +32,7 @@ function displayExistingGoals() {
     var xhr = new XMLHttpRequest();
     var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
     get_url += '?milestone=' + milestone_num[i];
+    get_url += '&state=all';
     xhr.open('GET', get_url, false); // synch is deprecated, but screw it
     xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
     xhr.send();
@@ -50,7 +51,7 @@ function displayExistingGoals() {
         add_html += '<div id="goal_creator">';
         add_html += '<h4>' + ret_data[j].title + '</h4>';
         add_html += '<p>Created by ' + ret_data[j].user.login + ' on ' + parseDate(ret_data[j].created_at);
-        if (ret_data[j].closed_at) {
+        if (ret_data[j].state.includes("closed")) {
           add_html += ' - Completed';
         }
         add_html += '</p>';
