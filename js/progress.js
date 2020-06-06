@@ -33,7 +33,10 @@ function setupNewGoalForm() {
   var layout = document.getElementById('make_new_goal');
   var add_html = '';
 
-  add_html += '<input id="goal_title_input" type="text" name="goal_title" value="New Goal Title..."></input>'
+  add_html += '<h2>Add a New Goal</h2>';
+  add_html += '<p>Note: any member can add a goal, but only an admin (Courtney) can delete one...</p>';
+
+  add_html += '<input id="goal_title_input" type="text" name="goal_title" placeholder="New Goal Title..."></input>'
 
   add_html += '<select id="milestone_selector" name="milestone">';
   let i;
@@ -41,8 +44,10 @@ function setupNewGoalForm() {
     add_html += '<option value="' + milestone_num[i] + '">' + milestone_str[i] + '</option>';
   }
   add_html += '</select>';
+  add_html += '<label for="milestone">Due Date</label>';
 
   // add this in later so it can be asynch
+  add_html += '<p>Assign Team Members:</p>';
   add_html += '<div id="members_selector"></div>';
 
   add_html += '<textarea id="goal_body_input" name="body">A couple sentences about what this goal is, what you need to do to accomplish it, etc.</textarea>';

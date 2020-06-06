@@ -414,4 +414,5 @@ table {
 
 #make_new_goal {
   visibility: hidden;
+  margin-top: 50px;
 }
