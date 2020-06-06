@@ -35,11 +35,9 @@ function submitNewGoal() {
   var auth_code = getQueryVariable('auth');
   var post_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues'
 
-  // get the title from the text input
-  post_url += '?title=' + document.getElementById('goal_title_input').value;
-
-  // get the milestone from select
-  post_url += '&milestone=' + document.getElementById('milestone_selector').value;
+  var req = new Object();
+  req.title = document.getElementById('goal_title_input').value;
+  req.milestone = document.getElementById('milestone_selector').value;
 
   // add assignees
   let options = document.getElementById('members_selector').childNodes;
@@ -51,14 +49,16 @@ function submitNewGoal() {
       people.push(options[i].value);
     }
   }
-  post_url += '&assignees=' + people;
 
-  // add goal body
-  post_url += '&body=' + document.getElementById('goal_body_input').value;
+  req.assignees = people;
+  req.body = document.getElementById('goal_body_input').value;
+  var jsonString = JSON.stringify(obj);
+  console.log(jsonString);
 
   var xhr = new XMLHttpRequest();
   xhr.open("POST", post_url, true);
-  xhr.setRequestHeader('Authorization', 'token ' + auth_code);
+  var token = 'token ' + auth_code;
+  xhr.setRequestHeader('Authorization', token);
   xhr.onreadystatechange = function () { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
       var redir = 'https://cusail-navigation.github.io/intrasite/progress2020-2021';
@@ -67,7 +67,7 @@ function submitNewGoal() {
       window.location.replace(redir);
     }
   }
-  xhr.send();
+  xhr.send(jsonString);
 }
 
 function updateGoal(issue_id) {
