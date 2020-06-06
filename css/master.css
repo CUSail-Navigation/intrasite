@@ -365,7 +365,6 @@ table {
 
 #goal_creator {
   display: block;
-  background-color: pink;
 }
 
 #goal_sublayout ul {
@@ -376,7 +375,6 @@ table {
   width: 50px;
   height: 50px;
   flex-basis: min-content;
-  background-color: green;
   margin-left: 5px;
   margin-right: 5px;
   /* border: black;
@@ -384,6 +382,11 @@ table {
   border-style: solid; */
 }
 
-#goal_sublayout p, #goal_sublayout button {
+#goal_sublayout p, #goal_sublayout button, #goal_sublayout h4 {
   margin: 15px;
+}
+
+#goal_sublayout h4 {
+  text-transform: capitalize;
+  font-size: medium;
 }
