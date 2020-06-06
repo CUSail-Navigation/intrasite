@@ -336,7 +336,7 @@ table {
   justify-content: center;
 }
 
-#goal_sublayout ul li, #goal_sublayout:not(#goal_assignees li) {
+#goal_sublayout ul li {
   margin-top: 20px;
   background-color: #f2f2f2;
   border: #7ec6cf;
@@ -372,6 +372,7 @@ table {
 #goal_top img {
   width: 50px;
   height: 50px;
+  flex-basis: 0px;
   /* border: black;
   border-width: 1px;
   border-style: solid; */
