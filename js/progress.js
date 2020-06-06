@@ -57,7 +57,7 @@ function displayExistingGoals() {
         add_html += '</p>';
         add_html += '</div></div>';
 
-        add_html += '<p id="goal_assignees">Assigned Team Members: ';
+        add_html += '<p id="goal_assignees">Assigned Team Member(s): ';
         var people = '';
         var k;
         for (k = 0; k < ret_data[j].assignees.length; k++) {
