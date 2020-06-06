@@ -5,7 +5,7 @@
 }
 
 html {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: Georgia, serif;
   background: #eeeeee;
 }
 
@@ -377,9 +377,9 @@ table {
   height: 50px;
   flex-basis: min-content;
   margin-left: 50px;
-  margin-right: 50px;
+  margin-right: 0px;
   margin-top: auto;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 #goal_sublayout p, #goal_sublayout button, #goal_sublayout h4 {
@@ -396,5 +396,6 @@ table {
 }
 
 #goal_sublayout button {
-  padding: 15px;
+  padding: 10px;
+  margin-bottom: 50px;
 }
