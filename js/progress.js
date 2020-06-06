@@ -14,21 +14,40 @@ function getQueryVariable(variable) {
 function parseDate(date_str) {
   // input is something like "2020-06-05T19:13:40Z"
   var year = date_str.substring(0, 4);
-  var month = date_str.substring(5, 7);
-  var date = date_str.substring(8, 10);
+  var date = date_str.substring(5, 7);
+  var month = date_str.substring(8, 10);
   return date + "/" + month + "/" + year;
 }
 
 function makeNewGoal() {
   var layout = document.getElementById('make_new_goal');
   layout.style.visibility = 'visible';
-  $("html, body").delay(2000).animate({
+  $("html, body").delay(150).animate({
     scrollTop: $('#make_new_goal').offset().top
-  }, 2000);
+  }, 1000);
 }
 
 function setupNewGoalForm() {
-  //var layout = document.getElementById()
+  var milestone_str = ['August 2020', 'September 2020', 'October 2020', 'November 2020', 'December 2020', 'January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021'];
+  var milestone_num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+  var layout = document.getElementById('make_new_goal');
+  var add_html = '';
+
+  add_html += '<input id="goal_title_input" type="text" name="goal_title" value="New Goal Title..."></input>'
+
+  add_html += '<select id="milestone_selector" name="milestone">';
+  var i;
+  for (i = 0; i < milestone_num.length; i++) {
+    add_html += '<option value="' + milestone_num[i] + '">' + milestone_str[i] + '</option>';
+  }
+  add_html += '</select>';
+
+  // add this in later so it can be asynch
+  add_html += '<div id="members_selector"></div>';
+
+  add_html += '<textarea id="goal_body_input" name="body">A couple sentences about what this goal is, what you need to do to accomplish it, etc.</textarea>';
+
+  layout.innerHTML = add_html;
 }
 
 function displayExistingGoals() {
