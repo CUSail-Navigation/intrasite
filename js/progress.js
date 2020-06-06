@@ -27,6 +27,49 @@ function makeNewGoal() {
   }, 1000);
 }
 
+function submitNewGoal() {
+  if (document.getElementById('goal_title_input').value = '') {
+    return;
+  }
+
+  var auth_code = getQueryVariable('auth');
+  var post_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues'
+
+  // get the title from the text input
+  post_url += '?title=' + document.getElementById('goal_title_input').value;
+
+  // get the milestone from select
+  post_url += '&milestone=' + document.getElementById('milestone_selector').value;
+
+  // add assignees
+  let options = document.getElementById('members_selector').childNodes;
+  let people = [];
+  // even numbers are checkboxes
+  let i;
+  for (i = 0; i < options; i += 2) {
+    if (options[i].checked) {
+      people.push(options[i].value);
+    }
+  }
+  post_url += '&assignees=' + people;
+
+  // add goal body
+  post_url += '&body=' + document.getElementById('goal_body_input').value;
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", post_url, true);
+  xhr.setRequestHeader('Authorization', 'token ' + auth_code);
+  xhr.onreadystatechange = function () { // Call a function when the state changes.
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
+      var redir = 'https://cusail-navigation.github.io/intrasite/progress2020-2021';
+      redir += '?auth=';
+      redir += auth_code;
+      window.location.replace(redir);
+    }
+  }
+  xhr.send();
+}
+
 function updateGoal(issue_id) {
   console.log(issue_id);
   var layout = document.getElementById('make_new_goal');
@@ -49,20 +92,20 @@ function setupNewGoalForm() {
 
   add_html += '<input id="goal_title_input" type="text" name="goal_title" placeholder="New Goal Title..."></input>'
 
+  add_html += '<label for="milestone">Due Date</label>';
   add_html += '<select id="milestone_selector" name="milestone">';
   let i;
   for (i = 0; i < milestone_num.length; i++) {
     add_html += '<option value="' + milestone_num[i] + '">' + milestone_str[i] + '</option>';
   }
   add_html += '</select>';
-  add_html += '<label for="milestone">Due Date</label>';
 
   // add this in later so it can be asynch
   add_html += '<p>Assign Team Members:</p>';
   add_html += '<div id="members_selector"></div>';
 
   add_html += '<textarea id="goal_body_input" name="body">A couple sentences about what this goal is, what you need to do to accomplish it, etc.</textarea>';
-  add_html += '<button type="button">Submit Goal</button>';
+  add_html += '<button onclick="submitNewGoal()" type="button">Submit Goal</button>';
   layout.innerHTML = add_html;
 
   // now use a get request to get the org members
@@ -71,6 +114,7 @@ function setupNewGoalForm() {
 
   let xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.github.com/orgs/cusail-navigation/members', true);
+  xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
 
   xhr.onload = function () {
     let ret_data = JSON.parse(this.responseText);
