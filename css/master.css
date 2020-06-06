@@ -382,7 +382,7 @@ table {
   margin-bottom: 25px;
 }
 
-#goal_sublayout p, #goal_sublayout button, #goal_sublayout h4 {
+#goal_sublayout p, #goal_sublayout h4 {
   margin-bottom: 20px;
   margin-left: 50px;
   margin-right: 50px;
@@ -397,6 +397,9 @@ table {
 }
 
 #goal_sublayout button {
+  margin-left: auto;
+  margin-right: 50px;
+  margin-top: 0px;
   text-align: right;
   padding: 10px;
   margin-bottom: 50px;
