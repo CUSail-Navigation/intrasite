@@ -57,15 +57,16 @@ function displayExistingGoals() {
         add_html += '</p>';
         add_html += '</div></div>';
 
-        add_html += '<p id="goal_assignees">Assigned Team Member(s): ';
         var people = '';
         var k;
         for (k = 0; k < ret_data[j].assignees.length; k++) {
           people += ret_data[j].assignees[k].login + ', ';
         }
         if (ret_data[j].assignees.length < 1) {
-          people += 'No one is assigned. Edit this goal to add someone.';
+          add_html += '<p id="goal_assignees">';
+          people += 'No one is assigned to this goal. Edit this goal to add someone.';
         } else {
+          add_html += '<p id="goal_assignees">Assigned Team Member(s): ';
           people = people.substring(0, people.length - 2);
         }
         add_html += people + '</p>';
