@@ -29,6 +29,13 @@ function makeNewGoal() {
 
 function updateGoal(issue_id) {
   console.log(issue_id);
+  var layout = document.getElementById('make_new_goal');
+  var title = document.getElementById('goal_adder_label');
+  title.innerHTML = 'Edit Goal'
+  layout.style.visibility = 'visible';
+  $("html, body").delay(150).animate({
+    scrollTop: $('#make_new_goal').offset().top
+  }, 1000);
 }
 
 function setupNewGoalForm() {

@@ -414,9 +414,10 @@ table {
 #make_new_goal {
   visibility: hidden;
   margin-top: 50px;
+  text-align: left;
 }
 
-#new_goal_button {
+#new_goal_button button {
   background-color: crimson;
   color: white;
   border-radius: 8px;
