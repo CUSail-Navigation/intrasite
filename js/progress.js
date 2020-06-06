@@ -126,6 +126,7 @@ function setupNewGoalForm() {
   let xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.github.com/orgs/cusail-navigation/members', true);
   xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
+  xhr.setRequestHeader('Content-Type', 'application/json');
 
   xhr.onload = function () {
     let ret_data = JSON.parse(this.responseText);
