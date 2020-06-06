@@ -379,7 +379,7 @@ table {
   margin-left: 50px;
   margin-right: 0px;
   margin-top: auto;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 #goal_sublayout p, #goal_sublayout button, #goal_sublayout h4 {
@@ -393,9 +393,13 @@ table {
   text-transform: capitalize;
   font-size: larger;
   margin-top: 50px;
+  margin-bottom: 15px;
 }
 
 #goal_sublayout button {
+  text-align: right;
   padding: 10px;
   margin-bottom: 50px;
+  background-color: navy;
+  color: white;
 }
