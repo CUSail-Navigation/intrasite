@@ -19,6 +19,10 @@ function parseDate(date_str) {
   return date + "/" + month + "/" + year;
 }
 
+function makeNewGoal() {
+  console.log("pressed button");
+}
+
 function displayExistingGoals() {
   var goals = document.getElementById('goals_layout');
   var milestone_str = ['August 2020', 'September 2020', 'October 2020', 'November 2020', 'December 2020', 'January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021'];
