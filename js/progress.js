@@ -27,13 +27,17 @@ function makeNewGoal() {
   }, 1000);
 }
 
+function updateGoal(issue_id) {
+  console.log(issue_id);
+}
+
 function setupNewGoalForm() {
   var milestone_str = ['August 2020', 'September 2020', 'October 2020', 'November 2020', 'December 2020', 'January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021'];
   var milestone_num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   var layout = document.getElementById('make_new_goal');
   var add_html = '';
 
-  add_html += '<h2>Add a New Goal</h2>';
+  add_html += '<h2 id="goal_adder_label">Add a New Goal</h2>';
   add_html += '<p>Note: any member can add a goal, but only an admin (Courtney) can delete one...</p>';
 
   add_html += '<input id="goal_title_input" type="text" name="goal_title" placeholder="New Goal Title..."></input>'
@@ -127,7 +131,7 @@ function displayExistingGoals() {
         add_html += people + '</p>';
 
         add_html += '<p><b>' + ret_data[j].body + '</b></p>';
-        add_html += '<button type="button">Edit Goal</button>';
+        add_html += '<button onclick="updateGoal(' + ret_data[j].number + ')" ' + 'type="button">Edit Goal</button>';
         add_html += '</li>';
       }
       add_html += '</ul></div>';

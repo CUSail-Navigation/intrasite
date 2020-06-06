@@ -397,7 +397,6 @@ table {
 }
 
 #goal_sublayout button {
-  justify-content: right;
   margin-left: 50px;
   margin-right: 50px;
   margin-top: 0px;
@@ -415,4 +414,12 @@ table {
 #make_new_goal {
   visibility: hidden;
   margin-top: 50px;
+}
+
+#new_goal_button {
+  background-color: crimson;
+  color: white;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: large;
 }
