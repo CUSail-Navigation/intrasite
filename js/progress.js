@@ -36,7 +36,7 @@ function setupNewGoalForm() {
   add_html += '<input id="goal_title_input" type="text" name="goal_title" value="New Goal Title..."></input>'
 
   add_html += '<select id="milestone_selector" name="milestone">';
-  var i;
+  let i;
   for (i = 0; i < milestone_num.length; i++) {
     add_html += '<option value="' + milestone_num[i] + '">' + milestone_str[i] + '</option>';
   }
@@ -46,8 +46,27 @@ function setupNewGoalForm() {
   add_html += '<div id="members_selector"></div>';
 
   add_html += '<textarea id="goal_body_input" name="body">A couple sentences about what this goal is, what you need to do to accomplish it, etc.</textarea>';
-
+  add_html += '<button type="button">Submit Goal</button>';
   layout.innerHTML = add_html;
+
+  // now use a get request to get the org members
+  let sel_layout = document.getElementById("members_selector");
+  let inner_sel = '';
+
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://api.github.com/orgs/cusail-navigation/members', true);
+
+  xhr.onload = function () {
+    let ret_data = JSON.parse(this.responseText);
+    let j;
+    for (j = 0; j < ret_data.length; j++) {
+      inner_sel += '<input type="checkbox" name="' + ret_data[j].login + '">';
+      inner_sel += '<label for="' + ret_data[j].login + '">' + ret_data[j].login + '</label>';
+    }
+    sel_layout.innerHTML = inner_sel;
+  };
+
+  xhr.send();
 }
 
 function displayExistingGoals() {
