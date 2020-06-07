@@ -138,8 +138,8 @@ function updateGoal(issue_id) {
   setupNewGoalForm();
   var layout = document.getElementById('make_new_goal');
   var title = document.getElementById('goal_adder_label');
-  document.getElementById('sub_new_button').onclick = 'submitGoalUpdate(' + issue_id + ')';
-  console.log(document.getElementById('sub_new_button').onclick);
+  document.getElementById('sub_new_button').setAttribute("onclick", 'submitGoalUpdate(' + issue_id + ')');
+  console.log(document.getElementById('sub_new_button').getAttribute("onclick"));
   title.innerHTML = 'Edit Goal'
   layout.style.visibility = 'visible';
 
@@ -346,6 +346,14 @@ function displayExistingGoals() {
     let percentage = Math.floor((total_completed * 1.0 / total_goals) * 100.0);
     document.getElementById('main_prog_label').innerText = '' + percentage + '% Complete';
   }
+
+  // set the number of days until competition
+  let header = document.getElementById('days_to_comp');
+  let curDate = new Date();
+  let compDate = new Date("06/01/2021");
+  let timeDif = compDate.getTime() - curDate.getTime();
+  let dayDif = timeDif / (1000 * 3600 * 24);
+  header.innerText = '' + dayDif + 'Days Until Competition';
 
   var load_icon = document.getElementById('loadIcon');
   load_icon.style.visibility = 'hidden';
