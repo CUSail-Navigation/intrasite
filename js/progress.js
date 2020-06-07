@@ -327,7 +327,7 @@ function displayExistingGoals() {
   }, 0);
   let val = 0;
   if (total_goals > 0) {
-    val = total_completed / total_goals;
+    val = (total_completed * 1.0 / total_goals) * 100.0;
   }
   document.getElementById("main_bar").setAttribute('data-value', val.toString(10));
 

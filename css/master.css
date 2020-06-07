@@ -6,7 +6,7 @@
 
 html {
   font-family: 'Lato', sans-serif;
-  background: #eeeeee;
+  background: white;
 }
 
 a {
@@ -14,7 +14,7 @@ a {
 }
 
 a:hover {
-  text-decoration: underline #7ec6cf;
+  text-decoration: underline #65C8D0;
 }
 
 /* Top Navigation Bar */
@@ -66,7 +66,7 @@ nav ul li a {
 }
 
 nav a:not(.nav_logo):hover {
-  background-color: #eaeaea;
+  background-color: #e7e7e7;
   border-radius: 15px;
 }
 
@@ -75,8 +75,8 @@ nav a:not(.nav_logo):hover {
 }
 
 .scrolled, .no_scroll {
-  background: #f2f2f2;
-  border-bottom: 1px solid #7ec6cf;
+  background: white;
+  border-bottom: 1px solid #65C8D0;
 }
 
 .logo a img {
@@ -113,7 +113,7 @@ nav a:not(.nav_logo):hover {
 
 #search_bar:hover > form #nav_search {
   display: inline-flex;
-  border-color: #7ec6cf;
+  border-color: #65C8D0;
   border-width: 1px;
   border-style: solid;
 }
@@ -123,9 +123,9 @@ nav a:not(.nav_logo):hover {
 }
 
 #nav_search {
-  color: #7ec6cf;
+  color: #65C8D0;
   font-size: 12pt;
-  background-color: #eaeaea;
+  background-color: white;
   border-radius: 2px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   padding-left: 2px;
@@ -137,23 +137,23 @@ nav a:not(.nav_logo):hover {
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   padding-left: 2px;
-  color: #7ec6cf;
+  color: #65C8D0;
   opacity: 1; /* Firefox */
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
   padding-left: 2px;
-  color: #7ec6cf;
+  color: #65C8D0;
 }
 
 ::-ms-input-placeholder { /* Microsoft Edge */
   padding-left: 2px;
-  color: #7ec6cf;
+  color: #65C8D0
 }
 
 .fa-search {
   margin-right: 10px;
-  color: #7ec6cf;
+  color: #65C8D0
   transition: 0.5s;
 }
 
@@ -169,7 +169,7 @@ nav a:not(.nav_logo):hover {
 #parallax {
   background-image: url('../images/boat_wide.png');
   background-size: cover;
-  border-bottom: 1px solid #7ec6cf;
+  border-bottom: 1px solid #65C8D0;
 }
 
 .headline {
@@ -179,7 +179,7 @@ nav a:not(.nav_logo):hover {
   height: 30%;
   width: 75%;
   text-align: center;
-  color: #7ec6cf;
+  color: #65C8D0;
 }
 
 .headline h1 {
@@ -212,7 +212,7 @@ nav a:not(.nav_logo):hover {
 }
 
 .main_content p a {
-  color: #7ec6cf;
+  color: #65C8D0;
 }
 
 table {
@@ -232,7 +232,7 @@ table {
 }
 
 #events_table tr:hover {
-  background-color: #e0e0e0;
+  background-color: #e7e7e7;
 }
 
 #guides_layout {
@@ -252,7 +252,7 @@ table {
 #guides_layout a h4 {
   margin-top: 10px;
   font-size: 16pt;
-  color: #7ec6cf;
+  color: #65C8D0;
 }
 
 #guides_layout a img {
@@ -327,7 +327,6 @@ table {
 
 /* sidebar */
 #left_sidebar {
-  background-color: lightcoral;
   position: fixed;
   top: 80px;
   left: 0;
@@ -347,7 +346,7 @@ table {
 #goal_header {
   margin-top: 100px;
   margin-bottom: 30px;
-  color: navy;
+  color: #002D5F;
 }
 
 #new_goal_button {
@@ -358,7 +357,7 @@ table {
 }
 
 .milestone_progress {
-  border-bottom: navy;
+  border-bottom: #002D5F;
   border-style: solid;
   border-width: 4px;
   border-top: none;
@@ -385,16 +384,16 @@ table {
 #goal_sublayout ul li {
   margin-top: 20px;
   background-color: white;
-  border: navy;
+  border: #002D5F;
   border-radius: 20px;
   border-width: 1px;
   border-style: solid;
-  color: navy;
+  color: #002D5F;
   padding: 30px;
 }
 
 #goals_layout h2 {
-  color: navy;
+  color: #002D5F;
   text-align: left;
 }
 
@@ -455,7 +454,7 @@ table {
   margin-bottom: auto;
   text-align: center;
   padding: 10px;
-  background-color: navy;
+  background-color: #002D5F;
   color: white;
   border-radius: 4px;
   font-family: Georgia, serif;
@@ -470,7 +469,7 @@ table {
 }
 
 #new_goal_button button {
-  background-color: crimson;
+  background-color: #B31B1B;
   color: white;
   border-radius: 8px;
   padding: 10px;
@@ -550,7 +549,7 @@ table {
 }
 
 #goal_adder_overall button {
-  background-color: crimson;
+  background-color: #B31B1B;
   color: white;
   border-radius: 4px;
   padding: 10px;
