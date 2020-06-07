@@ -38,7 +38,7 @@ function submitNewGoal() {
   xhr.setRequestHeader('Authorization', token);
   xhr.send();
   if (xhr.status === 200) {
-    let ret_data = JSON.parse(this.responseText);
+    let ret_data = JSON.parse(xhr.responseText);
     login = ret_data.login;
   }
 
