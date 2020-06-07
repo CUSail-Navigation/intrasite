@@ -111,9 +111,9 @@ function markComplete(issue_id, mark) {
 
   let update_req = new Object();
   if (mark) {
-    update_req = "closed";
+    update_req.state = "closed";
   } else {
-    update_req = "open";
+    update_req.state = "open";
   }
 
   var jsonString = JSON.stringify(update_req);
