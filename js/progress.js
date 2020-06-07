@@ -30,11 +30,10 @@ function makeNewGoal() {
 
 function submitNewGoal() {
   var auth_code = getQueryVariable('auth');
-  var post_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues'
+  var post_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
 
   var req = new Object();
   req.title = document.getElementById('goal_title_input').value;
-  //req.title = "test title hardcoded 3";
   req.body = document.getElementById('goal_body_input').value;
   req.milestone = parseInt(document.getElementById('milestone_selector').value, 10);
 
@@ -65,7 +64,39 @@ function submitNewGoal() {
 }
 
 function submitGoalUpdate(issue_id) {
-  // submit patch here
+  var auth_code = getQueryVariable('auth');
+  var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
+  patch_url += issue_id;
+
+  var req = new Object();
+  req.title = document.getElementById('goal_title_input').value;
+  req.body = document.getElementById('goal_body_input').value;
+  req.milestone = parseInt(document.getElementById('milestone_selector').value, 10);
+
+  // add assignees
+  const checkboxes = document.querySelectorAll('input[name="login_check"]:checked');
+  let people = [];
+  let i;
+  for (i = 0; i < checkboxes.length; i++) {
+    people.push(checkboxes[i].value);
+  }
+  req.assignees = people;
+
+  var jsonString = JSON.stringify(req);
+  console.log(jsonString);
+
+  xhr = new XMLHttpRequest();
+  xhr.open("PATCH", patch_url, true);
+  var token = 'token ' + auth_code;
+  xhr.setRequestHeader('Authorization', token);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  xhr.onreadystatechange = function () { // Call a function when the state changes.
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
+      setupNewGoalForm();
+    }
+  }
+  xhr.send(jsonString);
 
   setupNewGoalForm();
 }
@@ -97,25 +128,12 @@ function updateGoal(issue_id) {
     let milestone_box = document.querySelector(q);
     milestone_box.selected = true;
 
-    // do assignees here
+    // get assignees
     let i;
     for (i = 0; i < ret_data.assignees; i++) {
       let p = 'input[value="' + ret_data.assignees[i].login + '"]';
       let checkbox = document.querySelector(p);
       checkbox.checked = true;
-    }
-
-    let all_checkboxes = document.querySelectorAll('input[name="login_check"]');
-    let i;
-    for (i = 0; i < all_checkboxes.length; i++) {
-      let j;
-      for (j = 0; j < ret_data.assignees.length; j++) {
-        if (all_checkboxes[i].value.localeCompare(ret_data.assignees[j].login)) {
-          all_checkboxes[i].checked = true;
-        } else {
-          all_checkboxes[i].checked = false;
-        }
-      }
     }
 
     document.getElementById('goal_body_input').value = ret_data.body;
