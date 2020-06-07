@@ -329,18 +329,24 @@ table {
 #goal_header {
   margin-top: 100px;
   margin-bottom: 30px;
+  color: navy;
 }
 
 #new_goal_button {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 
 #upper_prog_bar {
   display: flex;
   flex-direction: row;
+  align-content: center;
+}
+
+#main_goal_progress {
+  margin: auto;
 }
 
 .milestone_progress {

@@ -199,7 +199,7 @@ function setupNewGoalForm() {
   add_html += '</select></div>';
 
   // add this in later so it can be asynch
-  add_html += '<p>Assign Team Members:</p>';
+  add_html += '<p><b>Assign Team Members:</b></p>';
   add_html += '<div id="members_selector"></div>';
 
   add_html += '<textarea id="goal_body_input" name="body" placeholder="A couple sentences about what this goal is, what you need to do to accomplish it, etc."></textarea>';
@@ -226,7 +226,7 @@ function setupNewGoalForm() {
     }
 
     // testing for formatting only
-    test_names = ['dwightSchrute', 'jimHalpert', 'michaelScott', 'pamBeesley', 'angelaMartin', 'oscarMartinez', 'kevin', 'merideth', 'creed', 'kellyKapoor', 'ryanTheTemp', 'tobyflenderson', 'holly', 'stanley', 'phyllisvance'];
+    test_names = ['dwightSchrute', 'jimHalpert', 'michaelScott', 'pamBeesley', 'angelaMartin', 'oscarMartinez', 'kevin', 'merideth', 'creed', 'kellyKapoor', 'ryanTheTemp', 'holly', 'stanley', 'phyllisvance'];
     for (j = 0; j < test_names.length; j++) {
       inner_sel += '<div id="login_checkbox">';
       inner_sel += '<input type="checkbox" id="' + test_names[j] + '_checkbox" value="' + test_names[j] + '" name="login_check">';
