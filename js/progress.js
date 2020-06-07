@@ -319,9 +319,8 @@ function displayExistingGoals() {
   for (i = 0; i < milestone_num.length; i++) {
     let prog_layout = document.getElementById(milestone_num[i] + '_progress');
     add_html = '<h2>' + milestone_str[i] + '</h2>';
-    add_html += '<div id="prog_bar_and_label>"';
+    add_html += '<div class="prog_bar_and_label>"';
     if (milestone_goals[i] === 0) {
-
       add_html += '<progress class="milestone_bar" value="0" max="100"></progress>';
       add_html += '<h2>0% Complete</h2>';
     } else {

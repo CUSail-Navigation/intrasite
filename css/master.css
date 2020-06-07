@@ -359,13 +359,17 @@ table {
   background-color: cornflowerblue;
 }
 
-.milestone_bar {
+.prog_bar_and_label {
   margin-right: 5px;
   width: 200px;
   margin-top: auto;
   margin-bottom: auto;
 
   background-color: indigo;
+}
+
+.milestone_bar {
+  background-color: aquamarine;
 }
 
 #main_prog_label {
@@ -406,6 +410,7 @@ table {
 #goal_creator {
   display: block;
   flex-basis: 100%;
+  margin-left: 20px;
 }
 
 #goal_sublayout ul {
@@ -431,10 +436,6 @@ table {
 
 #goal_body {
   margin-bottom: 0px;
-}
-
-#goal_top p, #goal_top h4 {
-  margin-left: 20px;
 }
 
 #goal_top p {
@@ -531,7 +532,7 @@ table {
   margin-bottom: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  background-color: indianred;
+  text-align: left;
 }
 
 #login_checkbox {
