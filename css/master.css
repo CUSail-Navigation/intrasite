@@ -358,6 +358,9 @@ table {
 
 .milestone_bar {
   margin-right: 5px;
+  width: 200px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 #goal_sublayout {

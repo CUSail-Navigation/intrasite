@@ -64,6 +64,7 @@ function submitNewGoal() {
 }
 
 function submitGoalUpdate(issue_id) {
+  console.log("got here...")
   var auth_code = getQueryVariable('auth');
   var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
   patch_url += issue_id;
@@ -97,8 +98,6 @@ function submitGoalUpdate(issue_id) {
     }
   }
   xhr.send(jsonString);
-
-  setupNewGoalForm();
 }
 
 // mark is either "open" or "closed"
