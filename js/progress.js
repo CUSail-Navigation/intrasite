@@ -325,6 +325,11 @@ function displayExistingGoals() {
   let total_completed = milestone_completed.reduce(function (a, b) {
     return a + b;
   }, 0);
+  let val = 0;
+  if (total_goals > 0) {
+    val = total_completed / total_goals;
+  }
+  document.getElementById("main_bar").setAttribute('data-value', val.toString(10));
 
 
   // set the number of days until competition
