@@ -138,7 +138,7 @@ function updateGoal(issue_id) {
   setupNewGoalForm();
   var layout = document.getElementById('make_new_goal');
   var title = document.getElementById('goal_adder_label');
-  document.getElementById('sub_new_button').onclick = 'submitGoalUpdate(issue_id)';
+  document.getElementById('sub_new_button').onclick = 'submitGoalUpdate(' + issue_id + ')';
   title.innerHTML = 'Edit Goal'
   layout.style.visibility = 'visible';
 
