@@ -331,6 +331,15 @@ table {
   margin-bottom: 30px;
 }
 
+#new_goal_button {
+  display: flex;
+  flex-direction: row;
+}
+
+#upper_prog_bar {
+  display: inline;
+}
+
 .milestone_progress {
   border-bottom: navy;
   border-style: solid;
@@ -341,6 +350,12 @@ table {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 10px;
+}
+
+.milestone_bar {
+  margin-right: 5px;
+  color: navy;
 }
 
 #goal_sublayout {
@@ -370,7 +385,8 @@ table {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: stretch; 
+  align-items: center; 
+  margin-bottom: 10px;
 }
 
 #goal_creator {
@@ -431,7 +447,7 @@ table {
   font-family: Georgia, serif;
   width: max-content;
   white-space: nowrap;
-  width: 150px;
+  flex-basis: 150px;
   /* border-color: crimson;
   border-style: solid;
   border-width: 1px; */
