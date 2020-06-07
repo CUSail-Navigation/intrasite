@@ -339,14 +339,8 @@ table {
   align-items: center;
 }
 
-#upper_prog_bar {
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-}
-
-#main_goal_progress {
-  margin: auto;
+#days_to_comp {
+  color: crimson;
 }
 
 .milestone_progress {

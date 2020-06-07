@@ -224,17 +224,6 @@ function setupNewGoalForm() {
       inner_sel += '<label for="' + ret_data[j].login + '_checkbox">' + ret_data[j].login + '</label>';
       inner_sel += '</div>';
     }
-
-    // testing for formatting only
-    test_names = ['dwightSchrute', 'jimHalpert', 'michaelScott', 'pamBeesley', 'angelaMartin', 'oscarMartinez', 'kevin', 'merideth', 'creed', 'kellyKapoor', 'ryanTheTemp', 'holly', 'stanley', 'phyllisvance'];
-    for (j = 0; j < test_names.length; j++) {
-      inner_sel += '<div id="login_checkbox">';
-      inner_sel += '<input type="checkbox" id="' + test_names[j] + '_checkbox" value="' + test_names[j] + '" name="login_check">';
-      inner_sel += '<label for="' + test_names[j] + '_checkbox">' + test_names[j] + '</label>';
-      inner_sel += '</div>';
-    }
-    // end
-
     sel_layout.innerHTML = inner_sel;
   };
 
@@ -339,14 +328,14 @@ function displayExistingGoals() {
 
 
   // set the number of days until competition
-  let header = document.getElementById('days_to_comp');
+  let header = document.getElementById('goal_header');
   let curDate = new Date();
   let compDate = new Date("06/01/2021");
   let timeDif = compDate.getTime() - curDate.getTime();
   let dayDif = timeDif / (1000 * 3600 * 24);
   dayDif = Math.round(dayDif);
   dayDif = Math.max(0, dayDif);
-  header.innerText = '' + dayDif + ' Days Until Competition';
+  header.innerText = 'Progress Tracker • ' + dayDif + ' Days Until Competition';
 
   var load_icon = document.getElementById('loadIcon');
   load_icon.style.visibility = 'hidden';
