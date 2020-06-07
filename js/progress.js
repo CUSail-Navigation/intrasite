@@ -32,19 +32,22 @@ function submitNewGoal() {
   var post_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues'
 
   var req = new Object();
-  // req.title = document.getElementById('goal_title_input').value;
-  req.title = "test title hardcoded 3";
+  req.title = document.getElementById('goal_title_input').value;
+  //req.title = "test title hardcoded 3";
   req.body = document.getElementById('goal_body_input').value;
   req.milestone = parseInt(document.getElementById('milestone_selector').value, 10);
 
   // add assignees
   let options = document.getElementById('members_selector').childNodes;
   let people = [];
-  // even numbers are checkboxes
+  // each check is within a div
   let i;
-  for (i = 0; i < options; i += 2) {
-    if (options[i].checked) {
-      people.push(options[i].value);
+  for (i = 0; i < options; i++) {
+    let j;
+    for (j = 0; j < options[i].childNodes; j++) {
+      if (options[i].childNodes[j].checked) {
+        people.push(options[i].childNodes[j].value);
+      }
     }
   }
 
@@ -66,6 +69,10 @@ function submitNewGoal() {
   xhr.send(jsonString);
 }
 
+function submitGoalUpdate(issue_id) {
+
+}
+
 function updateGoal(issue_id) {
   console.log(issue_id);
   var layout = document.getElementById('make_new_goal');
@@ -84,13 +91,13 @@ function setupNewGoalForm() {
   var add_html = '';
 
   add_html += '<h2 id="goal_adder_label">Add a New Goal</h2>';
-  add_html += '<p>Note: Any member can add a goal, but only an admin (Courtney) can delete one. It may take a minute or two for the new goal to appear (refresh to see it).</p>';
+  add_html += '<p>Note: Any member can add or edit a goal, but only an admin (Courtney) can delete one. It may take a minute or two for the new goal to appear (refresh to see it).</p>';
 
   add_html += '<div id="goal_adder_overall">';
   add_html += '<div id="goal_adder_top">';
   add_html += '<input id="goal_title_input" type="text" placeholder="New Goal Title...">';
 
-  add_html += '<label for="milestone">Due Date</label>';
+  add_html += '<label for="milestone">Due Date:</label>';
   add_html += '<select id="milestone_selector" name="milestone">';
   let i;
   for (i = 0; i < milestone_num.length; i++) {
