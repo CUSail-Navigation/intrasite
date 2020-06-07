@@ -331,6 +331,18 @@ table {
   margin-bottom: 30px;
 }
 
+.milestone_progress {
+  border-bottom: navy;
+  border-style: solid;
+  border-width: 4px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 #goal_sublayout {
   display: flex;
   flex-direction: column;
@@ -352,12 +364,6 @@ table {
 #goals_layout h2 {
   color: navy;
   text-align: left;
-  border-bottom: navy;
-  border-style: solid;
-  border-width: 4px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
 }
 
 #goal_top {
@@ -393,8 +399,16 @@ table {
   margin-top: 0px;
 }
 
+#goal_body {
+  margin-bottom: 0px;
+}
+
 #goal_top p, #goal_top h4 {
   margin-left: 20px;
+}
+
+#goal_top p {
+  margin-bottom: auto;
 }
 
 #goal_sublayout h4 {
@@ -417,7 +431,7 @@ table {
   font-family: Georgia, serif;
   width: max-content;
   white-space: nowrap;
-  width: 90px;
+  width: 150px;
   /* border-color: crimson;
   border-style: solid;
   border-width: 1px; */
@@ -502,6 +516,7 @@ table {
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: medium;
   resize: none;
+  padding: 2px;
 }
 
 #goal_adder_overall button {

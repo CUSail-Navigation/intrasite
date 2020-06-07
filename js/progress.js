@@ -123,6 +123,7 @@ function markComplete(issue_id, mark) {
   xhr.onreadystatechange = function () { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
       // nothing to do here
+      console.log("marked " + issue_id + " as " + mark);
     }
   }
   xhr.send(jsonString);
@@ -155,6 +156,7 @@ function updateGoal(issue_id) {
     let i;
     for (i = 0; i < ret_data.assignees; i++) {
       let box_id = ret_data.assignees[i].login + '_checkbox';
+      console.log("login box id is " + box_id);
       let checkbox = document.getElementById(box_id);
       checkbox.checked = true;
     }
@@ -227,11 +229,14 @@ function displayExistingGoals() {
   var goals = document.getElementById('goals_layout');
   var milestone_str = ['August 2020', 'September 2020', 'October 2020', 'November 2020', 'December 2020', 'January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021'];
   var milestone_num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+  var milestone_goals = [];
+  var milestone_completed = [];
 
   var add_html = '';
   var i;
   for (i = 0; i < milestone_num.length; i++) {
-    add_html += '<h2>' + milestone_str[i] + '</h2>';
+    add_html += '<div class="milestone_progress" id="' + milestone_num[i] + '_progress"></div>';
+
     // make a get request for those issues
     var xhr = new XMLHttpRequest();
     var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
@@ -243,10 +248,14 @@ function displayExistingGoals() {
 
     if (xhr.status === 200) {
       var ret_data = JSON.parse(xhr.responseText);
-
       add_html += '<div id="goal_sublayout"><ul>';
+
+      milestone_goals.push(ret_data.length);
+      milestone_completed.push(0);
+
       var j;
       for (j = 0; j < ret_data.length; j++) {
+        local_complete = 0;
         add_html += '<li>';
 
         add_html += '<div id="goal_top">';
@@ -264,6 +273,7 @@ function displayExistingGoals() {
         if (ret_data[j].state.includes("open")) {
           add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ', "closed")" ' + 'type="button">Mark Complete</button>';
         } else {
+          milestone_completed[i]++;
           add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ', "open")" ' + 'type="button">Reopen</button>';
         }
         add_html += '</div>';
@@ -289,6 +299,26 @@ function displayExistingGoals() {
     }
   }
   goals.innerHTML = add_html;
+
+  for (i = 0; i < milestone_num.length; i++) {
+    let prog_layout = document.getElementById(milestone_num[i] + '_progress');
+    add_html = '<h2>' + milestone_str[i] + '</h2>';
+    if (milestone_goals[i] === 0) {
+      add_html += '<progress class="milestone_bar" value="0" max="100"></progress>';
+      add_html += '<h2>0% Complete</h2>';
+    } else {
+      add_html += '<progress class="milestone_bar" value="';
+      add_html += milestone_completed[i];
+      add_html += '" max="';
+      add_html += milestone_goals[i];
+      add_html += '"></progress>';
+
+      let percentage = Math.floor(milestone_completed[i] / milestone_goals[i]);
+      add_html += '<h2>' + percentage + '% Complete</h2>';
+    }
+    prog_layout.innerHTML = add_html;
+  }
+
   var load_icon = document.getElementById('loadIcon');
   load_icon.style.visibility = 'hidden';
 }
