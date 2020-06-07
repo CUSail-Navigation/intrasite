@@ -39,20 +39,14 @@ function submitNewGoal() {
   req.milestone = parseInt(document.getElementById('milestone_selector').value, 10);
 
   // add assignees
-  let options = document.getElementById('members_selector').childNodes;
+  const checkboxes = document.querySelectorAll('input[name="login_check"]:checked');
   let people = [];
-  // each check is within a div
   let i;
-  for (i = 0; i < options; i++) {
-    let j;
-    for (j = 0; j < options[i].childNodes; j++) {
-      if (options[i].childNodes[j].checked) {
-        people.push(options[i].childNodes[j].value);
-      }
-    }
+  for (i = 0; i < checkboxes.length; i++) {
+    people.push(checkboxes[i].value);
   }
-
   req.assignees = people;
+
   var jsonString = JSON.stringify(req);
   console.log(jsonString);
 
@@ -94,16 +88,24 @@ function updateGoal(issue_id) {
     document.getElementById('goal_title_input').value = ret_data.title;
 
     // set the previous milestone
-    let options = document.getElementById('milestone_selector').childNodes;
-    let def = ret_data.milestone.toString(10);
+    let q = 'option[value="' + ret_data.milestone.number + '"]';
+    let milestone_box = document.querySelector(q);
+    milestone_box.selected = true;
+
+    // do assignees here
+    let all_checkboxes = document.querySelectorAll('input[name="login_check"]');
     let i;
-    for (i = 0; i < options.length; i++) {
-      if (options[i].value.localeCompare(def) === 0) {
-        options[i].selected = true;
+    for (i = 0; i < all_checkboxes.length; i++) {
+      let j;
+      for (j = 0; j < ret_data.assignees.length; j++) {
+        if (all_checkboxes[i].value.localeCompare(ret_data.assignees[j].login)) {
+          all_checkboxes[i].checked = true;
+        } else {
+          all_checkboxes[i].checked = false;
+        }
       }
     }
 
-    // do assignees here
     document.getElementById('goal_body_input').value = ret_data.body;
 
     // scroll to view it
@@ -158,7 +160,7 @@ function setupNewGoalForm() {
     let j;
     for (j = 0; j < ret_data.length; j++) {
       inner_sel += '<div id="login_checkbox">';
-      inner_sel += '<input type="checkbox" name="' + ret_data[j].login + '">';
+      inner_sel += '<input type="checkbox" value="' + ret_data[j].login + '" name="login_check">';
       inner_sel += '<label for="' + ret_data[j].login + '">' + ret_data[j].login + '</label>';
       inner_sel += '</div>';
     }

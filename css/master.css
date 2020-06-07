@@ -399,7 +399,7 @@ table {
 #goal_sublayout h4 {
   text-transform: capitalize;
   font-size: larger;
-  margin-top: 50px;
+  margin-top: auto;
   margin-bottom: 10px;
 }
 
