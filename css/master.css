@@ -368,6 +368,10 @@ table {
   background-color: indigo;
 }
 
+#main_prog_label {
+  text-align: right;
+}
+
 #goal_sublayout {
   display: flex;
   flex-direction: column;
@@ -458,13 +462,9 @@ table {
   width: max-content;
   white-space: nowrap;
   flex-basis: 150px;
-  /* border-color: crimson;
-  border-style: solid;
-  border-width: 1px; */
 }
 
 #make_new_goal {
-  /* visibility: hidden; */
   margin-top: 50px;
   text-align: left;
 }
@@ -530,11 +530,13 @@ table {
 #members_selector {
   margin-bottom: 20px;
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background-color: indianred;
 }
 
 #login_checkbox {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
 }
 
