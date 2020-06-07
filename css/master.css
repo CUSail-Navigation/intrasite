@@ -325,6 +325,19 @@ table {
   margin-bottom: auto;
 }
 
+/* sidebar */
+#left_sidebar {
+  background-color: lightcoral;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 15vw;
+  height: calc(100vh - 80px);
+  box-sizing: border-box;
+  z-index: 2;
+  padding: 20px;
+}
+
 /* progress goal layout */
 #goal_header {
   margin-top: 100px;
