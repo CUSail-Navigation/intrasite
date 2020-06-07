@@ -64,7 +64,7 @@ function submitNewGoal() {
 }
 
 function submitGoalUpdate(issue_id) {
-  console.log("got here...")
+  console.log("got here...");
   var auth_code = getQueryVariable('auth');
   var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
   patch_url += issue_id;
@@ -139,6 +139,7 @@ function updateGoal(issue_id) {
   var layout = document.getElementById('make_new_goal');
   var title = document.getElementById('goal_adder_label');
   document.getElementById('sub_new_button').onclick = 'submitGoalUpdate(' + issue_id + ')';
+  console.log(document.getElementById('sub_new_button').onclick);
   title.innerHTML = 'Edit Goal'
   layout.style.visibility = 'visible';
 
