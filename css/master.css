@@ -335,7 +335,7 @@ table {
 #new_goal_button {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -361,21 +361,6 @@ table {
   justify-content: space-between;
   margin-top: 10px;
   padding-bottom: 2px;
-
-  background-color: cornflowerblue;
-}
-
-.prog_bar_and_label {
-  margin-right: 5px;
-  width: 200px;
-  margin-top: auto;
-  margin-bottom: auto;
-
-  background-color: indigo;
-}
-
-.milestone_bar {
-  background-color: aquamarine;
 }
 
 #main_prog_label {

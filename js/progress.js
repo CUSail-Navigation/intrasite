@@ -319,25 +319,17 @@ function displayExistingGoals() {
   for (i = 0; i < milestone_num.length; i++) {
     let prog_layout = document.getElementById(milestone_num[i] + '_progress');
     add_html = '<h2>' + milestone_str[i] + '</h2>';
-    add_html += '<div class="prog_bar_and_label>"';
     if (milestone_goals[i] === 0) {
-      add_html += '<progress class="milestone_bar" value="0" max="100"></progress>';
       add_html += '<h2>0% Complete</h2>';
     } else {
-      add_html += '<progress class="milestone_bar" value="';
-      add_html += milestone_completed[i];
-      add_html += '" max="';
-      add_html += milestone_goals[i];
-      add_html += '"></progress>';
-
       let percentage = Math.floor((milestone_completed[i] * 1.0 / milestone_goals[i]) * 100.0);
       add_html += '<h2>' + percentage + '% Complete</h2>';
     }
-    add_html += '</div>';
     prog_layout.innerHTML = add_html;
   }
 
-  let main_prog = document.getElementById('main_goal_progress');
+
+  // set the main progress bar
   let total_goals = milestone_goals.reduce(function (a, b) {
     return a + b;
   }, 0);
@@ -345,16 +337,6 @@ function displayExistingGoals() {
     return a + b;
   }, 0);
 
-  if (total_goals === 0) {
-    main_prog.max = 100;
-    main_prog.value = 0;
-    document.getElementById('main_prog_label').innerText = '0% Complete';
-  } else {
-    main_prog.max = total_goals;
-    main_prog.value = total_completed;
-    let percentage = Math.floor((total_completed * 1.0 / total_goals) * 100.0);
-    document.getElementById('main_prog_label').innerText = '' + percentage + '% Complete';
-  }
 
   // set the number of days until competition
   let header = document.getElementById('days_to_comp');
