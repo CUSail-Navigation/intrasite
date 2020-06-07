@@ -409,14 +409,13 @@ table {
   margin-top: 20px;
   text-align: center;
   padding: 10px;
-  margin-bottom: 50px;
   background-color: navy;
   color: white;
   border-radius: 4px;
   font-family: Georgia, serif;
   width: max-content;
   white-space: nowrap;
-  width: 60px;
+  width: 90px;
   /* border-color: crimson;
   border-style: solid;
   border-width: 1px; */
@@ -489,8 +488,9 @@ table {
   display: grid;
 }
 
-#members_selector label {
-  margin-left: 5px;
+#login_checkbox {
+  display: flex;
+  flex-direction: column;
 }
 
 #goal_body_input {
@@ -513,6 +513,7 @@ table {
 
 #goal_adder_overall label {
   white-space: nowrap;
-  width: 60px;
+  width: 90px;
   margin-left: 15px;
+  text-align: center;
 }

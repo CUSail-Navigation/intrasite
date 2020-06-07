@@ -31,17 +31,6 @@ function submitNewGoal() {
   var auth_code = getQueryVariable('auth');
   var post_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues'
 
-  // var login = '';
-  // var xhr = new XMLHttpRequest();
-  // xhr.open("GET", 'https://api.github.com/user', false);
-  // var token = 'token ' + auth_code;
-  // xhr.setRequestHeader('Authorization', token);
-  // xhr.send();
-  // if (xhr.status === 200) {
-  //   let ret_data = JSON.parse(xhr.responseText);
-  //   login = ret_data.login;
-  // }
-
   var req = new Object();
   // req.title = document.getElementById('goal_title_input').value;
   req.title = "test title hardcoded 3";
@@ -70,11 +59,8 @@ function submitNewGoal() {
   xhr.setRequestHeader('Content-Type', 'application/json');
 
   xhr.onreadystatechange = function () { // Call a function when the state changes.
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
-      var redir = 'https://cusail-navigation.github.io/intrasite/progress2020-2021';
-      redir += '?auth=';
-      redir += auth_code;
-      window.location.replace(redir);
+    if (this.readyState === XMLHttpRequest.DONE && this.status !== 201) {
+      alert("Goal could not be created. Try again.");
     }
   }
   xhr.send(jsonString);
@@ -133,8 +119,10 @@ function setupNewGoalForm() {
     let ret_data = JSON.parse(this.responseText);
     let j;
     for (j = 0; j < ret_data.length; j++) {
+      inner_sel += '<div id="login_checkbox">';
       inner_sel += '<input type="checkbox" name="' + ret_data[j].login + '">';
       inner_sel += '<label for="' + ret_data[j].login + '">' + ret_data[j].login + '</label>';
+      inner_sel += '</div>';
     }
     sel_layout.innerHTML = inner_sel;
   };
