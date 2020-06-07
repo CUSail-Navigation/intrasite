@@ -101,8 +101,31 @@ function submitGoalUpdate(issue_id) {
   setupNewGoalForm();
 }
 
-function markComplete(issue_id) {
+// mark is either "open" or "closed"
+function markComplete(issue_id, mark) {
   // submit patch here
+  var auth_code = getQueryVariable('auth');
+  var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
+  patch_url += issue_id;
+
+  var req = new Object();
+  req.state = mark;
+
+  var jsonString = JSON.stringify(req);
+  console.log(jsonString);
+
+  xhr = new XMLHttpRequest();
+  xhr.open("PATCH", patch_url, true);
+  var token = 'token ' + auth_code;
+  xhr.setRequestHeader('Authorization', token);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  xhr.onreadystatechange = function () { // Call a function when the state changes.
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
+      // nothing to do here
+    }
+  }
+  xhr.send(jsonString);
 }
 
 function updateGoal(issue_id) {
@@ -131,8 +154,8 @@ function updateGoal(issue_id) {
     // get assignees
     let i;
     for (i = 0; i < ret_data.assignees; i++) {
-      let p = 'input[value="' + ret_data.assignees[i].login + '"]';
-      let checkbox = document.querySelector(p);
+      let box_id = ret_data.assignees[i].login + '_checkbox';
+      let checkbox = document.getElementById(box_id);
       checkbox.checked = true;
     }
 
@@ -190,8 +213,8 @@ function setupNewGoalForm() {
     let j;
     for (j = 0; j < ret_data.length; j++) {
       inner_sel += '<div id="login_checkbox">';
-      inner_sel += '<input type="checkbox" value="' + ret_data[j].login + '" name="login_check">';
-      inner_sel += '<label for="' + ret_data[j].login + '">' + ret_data[j].login + '</label>';
+      inner_sel += '<input type="checkbox" id="' + ret_data[j].login + '_checkbox" value="' + ret_data[j].login + '" name="login_check">';
+      inner_sel += '<label for="' + ret_data[j].login + '_checkbox">' + ret_data[j].login + '</label>';
       inner_sel += '</div>';
     }
     sel_layout.innerHTML = inner_sel;
@@ -237,7 +260,12 @@ function displayExistingGoals() {
         }
         add_html += '</p></div>';
         add_html += '<button onclick="updateGoal(' + ret_data[j].number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
-        add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ')" ' + 'type="button">Mark Complete</button>';
+
+        if (ret_data[j].state.includes("open")) {
+          add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ', "closed")" ' + 'type="button">Mark Complete</button>';
+        } else {
+          add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ', "open")" ' + 'type="button">Reopen</button>';
+        }
         add_html += '</div>';
 
         var people = '';

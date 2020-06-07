@@ -336,7 +336,6 @@ table {
   flex-direction: column;
   justify-content: center;
   text-align: left;
-  padding: 50px;
 }
 
 #goal_sublayout ul li {
@@ -347,6 +346,7 @@ table {
   border-width: 1px;
   border-style: solid;
   color: white;
+  padding: 50px;
 }
 
 #goals_layout h2 {
