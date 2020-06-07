@@ -354,6 +354,8 @@ table {
   flex-direction: row;
   justify-content: space-between;
   margin-top: 10px;
+
+  background-color: cornflowerblue;
 }
 
 .milestone_bar {
@@ -361,6 +363,8 @@ table {
   width: 200px;
   margin-top: auto;
   margin-bottom: auto;
+
+  background-color: indigo;
 }
 
 #goal_sublayout {

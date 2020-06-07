@@ -92,8 +92,8 @@ function submitGoalUpdate(issue_id) {
   xhr.setRequestHeader('Authorization', token);
   xhr.setRequestHeader('Content-Type', 'application/json');
 
-  xhr.onreadystatechange = function () { // Call a function when the state changes.
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
+  xhr.onreadystatechange = function () {
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       setupNewGoalForm();
     }
   }
@@ -102,7 +102,6 @@ function submitGoalUpdate(issue_id) {
 
 // mark is either "open" or "closed"
 function markComplete(issue_id, mark) {
-  console.log("got here");
   // submit patch here
   var auth_code = getQueryVariable('auth');
   var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
@@ -127,7 +126,7 @@ function markComplete(issue_id, mark) {
   xhr.onreadystatechange = function () { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
       // nothing to do here
-      console.log("marked " + issue_id + " as " + mark);
+      //console.log("marked " + issue_id + " as " + mark);
     }
   }
   xhr.send(jsonString);
@@ -160,7 +159,7 @@ function updateGoal(issue_id) {
 
     // get assignees
     let i;
-    for (i = 0; i < ret_data.assignees; i++) {
+    for (i = 0; i < ret_data.assignees.length; i++) {
       let box_id = ret_data.assignees[i].login + '_checkbox';
       console.log("login box id is " + box_id);
       let checkbox = document.getElementById(box_id);
@@ -353,7 +352,9 @@ function displayExistingGoals() {
   let compDate = new Date("06/01/2021");
   let timeDif = compDate.getTime() - curDate.getTime();
   let dayDif = timeDif / (1000 * 3600 * 24);
-  header.innerText = '' + dayDif + 'Days Until Competition';
+  dayDif = Math.round(dayDif);
+  dayDif = Math.max(0, dayDif);
+  header.innerText = '' + dayDif + ' Days Until Competition';
 
   var load_icon = document.getElementById('loadIcon');
   load_icon.style.visibility = 'hidden';
