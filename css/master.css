@@ -363,7 +363,7 @@ table {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch; 
 }
 
 #goal_creator {
@@ -403,10 +403,11 @@ table {
   margin-bottom: 10px;
 }
 
-#goal_sublayout button {
+#goal_top button {
   margin-left: 50px;
   margin-right: 50px;
-  margin-top: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
   text-align: center;
   padding: 10px;
   background-color: navy;
@@ -421,7 +422,7 @@ table {
   border-width: 1px; */
 }
 
-#goal_body {
+#goal_body b {
   margin-bottom: 50px;
 }
 
@@ -502,6 +503,7 @@ table {
   width: inherit;
   height: 25vh;
   font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: medium;
   resize: none;
 }
 

@@ -20,6 +20,7 @@ function parseDate(date_str) {
 }
 
 function makeNewGoal() {
+  setupNewGoalForm();
   var layout = document.getElementById('make_new_goal');
   layout.style.visibility = 'visible';
   $("html, body").delay(150).animate({
@@ -91,7 +92,17 @@ function updateGoal(issue_id) {
   xhr.onload = function () {
     let ret_data = JSON.parse(this.responseText);
     document.getElementById('goal_title_input').value = ret_data.title;
-    document.getElementById('milestone_selector').value = ret_data.milestone.toString(10);
+
+    // set the previous milestone
+    let options = document.getElementById('milestone_selector').childNodes;
+    let def = ret_data.milestone.toString(10);
+    let i;
+    for (i = 0; i < options.length; i++) {
+      if (options[i].value.localeCompare(def) === 0) {
+        options[i].selected = true;
+      }
+    }
+
     // do assignees here
     document.getElementById('goal_body_input').value = ret_data.body;
 
@@ -111,7 +122,7 @@ function setupNewGoalForm() {
   var add_html = '';
 
   add_html += '<h2 id="goal_adder_label">Add a New Goal</h2>';
-  add_html += '<p>Note: Any member can add or edit a goal, but only an admin (Courtney) can delete one. It may take a minute or two for the new goal to appear (refresh to see it).</p>';
+  add_html += '<p>Note: Any member can add or edit a goal, but only an admin (Courtney) can delete one. It may take a few seconds for the new goal to appear (refresh the page to see it).</p>';
 
   add_html += '<div id="goal_adder_overall">';
   add_html += '<div id="goal_adder_top">';
