@@ -110,7 +110,11 @@ function markComplete(issue_id, mark) {
   patch_url += issue_id;
 
   let update_req = new Object();
-  update_req.state = mark;
+  if (mark) {
+    update_req = "closed";
+  } else {
+    update_req = "open";
+  }
 
   var jsonString = JSON.stringify(update_req);
   console.log(jsonString);
@@ -269,13 +273,13 @@ function displayExistingGoals() {
           add_html += ' • Completed on ' + parseDate(ret_data[j].closed_at);
         }
         add_html += '</p></div>';
-        add_html += '<button onclick="updateGoal(' + ret_data[j].number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
 
         if (ret_data[j].state.includes("open")) {
-          add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ', "closed")" ' + 'type="button">Mark Complete</button>';
+          add_html += '<button onclick="updateGoal(' + ret_data[j].number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
+          add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ', ' + true + ')" type="button">Mark Complete</button>';
         } else {
           milestone_completed[i]++;
-          add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ', "open")" ' + 'type="button">Reopen</button>';
+          add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
         }
         add_html += '</div>';
 
@@ -339,7 +343,7 @@ function displayExistingGoals() {
     main_prog.max = total_goals;
     main_prog.value = total_completed;
     let percentage = Math.floor((total_completed * 1.0 / total_goals) * 100.0);
-    document.getElementById('main_prog_label').innerText = '' + percentage + ' Complete';
+    document.getElementById('main_prog_label').innerText = '' + percentage + '% Complete';
   }
 
   var load_icon = document.getElementById('loadIcon');

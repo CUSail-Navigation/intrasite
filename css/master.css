@@ -334,10 +334,13 @@ table {
 #new_goal_button {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 #upper_prog_bar {
-  display: inline;
+  display: flex;
+  flex-direction: row;
 }
 
 .milestone_progress {
@@ -373,7 +376,7 @@ table {
   border-width: 1px;
   border-style: solid;
   color: white;
-  padding: 50px;
+  padding: 30px;
 }
 
 #goals_layout h2 {
