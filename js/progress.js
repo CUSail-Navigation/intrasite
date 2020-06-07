@@ -139,6 +139,7 @@ function updateGoal(issue_id) {
   setupNewGoalForm();
   var layout = document.getElementById('make_new_goal');
   var title = document.getElementById('goal_adder_label');
+  document.getElementById('sub_new_button').onclick = 'submitGoalUpdate(issue_id)';
   title.innerHTML = 'Edit Goal'
   layout.style.visibility = 'visible';
 
@@ -203,7 +204,7 @@ function setupNewGoalForm() {
   add_html += '<div id="members_selector"></div>';
 
   add_html += '<textarea id="goal_body_input" name="body" placeholder="A couple sentences about what this goal is, what you need to do to accomplish it, etc."></textarea>';
-  add_html += '<button onclick="submitNewGoal()" type="button">Submit Goal</button>';
+  add_html += '<button id="sub_new_button" onclick="submitNewGoal()" type="button">Submit Goal</button>';
   add_html += '</div>';
   layout.innerHTML = add_html;
 
