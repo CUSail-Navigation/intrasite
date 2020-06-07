@@ -363,7 +363,7 @@ table {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 }
 
 #goal_creator {
@@ -470,7 +470,7 @@ table {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 }
 
 #goal_title_input {
