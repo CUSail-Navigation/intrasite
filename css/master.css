@@ -415,9 +415,14 @@ table {
   border-radius: 4px;
   font-family: Georgia, serif;
   width: max-content;
+  white-space: nowrap;
   /* border-color: crimson;
   border-style: solid;
   border-width: 1px; */
+}
+
+#goal_body {
+  margin-bottom: 50px;
 }
 
 #make_new_goal {
@@ -495,4 +500,8 @@ table {
   border-radius: 4px;
   padding: 10px;
   font-family: Georgia, serif;
+}
+
+#goal_adder_overall label {
+  white-space: nowrap;
 }

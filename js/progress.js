@@ -31,16 +31,16 @@ function submitNewGoal() {
   var auth_code = getQueryVariable('auth');
   var post_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues'
 
-  var login = '';
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", 'https://api.github.com/user', false);
-  var token = 'token ' + auth_code;
-  xhr.setRequestHeader('Authorization', token);
-  xhr.send();
-  if (xhr.status === 200) {
-    let ret_data = JSON.parse(xhr.responseText);
-    login = ret_data.login;
-  }
+  // var login = '';
+  // var xhr = new XMLHttpRequest();
+  // xhr.open("GET", 'https://api.github.com/user', false);
+  // var token = 'token ' + auth_code;
+  // xhr.setRequestHeader('Authorization', token);
+  // xhr.send();
+  // if (xhr.status === 200) {
+  //   let ret_data = JSON.parse(xhr.responseText);
+  //   login = ret_data.login;
+  // }
 
   var req = new Object();
   // req.title = document.getElementById('goal_title_input').value;
@@ -68,7 +68,6 @@ function submitNewGoal() {
   var token = 'token ' + auth_code;
   xhr.setRequestHeader('Authorization', token);
   xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.setRequestHeader('User-Agent', login);
 
   xhr.onreadystatechange = function () { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
@@ -196,7 +195,7 @@ function displayExistingGoals() {
         }
         add_html += people + '</p>';
 
-        add_html += '<p><b>' + ret_data[j].body + '</b></p>';
+        add_html += '<p id="goal_body"><b>' + ret_data[j].body + '</b></p>';
         add_html += '</li>';
       }
       add_html += '</ul></div>';
