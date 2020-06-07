@@ -103,18 +103,19 @@ function submitGoalUpdate(issue_id) {
 
 // mark is either "open" or "closed"
 function markComplete(issue_id, mark) {
+  console.log("got here");
   // submit patch here
   var auth_code = getQueryVariable('auth');
   var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
   patch_url += issue_id;
 
-  var req = new Object();
-  req.state = mark;
+  let update_req = new Object();
+  update_req.state = mark;
 
-  var jsonString = JSON.stringify(req);
+  var jsonString = JSON.stringify(update_req);
   console.log(jsonString);
 
-  xhr = new XMLHttpRequest();
+  var xhr = new XMLHttpRequest();
   xhr.open("PATCH", patch_url, true);
   var token = 'token ' + auth_code;
   xhr.setRequestHeader('Authorization', token);
