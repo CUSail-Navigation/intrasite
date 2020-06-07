@@ -31,20 +31,21 @@ function submitNewGoal() {
   var auth_code = getQueryVariable('auth');
   var post_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues'
 
-  // var xhr = new XMLHttpRequest();
-  // xhr.open("GET", 'https://api.github.com/user', true);
-  // var token = 'token ' + auth_code;
-  // xhr.setRequestHeader('Authorization', token);
-  // xhr.onreadystatechange = function () { // Call a function when the state changes.
-  //   if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-  //     console.log(this.responseText);
-  //   }
-  // }
-  // xhr.send();
+  var login = '';
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", 'https://api.github.com/user', false);
+  var token = 'token ' + auth_code;
+  xhr.setRequestHeader('Authorization', token);
+  xhr.send();
+  if (xhr.status === 200) {
+    let ret_data = JSON.parse(this.responseText);
+    login = ret_data.login;
+  }
 
   var req = new Object();
   // req.title = document.getElementById('goal_title_input').value;
-  req.title = "test title hardcoded 3"
+  req.title = "test title hardcoded 3";
+  req.body = document.getElementById('goal_body_input').value;
   req.milestone = parseInt(document.getElementById('milestone_selector').value, 10);
 
   // add assignees
@@ -59,15 +60,16 @@ function submitNewGoal() {
   }
 
   req.assignees = people;
-  req.body = document.getElementById('goal_body_input').value;
   var jsonString = JSON.stringify(req);
   console.log(jsonString);
 
-  var xhr = new XMLHttpRequest();
+  xhr = new XMLHttpRequest();
   xhr.open("POST", post_url, true);
   var token = 'token ' + auth_code;
   xhr.setRequestHeader('Authorization', token);
   xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('User-Agent', login);
+
   xhr.onreadystatechange = function () { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
       var redir = 'https://cusail-navigation.github.io/intrasite/progress2020-2021';

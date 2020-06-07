@@ -387,9 +387,13 @@ table {
 
 #goal_sublayout p, #goal_sublayout h4 {
   margin-bottom: 20px;
-  margin-left: 20px;
+  margin-left: 50px;
   margin-right: 50px;
   margin-top: 0px;
+}
+
+#goal_top p, #goal_top h4 {
+  margin-left: 20px;
 }
 
 #goal_sublayout h4 {
@@ -480,6 +484,7 @@ table {
 
 #goal_body_input {
   width: inherit;
+  height: 25vh;
   font-family: Georgia, 'Times New Roman', Times, serif;
   resize: none;
 }
