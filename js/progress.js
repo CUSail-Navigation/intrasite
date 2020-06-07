@@ -62,15 +62,17 @@ function submitNewGoal() {
   xhr.setRequestHeader('Content-Type', 'application/json');
 
   xhr.onreadystatechange = function () { // Call a function when the state changes.
-    if (this.readyState === XMLHttpRequest.DONE && this.status !== 201) {
-      alert("Goal could not be created. Try again.");
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
+      setupNewGoalForm();
     }
   }
   xhr.send(jsonString);
 }
 
 function submitGoalUpdate(issue_id) {
+  // submit patch here
 
+  setupNewGoalForm();
 }
 
 function updateGoal(issue_id) {
@@ -79,9 +81,27 @@ function updateGoal(issue_id) {
   var title = document.getElementById('goal_adder_label');
   title.innerHTML = 'Edit Goal'
   layout.style.visibility = 'visible';
-  $("html, body").delay(150).animate({
-    scrollTop: $('#make_new_goal').offset().top
-  }, 1000);
+
+  // load the current goal information into 
+  var xhr = new XMLHttpRequest();
+  var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
+  get_url += issue_id;
+  xhr.open('GET', get_url, true);
+
+  xhr.onload = function () {
+    let ret_data = JSON.parse(this.responseText);
+    document.getElementById('goal_title_input').value = ret_data.title;
+    document.getElementById('milestone_selector').value = ret_data.milestone.toString(10);
+    // do assignees here
+    document.getElementById('goal_body_input').value = ret_data.body;
+
+    // scroll to view it
+    $("html, body").delay(150).animate({
+      scrollTop: $('#make_new_goal').offset().top
+    }, 1000);
+  };
+
+  xhr.send();
 }
 
 function setupNewGoalForm() {
@@ -173,7 +193,7 @@ function displayExistingGoals() {
           add_html += ' • Completed on ' + parseDate(ret_data[j].closed_at);
         }
         add_html += '</p></div>';
-        add_html += '<button onclick="updateGoal(' + ret_data[j].number + ')" ' + 'type="button">Edit Goal</button>';
+        add_html += '<button onclick="updateGoal(' + ret_data[j].number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
         add_html += '</div>';
 
         var people = '';
