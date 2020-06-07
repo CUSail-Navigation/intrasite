@@ -224,6 +224,17 @@ function setupNewGoalForm() {
       inner_sel += '<label for="' + ret_data[j].login + '_checkbox">' + ret_data[j].login + '</label>';
       inner_sel += '</div>';
     }
+
+    // testing for formatting only
+    test_names = ['dwightSchrute', 'jimHalpert', 'michaelScott', 'pamBeesley', 'angelaMartin', 'oscarMartinez', 'kevin', 'merideth', 'creed', 'kellyKapoor', 'ryanTheTemp', 'tobyflenderson', 'holly', 'stanley', 'phyllisvance'];
+    for (j = 0; j < test_names.length; j++) {
+      inner_sel += '<div id="login_checkbox">';
+      inner_sel += '<input type="checkbox" id="' + test_names[j] + '_checkbox" value="' + test_names[j] + '" name="login_check">';
+      inner_sel += '<label for="' + test_names[j] + '_checkbox">' + test_names[j] + '</label>';
+      inner_sel += '</div>';
+    }
+    // end
+
     sel_layout.innerHTML = inner_sel;
   };
 
