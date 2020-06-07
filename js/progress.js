@@ -70,8 +70,13 @@ function submitGoalUpdate(issue_id) {
   setupNewGoalForm();
 }
 
+function markComplete(issue_id) {
+  // submit patch here
+}
+
 function updateGoal(issue_id) {
   console.log(issue_id);
+  setupNewGoalForm();
   var layout = document.getElementById('make_new_goal');
   var title = document.getElementById('goal_adder_label');
   title.innerHTML = 'Edit Goal'
@@ -93,6 +98,13 @@ function updateGoal(issue_id) {
     milestone_box.selected = true;
 
     // do assignees here
+    let i;
+    for (i = 0; i < ret_data.assignees; i++) {
+      let p = 'input[value="' + ret_data.assignees[i].login + '"]';
+      let checkbox = document.querySelector(p);
+      checkbox.checked = true;
+    }
+
     let all_checkboxes = document.querySelectorAll('input[name="login_check"]');
     let i;
     for (i = 0; i < all_checkboxes.length; i++) {
@@ -207,6 +219,7 @@ function displayExistingGoals() {
         }
         add_html += '</p></div>';
         add_html += '<button onclick="updateGoal(' + ret_data[j].number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
+        add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ')" ' + 'type="button">Mark Complete</button>';
         add_html += '</div>';
 
         var people = '';
