@@ -486,6 +486,11 @@ table {
 
 #members_selector {
   margin-bottom: 20px;
+  display: grid;
+}
+
+#members_selector label {
+  margin-left: 5px;
 }
 
 #goal_body_input {
@@ -501,6 +506,9 @@ table {
   border-radius: 4px;
   padding: 10px;
   font-family: Georgia, serif;
+  margin-top: 15px;
+  width: fit-content;
+  font-size: medium;
 }
 
 #goal_adder_overall label {

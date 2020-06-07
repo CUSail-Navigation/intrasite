@@ -98,7 +98,7 @@ function setupNewGoalForm() {
   var add_html = '';
 
   add_html += '<h2 id="goal_adder_label">Add a New Goal</h2>';
-  add_html += '<p>Note: any member can add a goal, but only an admin (Courtney) can delete one...</p>';
+  add_html += '<p>Note: Any member can add a goal, but only an admin (Courtney) can delete one. It may take a minute or two for the new goal to appear (refresh to see it).</p>';
 
   add_html += '<div id="goal_adder_overall">';
   add_html += '<div id="goal_adder_top">';
