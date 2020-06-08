@@ -6,6 +6,7 @@
 
 html {
   font-family: 'Lato', sans-serif;
+  color: #002D5F;
   background: white;
 }
 
@@ -338,8 +339,8 @@ table {
 }
 
 #main_bar {
-  width: 10vw;
-  height: auto;
+  float: right;
+  margin: 20px;
 }
 
 /* progress goal layout */
@@ -457,7 +458,7 @@ table {
   background-color: #002D5F;
   color: white;
   border-radius: 4px;
-  font-family: Georgia, serif;
+  font-family: 'Lato', sans-serif;
   width: max-content;
   white-space: nowrap;
   flex-basis: 150px;
@@ -474,7 +475,7 @@ table {
   border-radius: 8px;
   padding: 10px;
   font-size: large;
-  font-family: Georgia, serif;
+  font-family: 'Lato', sans-serif;
 }
 
 #make_new_goal h2 {
@@ -489,18 +490,18 @@ table {
 
 #goal_adder_overall ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   padding-left: 2px;
-  color: black;
+  color: #002D5F;
   opacity: 1; /* Firefox */
 }
 
 #goal_adder_overall :-ms-input-placeholder { /* Internet Explorer 10-11 */
   padding-left: 2px;
-  color: black;
+  color: #002D5F;
 }
 
 #goal_adder_overall ::-ms-input-placeholder { /* Microsoft Edge */
   padding-left: 2px;
-  color: black;
+  color: #002D5F;
 }
 
 #goal_adder_top {
@@ -514,7 +515,11 @@ table {
   flex-basis: 100%;
   font-size: large;
   font-family: 'Lato', sans-serif;
+  color: #002D5F;
   padding: 2px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #002D5F;
 }
 
 #goal_adder_overall p {
@@ -524,6 +529,7 @@ table {
 #milestone_selector {
   font-size: large;
   font-family: 'Lato', sans-serif;
+  color: #002D5F;
 }
 
 #members_selector {
@@ -543,9 +549,13 @@ table {
   width: inherit;
   height: 25vh;
   font-family: 'Lato', sans-serif;
+  color: #002D5F;
   font-size: medium;
   resize: none;
   padding: 2px;
+  border-color: #002D5F;
+  border-style: solid;
+  border-width: 1px;
 }
 
 #goal_adder_overall button {
@@ -553,7 +563,7 @@ table {
   color: white;
   border-radius: 4px;
   padding: 10px;
-  font-family: Georgia, serif;
+  font-family: 'Lato', sans-serif;
   margin-top: 15px;
   width: fit-content;
   font-size: medium;
