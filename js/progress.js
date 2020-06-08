@@ -219,7 +219,7 @@ function markComplete(issue_id, mark) {
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       var ret_data = JSON.parse(this.responseText);
-      updateGoalLocation(ret_data, ret_data.milestone, mark);
+      updateGoalLocation(ret_data, ret_data.milestone.title, mark);
     }
   }
   xhr.send(jsonString);

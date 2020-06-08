@@ -78,7 +78,7 @@ nav a:not(.nav_logo):hover {
 
 .scrolled, .no_scroll {
   background: white;
-  border-bottom: 1px solid #65C8D0;
+  border-bottom: 1px solid #B31B1B;
 }
 
 .logo a img {
@@ -155,7 +155,7 @@ nav a:not(.nav_logo):hover {
 
 .fa-search {
   margin-right: 10px;
-  color: #65C8D0
+  color: #65C8D0;
   transition: 0.5s;
 }
 
