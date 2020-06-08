@@ -4,9 +4,11 @@ var milestone_goals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var milestone_completed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 function mapMilestoneStrToIdx(name) {
+  console.log("input: " + name);
   let i;
   for (i = 0; i < milestone_str.length; i++) {
     if (name.localeCompare(milestone_str[i])) {
+      console.log("returning " + i);
       return i;
     }
   }
