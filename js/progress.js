@@ -362,6 +362,7 @@ function resetBar() {
   }
   console.log("val is " + val);
   document.getElementById("main_bar").setAttribute('data-value', val.toString(10));
+  console.log(document.getElementById("main_bar").getAttribute('data-value'));
 }
 
 function displayExistingGoals() {
