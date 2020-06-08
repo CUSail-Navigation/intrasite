@@ -252,6 +252,7 @@ function resetBar() {
 }
 
 function reloadAllMilestones() {
+  console.log("got to reload all")
   let i;
   for (i = 0; i < milestone_num.length; i++) {
     reloadOneMilestone(i);
@@ -259,13 +260,15 @@ function reloadAllMilestones() {
 }
 
 function reloadOneMilestone(i) {
+  console.log("reloading " + i);
   let milestone_layout = document.getElementById('milestone_' + milestone_str[i]);
+  console.log(milestone_layout);
 
   var xhr = new XMLHttpRequest();
   var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
   get_url += '?milestone=' + milestone_num[i];
   get_url += '&state=all';
-  xhr.open('GET', get_url, true); // synch is deprecated, but screw it
+  xhr.open('GET', get_url, true);
   xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
 
   xhr.onload = function () {
