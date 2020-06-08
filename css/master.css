@@ -371,14 +371,14 @@ table {
   padding-bottom: 2px;
 }
 
-#goal_sublayout {
+.goal_sublayout {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: left;
 }
 
-#goal_sublayout ul li {
+.goal_sublayout ul li {
   margin-top: 20px;
   background-color: white;
   border: #002D5F;
@@ -408,7 +408,7 @@ table {
   margin-left: 20px;
 }
 
-#goal_sublayout ul {
+.goal_sublayout ul {
   list-style: none;
 }
 
@@ -422,7 +422,7 @@ table {
   margin-bottom: auto;
 }
 
-#goal_sublayout p:not(#goal_body), #goal_sublayout h4 {
+.goal_sublayout p:not(#goal_body), .goal_sublayout h4 {
   margin-bottom: 10px;
   margin-left: 0px;
   margin-right: 0px;
@@ -437,7 +437,7 @@ table {
   margin-bottom: auto;
 }
 
-#goal_sublayout h4 {
+.goal_sublayout h4 {
   text-transform: capitalize;
   font-size: larger;
   margin-top: auto;

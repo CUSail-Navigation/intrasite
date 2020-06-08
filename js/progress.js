@@ -356,7 +356,7 @@ function displayExistingGoals() {
 
     if (xhr.status === 200) {
       var ret_data = JSON.parse(xhr.responseText);
-      add_html += '<div id="goal_sublayout milestone_' + milestone_str[i] + '"><ul>';
+      add_html += '<div class="goal_sublayout" id="milestone_' + milestone_str[i] + '"><ul>';
 
       milestone_goals[i] = ret_data.length;
 
