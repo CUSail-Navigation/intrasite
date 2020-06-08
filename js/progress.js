@@ -360,9 +360,11 @@ function resetBar() {
   if (total_goals > 0) {
     val = (total_completed * 1.0 / total_goals) * 100.0;
   }
-  console.log("val is " + val);
-  document.getElementById("main_bar").setAttribute('data-value', val.toString(10));
-  console.log(document.getElementById("main_bar").getAttribute('data-value'));
+
+  // rerender the bar
+  var add_html = '<div id="main_bar" class="ldBar label-center" data-type="fill" data-img="{{site.baseurl}}/images/BoatLogo.svg" ';
+  add_html += 'data-value="' + val + '" data-img-size="110,110" data-fill-background="#e7e7e7"></div>';
+  document.getElementById('left_sidebar').innerHTML = add_html;
 }
 
 function displayExistingGoals() {
