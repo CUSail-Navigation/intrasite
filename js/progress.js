@@ -166,7 +166,7 @@ function submitNewGoal() {
 
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
-      setupNewGoalForm();
+      setupNewGoalForm(null);
       var ret_data = JSON.parse(this.responseText);
       addGoalToMilestone(ret_data);
     }
@@ -205,7 +205,7 @@ function submitGoalUpdate(issue_id, prev_mil, closed) {
 
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      setupNewGoalForm();
+      setupNewGoalForm(null);
       var ret_data = JSON.parse(this.responseText);
       updateGoalLocation(ret_data, prev_mil, closed);
     }
@@ -245,12 +245,6 @@ function markComplete(issue_id, mark) {
 }
 
 function updateGoal(issue_id) {
-  setupNewGoalForm();
-  var layout = document.getElementById('make_new_goal');
-  var title = document.getElementById('goal_adder_label');
-  title.innerHTML = 'Edit Goal'
-  layout.style.visibility = 'visible';
-
   // load the current goal information into 
   var xhr = new XMLHttpRequest();
   var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
@@ -259,21 +253,19 @@ function updateGoal(issue_id) {
 
   xhr.onload = function () {
     let ret_data = JSON.parse(this.responseText);
+
+    setupNewGoalForm(ret_data); // assign checkboxes
+    var layout = document.getElementById('make_new_goal');
+    var title = document.getElementById('goal_adder_label');
+    title.innerHTML = 'Edit Goal'
+    layout.style.visibility = 'visible';
+
     document.getElementById('goal_title_input').value = ret_data.title;
 
     // set the previous milestone
     let q = 'option[value="' + ret_data.milestone.number + '"]';
     let milestone_box = document.querySelector(q);
     milestone_box.selected = true;
-
-    // get assignees
-    let i;
-    for (i = 0; i < ret_data.assignees.length; i++) {
-      let box_id = ret_data.assignees[i].login + '_checkbox';
-      console.log("login box id is " + box_id);
-      let checkbox = document.getElementById(box_id);
-      checkbox.checked = true;
-    }
 
     document.getElementById('goal_body_input').value = ret_data.body;
 
@@ -293,14 +285,14 @@ function updateGoal(issue_id) {
   xhr.send();
 }
 
-function setupNewGoalForm() {
+function setupNewGoalForm(edit_data) {
   var milestone_str = ['August 2020', 'September 2020', 'October 2020', 'November 2020', 'December 2020', 'January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021'];
   var milestone_num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   var layout = document.getElementById('make_new_goal');
   var add_html = '';
 
   add_html += '<h2 id="goal_adder_label">Add a New Goal</h2>';
-  add_html += '<p>Note: Any member can add or edit a goal, but only an admin (Courtney) can delete one. It may take a few seconds for the new goal to appear (refresh the page to see it).</p>';
+  add_html += '<p>Note: Any member can add or edit a goal, but only an admin (Courtney) can delete one.</p>';
 
   add_html += '<div id="goal_adder_overall">';
   add_html += '<div id="goal_adder_top">';
@@ -341,6 +333,18 @@ function setupNewGoalForm() {
       inner_sel += '</div>';
     }
     sel_layout.innerHTML = inner_sel;
+
+    // if this is to setup for an edit, add stuff to the forms
+    if (edit_data) {
+      // get assignees
+      let k;
+      for (k = 0; k < edit_data.assignees.length; k++) {
+        let box_id = edit_data.assignees[k].login + '_checkbox';
+        console.log("login box id is " + box_id);
+        let checkbox = document.getElementById(box_id);
+        checkbox.checked = true;
+      }
+    }
   };
 
   xhr.send();
