@@ -53,7 +53,7 @@ nav ul li {
 
 nav ul li a {
   line-height:  40px;
-  color: #7ec6cf;
+  color: #002D5F;
   padding: 5px 20px;
   margin: 5px 10px;
   transition: .5s;
@@ -69,6 +69,7 @@ nav ul li a {
 nav a:not(.nav_logo):hover {
   background-color: #e7e7e7;
   border-radius: 15px;
+  text-decoration: none;
 }
 
 .main_nav li:hover .subnav {

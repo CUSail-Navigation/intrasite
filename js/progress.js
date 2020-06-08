@@ -216,8 +216,8 @@ function markComplete(issue_id, mark) {
   xhr.setRequestHeader('Authorization', token);
   xhr.setRequestHeader('Content-Type', 'application/json');
 
-  xhr.onreadystatechange = function () { // Call a function when the state changes.
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
+  xhr.onreadystatechange = function () {
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       var ret_data = JSON.parse(this.responseText);
       updateGoalLocation(ret_data, ret_data.milestone, mark);
     }
@@ -261,6 +261,7 @@ function updateGoal(issue_id) {
 
     // update the submit function
     let fun = 'submitGoalUpdate(' + issue_id + ', ' + ret_data.milestone.title + ', ' + ret_data.state.includes("closed") + ')';
+    console.log(fun);
     document.getElementById('sub_new_button').setAttribute("onclick", fun);
 
     // scroll to view it
