@@ -47,6 +47,7 @@ function makeNewGoal() {
 function updateMilestoneHeader(i) {
   let complete_num = document.getElementById(milestone_str[i] + '_complete_num');
   console.log(complete_num);
+  console.log("i is " + i);
   let percentage = Math.floor((milestone_completed[i] * 1.0 / milestone_goals[i]) * 100.0);
   console.log(percentage);
   complete_num.innerText = '' + percentage + '% Complete';
@@ -57,10 +58,22 @@ function updateGoalLocation(ret_data, prev_mil, closed) {
   var prev = document.getElementById('goal_num_' + ret_data.number.toString(10));
   prev.remove();
   const i = mapMilestoneStrToIdx(prev_mil);
+
+  // testing
+  console.log("initial g then c");
+  console.log(milestone_goals);
+  console.log(milestone_completed);
+  // testing
+
   milestone_goals[i]--;
   if (closed) {
     milestone_completed[i]--;
   }
+
+  console.log("next g then c");
+  console.log(milestone_goals);
+  console.log(milestone_completed);
+
   updateMilestoneHeader(i);
 
   // add the goal to the new location
@@ -198,6 +211,7 @@ function submitGoalUpdate(issue_id, prev_mil, closed) {
 
 // mark is true for mark closed, false for mark open
 function markComplete(issue_id, mark) {
+  console.log("MARK COMPLETE");
   var auth_code = getQueryVariable('auth');
   var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
   patch_url += issue_id;
@@ -210,7 +224,6 @@ function markComplete(issue_id, mark) {
   }
 
   var jsonString = JSON.stringify(update_req);
-  console.log(jsonString);
 
   var xhr = new XMLHttpRequest();
   xhr.open("PATCH", patch_url, true);
@@ -228,7 +241,6 @@ function markComplete(issue_id, mark) {
 }
 
 function updateGoal(issue_id) {
-  console.log(issue_id);
   setupNewGoalForm();
   var layout = document.getElementById('make_new_goal');
   var title = document.getElementById('goal_adder_label');
