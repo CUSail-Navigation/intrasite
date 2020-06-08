@@ -264,7 +264,7 @@ function updateGoal(issue_id) {
     let incl = ret_data.state.includes('closed');
     let fun = 'submitGoalUpdate(' + issue_id + ', ' + ret_data.milestone.title + ', ' + incl + ')';
     console.log(fun);
-    document.getElementById('sub_new_button').setAttribute("onclick", fun);
+    document.getElementById('sub_new_button').setAttribute("onclick", 'console.log("got clicked");');
     console.log(document.getElementById('sub_new_button').getAttribute("onclick"));
 
     // scroll to view it
