@@ -362,6 +362,7 @@ function resetBar() {
   }
 
   // rerender the bar
+  document.getElementById('main_bar').remove();
   var add_html = '<div id="main_bar" class="ldBar label-center" data-type="fill" data-img="./images/BoatLogo.svg" ';
   add_html += 'data-value="' + val + '" data-img-size="110,110" data-fill-background="#e7e7e7"></div>';
   document.getElementById('left_sidebar').innerHTML = add_html;
