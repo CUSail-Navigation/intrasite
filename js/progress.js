@@ -7,7 +7,7 @@ function mapMilestoneStrToIdx(name) {
   console.log("input: " + name);
   let i;
   for (i = 0; i < milestone_str.length; i++) {
-    if (name.localeCompare(milestone_str[i])) {
+    if (name.includes(milestone_str[i])) {
       console.log("returning " + i);
       return i;
     }
@@ -260,7 +260,8 @@ function updateGoal(issue_id) {
     document.getElementById('goal_body_input').value = ret_data.body;
 
     // update the submit function
-    let fun = 'submitGoalUpdate(' + issue_id + ', ' + ret_data.milestone.title + ', ' + ret_data.state.includes("closed") + ')';
+    let incl = ret_data.state.includes('closed');
+    let fun = 'submitGoalUpdate(' + issue_id + ', ' + ret_data.milestone.title + ', ' + incl + ')';
     console.log(fun);
     document.getElementById('sub_new_button').setAttribute("onclick", fun);
 
