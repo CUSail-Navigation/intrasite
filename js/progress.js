@@ -3,6 +3,15 @@ const milestone_num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 var milestone_goals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var milestone_completed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+function mapMilestoneStrToIdx(name) {
+  let i;
+  for (i = 0; i < milestone_str.length; i++) {
+    if (name.localeCompare(milestone_str[i])) {
+      return i;
+    }
+  }
+}
+
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
   var vars = query.split('&');
@@ -33,6 +42,56 @@ function makeNewGoal() {
   }, 1000);
 }
 
+function addGoalToMilestone(ret_data) {
+  var ul_layout = document.getElementById('ul_' + ret_data.milestone.title);
+  var add_html = '';
+
+  add_html += '<li>';
+  add_html += '<div id="goal_top">';
+  add_html += '<img src="' + ret_data.user.avatar_url + '" />';
+
+  add_html += '<div id="goal_creator">';
+  add_html += '<h4>' + ret_data.title + '</h4>';
+  add_html += '<p>Created by ' + ret_data.user.login + ' on ' + parseDate(ret_data.created_at);
+  if (ret_data.state.includes("closed")) {
+    add_html += ' • Completed on ' + parseDate(ret_data.closed_at);
+  }
+  add_html += '</p></div>';
+
+  const i = mapMilestoneStrToIdx(ret_data.milestone.title);
+  milestone_goals[i]++;
+
+  if (ret_data.state.includes("open")) {
+    add_html += '<button onclick="updateGoal(' + ret_data.number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
+    add_html += '<button onclick="markComplete(' + ret_data.number.toString(10) + ', ' + true + ')" type="button">Mark Complete</button>';
+  } else {
+    milestone_completed[i]++;
+    add_html += '<button onclick="markComplete(' + ret_data.number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
+  }
+  add_html += '</div>';
+
+  var people = '';
+  var k;
+  for (k = 0; k < ret_data.assignees.length; k++) {
+    people += ret_data.assignees[k].login + ', ';
+  }
+  if (ret_data.assignees.length < 1) {
+    add_html += '<p id="goal_assignees">';
+    people += 'No one is assigned to this goal. Edit this goal to add someone.';
+  } else {
+    add_html += '<p id="goal_assignees">Assigned Team Members: ';
+    people = people.substring(0, people.length - 2);
+  }
+  add_html += people + '</p>';
+
+  add_html += '<p id="goal_body"><b>' + ret_data.body + '</b></p>';
+  add_html += '</li>';
+
+  ul_layout.innerHTML += add_html;
+
+  resetBar();
+}
+
 function submitNewGoal() {
   var auth_code = getQueryVariable('auth');
   var post_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
@@ -60,10 +119,11 @@ function submitNewGoal() {
   xhr.setRequestHeader('Authorization', token);
   xhr.setRequestHeader('Content-Type', 'application/json');
 
-  xhr.onreadystatechange = function () { // Call a function when the state changes.
+  xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
       setupNewGoalForm();
-      reloadAllMilestones();
+      var ret_data = JSON.parse(this.responseText);
+      addGoalToMilestone(ret_data);
     }
   }
   xhr.send(jsonString);
@@ -359,7 +419,7 @@ function displayExistingGoals() {
 
     if (xhr.status === 200) {
       var ret_data = JSON.parse(xhr.responseText);
-      add_html += '<div class="goal_sublayout" id="milestone_' + milestone_str[i] + '"><ul>';
+      add_html += '<div class="goal_sublayout" id="milestone_' + milestone_str[i] + '"><ul id="ul_' + milestone_str[i] + '">';
 
       milestone_goals[i] = ret_data.length;
 
