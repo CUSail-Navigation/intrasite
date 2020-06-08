@@ -1,3 +1,8 @@
+const milestone_str = ['August 2020', 'September 2020', 'October 2020', 'November 2020', 'December 2020', 'January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021'];
+const milestone_num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+var milestone_goals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var milestone_completed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
   var vars = query.split('&');
@@ -58,6 +63,7 @@ function submitNewGoal() {
   xhr.onreadystatechange = function () { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
       setupNewGoalForm();
+      reloadAllMilestones();
     }
   }
   xhr.send(jsonString);
@@ -95,6 +101,7 @@ function submitGoalUpdate(issue_id) {
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       setupNewGoalForm();
+      reloadAllMilestones();
     }
   }
   xhr.send(jsonString);
@@ -125,8 +132,7 @@ function markComplete(issue_id, mark) {
 
   xhr.onreadystatechange = function () { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
-      // nothing to do here
-      //console.log("marked " + issue_id + " as " + mark);
+      reloadAllMilestones();
     }
   }
   xhr.send(jsonString);
@@ -230,12 +236,109 @@ function setupNewGoalForm() {
   xhr.send();
 }
 
+function resetBar() {
+  // set the main progress bar
+  let total_goals = milestone_goals.reduce(function (a, b) {
+    return a + b;
+  }, 0);
+  let total_completed = milestone_completed.reduce(function (a, b) {
+    return a + b;
+  }, 0);
+  let val = 0;
+  if (total_goals > 0) {
+    val = (total_completed * 1.0 / total_goals) * 100.0;
+  }
+  document.getElementById("main_bar").setAttribute('data-value', val.toString(10));
+}
+
+function reloadAllMilestones() {
+  let i;
+  for (i = 0; i < milestone_num.length; i++) {
+    reloadOneMilestone(i);
+  }
+}
+
+function reloadOneMilestone(i) {
+  let milestone_layout = document.getElementById('milestone_' + milestone_str[i]);
+
+  var xhr = new XMLHttpRequest();
+  var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
+  get_url += '?milestone=' + milestone_num[i];
+  get_url += '&state=all';
+  xhr.open('GET', get_url, true); // synch is deprecated, but screw it
+  xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
+
+  xhr.onload = function () {
+    let ret_data = JSON.parse(this.responseText);
+    let add_html = '<ul>';
+
+    milestone_goals[i] = ret_data.length;
+
+    var j;
+    for (j = 0; j < ret_data.length; j++) {
+      local_complete = 0;
+      add_html += '<li>';
+
+      add_html += '<div id="goal_top">';
+      add_html += '<img src="' + ret_data[j].user.avatar_url + '" />';
+
+      add_html += '<div id="goal_creator">';
+      add_html += '<h4>' + ret_data[j].title + '</h4>';
+      add_html += '<p>Created by ' + ret_data[j].user.login + ' on ' + parseDate(ret_data[j].created_at);
+      if (ret_data[j].state.includes("closed")) {
+        add_html += ' • Completed on ' + parseDate(ret_data[j].closed_at);
+      }
+      add_html += '</p></div>';
+
+      if (ret_data[j].state.includes("open")) {
+        add_html += '<button onclick="updateGoal(' + ret_data[j].number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
+        add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ', ' + true + ')" type="button">Mark Complete</button>';
+      } else {
+        milestone_completed[i]++;
+        add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
+      }
+      add_html += '</div>';
+
+      var people = '';
+      var k;
+      for (k = 0; k < ret_data[j].assignees.length; k++) {
+        people += ret_data[j].assignees[k].login + ', ';
+      }
+      if (ret_data[j].assignees.length < 1) {
+        add_html += '<p id="goal_assignees">';
+        people += 'No one is assigned to this goal. Edit this goal to add someone.';
+      } else {
+        add_html += '<p id="goal_assignees">Assigned Team Members: ';
+        people = people.substring(0, people.length - 2);
+      }
+      add_html += people + '</p>';
+
+      add_html += '<p id="goal_body"><b>' + ret_data[j].body + '</b></p>';
+      add_html += '</li>';
+    }
+
+    add_html += '</ul>';
+    milestone_layout.innerHTML = add_html;
+
+    // progress header
+    let prog_layout = document.getElementById(milestone_num[i] + '_progress');
+    add_html = '<h2>' + milestone_str[i] + '</h2>';
+    if (milestone_goals[i] === 0) {
+      add_html += '<h2>0% Complete</h2>';
+    } else {
+      let percentage = Math.floor((milestone_completed[i] * 1.0 / milestone_goals[i]) * 100.0);
+      add_html += '<h2>' + percentage + '% Complete</h2>';
+    }
+    prog_layout.innerHTML = add_html;
+
+    resetBar();
+  };
+
+  xhr.send();
+}
+
 function displayExistingGoals() {
   var goals = document.getElementById('goals_layout');
-  var milestone_str = ['August 2020', 'September 2020', 'October 2020', 'November 2020', 'December 2020', 'January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021'];
-  var milestone_num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-  var milestone_goals = [];
-  var milestone_completed = [];
 
   var add_html = '';
   var i;
@@ -253,10 +356,9 @@ function displayExistingGoals() {
 
     if (xhr.status === 200) {
       var ret_data = JSON.parse(xhr.responseText);
-      add_html += '<div id="goal_sublayout"><ul>';
+      add_html += '<div id="goal_sublayout milestone_' + milestone_str[i] + '"><ul>';
 
-      milestone_goals.push(ret_data.length);
-      milestone_completed.push(0);
+      milestone_goals[i] = ret_data.length;
 
       var j;
       for (j = 0; j < ret_data.length; j++) {
@@ -317,20 +419,7 @@ function displayExistingGoals() {
     prog_layout.innerHTML = add_html;
   }
 
-
-  // set the main progress bar
-  let total_goals = milestone_goals.reduce(function (a, b) {
-    return a + b;
-  }, 0);
-  let total_completed = milestone_completed.reduce(function (a, b) {
-    return a + b;
-  }, 0);
-  let val = 0;
-  if (total_goals > 0) {
-    val = (total_completed * 1.0 / total_goals) * 100.0;
-  }
-  document.getElementById("main_bar").setAttribute('data-value', val.toString(10));
-
+  resetBar();
 
   // set the number of days until competition
   let header = document.getElementById('goal_header');
