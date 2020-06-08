@@ -42,11 +42,32 @@ function makeNewGoal() {
   }, 1000);
 }
 
+function updateMilestoneHeader(i) {
+  let complete_num = document.getElementById(milestone_str[i] + '_complete_num');
+  let percentage = Math.floor((milestone_completed[i] * 1.0 / milestone_goals[i]) * 100.0);
+  complete_num.innerText = '' + percentage + '% Complete';
+}
+
+function updateGoalLocation(ret_data, prev_mil, closed) {
+  // remove the previous version of the goal
+  var prev = document.getElementById('goal_num_' + ret_data.number.toString(10));
+  prev.remove();
+  const i = mapMilestoneStrToIdx(prev_mil);
+  milestone_goals[i]--;
+  if (closed) {
+    milestone_completed[i]--;
+  }
+  updateMilestoneHeader(i);
+
+  // add the goal to the new location
+  addGoalToMilestone(ret_data);
+}
+
 function addGoalToMilestone(ret_data) {
   var ul_layout = document.getElementById('ul_' + ret_data.milestone.title);
   var add_html = '';
 
-  add_html += '<li>';
+  add_html += '<li id="goal_num_' + ret_data.number.toString(10) + '">';
   add_html += '<div id="goal_top">';
   add_html += '<img src="' + ret_data.user.avatar_url + '" />';
 
@@ -91,10 +112,7 @@ function addGoalToMilestone(ret_data) {
 
   ul_layout.innerHTML += add_html;
 
-  let complete_num = document.getElementById(ret_data.milestone.title + '_complete_num');
-  let percentage = Math.floor((milestone_completed[i] * 1.0 / milestone_goals[i]) * 100.0);
-  complete_num.innerText = '' + percentage + '% Complete';
-
+  updateMilestoneHeader(i);
   resetBar();
 }
 
@@ -135,7 +153,7 @@ function submitNewGoal() {
   xhr.send(jsonString);
 }
 
-function submitGoalUpdate(issue_id) {
+function submitGoalUpdate(issue_id, prev_mil, closed) {
   console.log("got here...");
   var auth_code = getQueryVariable('auth');
   var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
@@ -167,15 +185,15 @@ function submitGoalUpdate(issue_id) {
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       setupNewGoalForm();
-      reloadAllMilestones();
+      var ret_data = JSON.parse(this.responseText);
+      updateGoalLocation(ret_data, prev_mil, closed);
     }
   }
   xhr.send(jsonString);
 }
 
-// mark is either "open" or "closed"
+// mark is true for mark closed, false for mark open
 function markComplete(issue_id, mark) {
-  // submit patch here
   var auth_code = getQueryVariable('auth');
   var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
   patch_url += issue_id;
@@ -198,7 +216,8 @@ function markComplete(issue_id, mark) {
 
   xhr.onreadystatechange = function () { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
-      reloadAllMilestones();
+      var ret_data = JSON.parse(this.responseText);
+      updateGoalLocation(ret_data, ret_data.milestone, mark);
     }
   }
   xhr.send(jsonString);
@@ -209,8 +228,6 @@ function updateGoal(issue_id) {
   setupNewGoalForm();
   var layout = document.getElementById('make_new_goal');
   var title = document.getElementById('goal_adder_label');
-  document.getElementById('sub_new_button').setAttribute("onclick", 'submitGoalUpdate(' + issue_id + ')');
-  console.log(document.getElementById('sub_new_button').getAttribute("onclick"));
   title.innerHTML = 'Edit Goal'
   layout.style.visibility = 'visible';
 
@@ -239,6 +256,10 @@ function updateGoal(issue_id) {
     }
 
     document.getElementById('goal_body_input').value = ret_data.body;
+
+    // update the submit function
+    let fun = 'submitGoalUpdate(' + issue_id + ', ' + ret_data.milestone.title + ', ' + ret_data.state.includes("closed") + ')';
+    document.getElementById('sub_new_button').setAttribute("onclick", fun);
 
     // scroll to view it
     $("html, body").delay(150).animate({
@@ -317,95 +338,6 @@ function resetBar() {
   document.getElementById("main_bar").setAttribute('data-value', val.toString(10));
 }
 
-function reloadAllMilestones() {
-  console.log("got to reload all")
-  let i;
-  for (i = 0; i < milestone_num.length; i++) {
-    reloadOneMilestone(i);
-  }
-}
-
-function reloadOneMilestone(i) {
-  console.log("reloading " + i);
-  let milestone_layout = document.getElementById('milestone_' + milestone_str[i]);
-  console.log(milestone_layout);
-
-  var xhr = new XMLHttpRequest();
-  var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
-  get_url += '?milestone=' + milestone_num[i];
-  get_url += '&state=all';
-  xhr.open('GET', get_url, true);
-  xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
-
-  xhr.onload = function () {
-    let ret_data = JSON.parse(this.responseText);
-    let add_html = '<ul>';
-
-    milestone_goals[i] = ret_data.length;
-
-    var j;
-    for (j = 0; j < ret_data.length; j++) {
-      local_complete = 0;
-      add_html += '<li>';
-
-      add_html += '<div id="goal_top">';
-      add_html += '<img src="' + ret_data[j].user.avatar_url + '" />';
-
-      add_html += '<div id="goal_creator">';
-      add_html += '<h4>' + ret_data[j].title + '</h4>';
-      add_html += '<p>Created by ' + ret_data[j].user.login + ' on ' + parseDate(ret_data[j].created_at);
-      if (ret_data[j].state.includes("closed")) {
-        add_html += ' • Completed on ' + parseDate(ret_data[j].closed_at);
-      }
-      add_html += '</p></div>';
-
-      if (ret_data[j].state.includes("open")) {
-        add_html += '<button onclick="updateGoal(' + ret_data[j].number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
-        add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ', ' + true + ')" type="button">Mark Complete</button>';
-      } else {
-        milestone_completed[i]++;
-        add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
-      }
-      add_html += '</div>';
-
-      var people = '';
-      var k;
-      for (k = 0; k < ret_data[j].assignees.length; k++) {
-        people += ret_data[j].assignees[k].login + ', ';
-      }
-      if (ret_data[j].assignees.length < 1) {
-        add_html += '<p id="goal_assignees">';
-        people += 'No one is assigned to this goal. Edit this goal to add someone.';
-      } else {
-        add_html += '<p id="goal_assignees">Assigned Team Members: ';
-        people = people.substring(0, people.length - 2);
-      }
-      add_html += people + '</p>';
-
-      add_html += '<p id="goal_body"><b>' + ret_data[j].body + '</b></p>';
-      add_html += '</li>';
-    }
-
-    add_html += '</ul>';
-    milestone_layout.innerHTML = add_html;
-
-    // progress header
-    let prog_layout = document.getElementById(milestone_num[i] + '_progress');
-    add_html = '<h2>' + milestone_str[i] + '</h2>';
-    if (milestone_goals[i] === 0) {
-      add_html += '<h2>0% Complete</h2>';
-    } else {
-      let percentage = Math.floor((milestone_completed[i] * 1.0 / milestone_goals[i]) * 100.0);
-      add_html += '<h2>' + percentage + '% Complete</h2>';
-    }
-    prog_layout.innerHTML = add_html;
-
-    resetBar();
-  };
-
-  xhr.send();
-}
-
 function displayExistingGoals() {
   var goals = document.getElementById('goals_layout');
 
@@ -432,7 +364,7 @@ function displayExistingGoals() {
       var j;
       for (j = 0; j < ret_data.length; j++) {
         local_complete = 0;
-        add_html += '<li>';
+        add_html += '<li id="goal_num_' + ret_data[j].number.toString(10) + '">';
 
         add_html += '<div id="goal_top">';
         add_html += '<img src="' + ret_data[j].user.avatar_url + '" />';
