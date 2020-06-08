@@ -340,8 +340,7 @@ table {
 
 #main_bar {
   float: right;
-  margin: 20px;
-  background-color: aquamarine;
+  margin-right: 20px;
 }
 
 /* progress goal layout */
