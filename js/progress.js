@@ -48,6 +48,7 @@ function updateMilestoneHeader(i) {
   let complete_num = document.getElementById(milestone_str[i] + '_complete_num');
   console.log(complete_num);
   let percentage = Math.floor((milestone_completed[i] * 1.0 / milestone_goals[i]) * 100.0);
+  console.log(percentage);
   complete_num.innerText = '' + percentage + '% Complete';
 }
 
@@ -262,9 +263,9 @@ function updateGoal(issue_id) {
 
     // update the submit function
     let incl = ret_data.state.includes('closed');
-    let fun = 'submitGoalUpdate(' + issue_id + ', ' + ret_data.milestone.title + ', ' + incl + ')';
+    let fun = 'submitGoalUpdate(' + issue_id + ', ' + ret_data.milestone.title + ', ' + incl + ');';
     console.log(fun);
-    document.getElementById('sub_new_button').setAttribute("onclick", 'console.log("got clicked");');
+    document.getElementById('sub_new_button').setAttribute("onclick", fun);
     console.log(document.getElementById('sub_new_button').getAttribute("onclick"));
 
     // scroll to view it
