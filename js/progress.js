@@ -3,17 +3,25 @@ const milestone_num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 var milestone_goals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var milestone_completed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+/**
+ * Map the name of a milestone to its index
+ * @param {string} name 
+ * @returns {number} the index of the milestone
+ */
 function mapMilestoneStrToIdx(name) {
-  console.log("input: " + name);
   let i;
   for (i = 0; i < milestone_str.length; i++) {
     if (name.includes(milestone_str[i])) {
-      console.log("returning " + i);
       return i;
     }
   }
 }
 
+/**
+ * Decodes the url to get the requested parameter (for this page, 'auth')
+ * @param {string} variable 
+ * @returns {string} the requested parameter
+ */
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
   var vars = query.split('&');
@@ -35,8 +43,12 @@ function parseDate(date_str) {
   return date + "/" + month + "/" + year;
 }
 
+/**
+ * Setup the new goal form and scroll down to view it - called by the create
+ * goal button at the top of the page
+ */
 function makeNewGoal() {
-  setupNewGoalForm();
+  setupNewGoalForm(null);
   var layout = document.getElementById('make_new_goal');
   layout.style.visibility = 'visible';
   $("html, body").delay(150).animate({
@@ -44,36 +56,33 @@ function makeNewGoal() {
   }, 1000);
 }
 
+/**
+ * Update the milestone header (X% Complete)
+ * @param {number} i - the index of the milestone
+ */
 function updateMilestoneHeader(i) {
   let complete_num = document.getElementById(milestone_str[i] + '_complete_num');
-  console.log(complete_num);
-  console.log("i is " + i);
   let percentage = Math.floor((milestone_completed[i] * 1.0 / milestone_goals[i]) * 100.0);
-  console.log(percentage);
   complete_num.innerText = '' + percentage + '% Complete';
 }
 
+/**
+ * Move an updated goal from one milestone to another (possibly the same)
+ * @param {Object} ret_data - the object representing the new goal
+ * @param {string} prev_mil - the name of the previous milestone
+ * @param {boolean} closed - whether the goal was previously closed
+ */
 function updateGoalLocation(ret_data, prev_mil, closed) {
   // remove the previous version of the goal
   var prev = document.getElementById('goal_num_' + ret_data.number.toString(10));
   prev.remove();
   const i = mapMilestoneStrToIdx(prev_mil);
 
-  // testing
-  console.log("initial g then c");
-  console.log(milestone_goals);
-  console.log(milestone_completed);
-  // testing
-
+  // update the number of goals in the previous milestone
   milestone_goals[i]--;
   if (closed) {
     milestone_completed[i]--;
   }
-
-  console.log("next g then c");
-  console.log(milestone_goals);
-  console.log(milestone_completed);
-
   updateMilestoneHeader(i);
 
   // add the goal to the new location
@@ -96,12 +105,8 @@ function addGoalToMilestone(ret_data) {
   }
   add_html += '</p></div>';
 
-  console.log("here g then c");
-  console.log(milestone_goals);
-  console.log(milestone_completed)
   const i = mapMilestoneStrToIdx(ret_data.milestone.title);
   milestone_goals[i]++;
-  console.log(milestone_goals);
 
   if (ret_data.state.includes("open")) {
     add_html += '<button onclick="updateGoal(' + ret_data.number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
@@ -111,8 +116,6 @@ function addGoalToMilestone(ret_data) {
     add_html += '<button onclick="markComplete(' + ret_data.number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
   }
   add_html += '</div>';
-
-  console.log(milestone_completed);
 
   var people = '';
   var k;
@@ -156,7 +159,6 @@ function submitNewGoal() {
   req.assignees = people;
 
   var jsonString = JSON.stringify(req);
-  console.log(jsonString);
 
   xhr = new XMLHttpRequest();
   xhr.open("POST", post_url, true);
@@ -175,7 +177,6 @@ function submitNewGoal() {
 }
 
 function submitGoalUpdate(issue_id, prev_mil, closed) {
-  console.log("got here...");
   var auth_code = getQueryVariable('auth');
   var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
   patch_url += issue_id;
@@ -195,7 +196,6 @@ function submitGoalUpdate(issue_id, prev_mil, closed) {
   req.assignees = people;
 
   var jsonString = JSON.stringify(req);
-  console.log(jsonString);
 
   xhr = new XMLHttpRequest();
   xhr.open("PATCH", patch_url, true);
@@ -272,9 +272,7 @@ function updateGoal(issue_id) {
     // update the submit function
     let incl = ret_data.state.includes('closed');
     let fun = 'submitGoalUpdate(' + issue_id + ', "' + ret_data.milestone.title + '", ' + incl + ');';
-    console.log(fun);
     document.getElementById('sub_new_button').setAttribute("onclick", fun);
-    console.log(document.getElementById('sub_new_button').getAttribute("onclick"));
 
     // scroll to view it
     $("html, body").delay(150).animate({
@@ -340,7 +338,6 @@ function setupNewGoalForm(edit_data) {
       let k;
       for (k = 0; k < edit_data.assignees.length; k++) {
         let box_id = edit_data.assignees[k].login + '_checkbox';
-        console.log("login box id is " + box_id);
         let checkbox = document.getElementById(box_id);
         checkbox.checked = true;
       }
@@ -352,6 +349,7 @@ function setupNewGoalForm(edit_data) {
 
 function resetBar() {
   // set the main progress bar
+  console.log("RESET BAR");
   let total_goals = milestone_goals.reduce(function (a, b) {
     return a + b;
   }, 0);
@@ -362,6 +360,7 @@ function resetBar() {
   if (total_goals > 0) {
     val = (total_completed * 1.0 / total_goals) * 100.0;
   }
+  console.log("val is " + val);
   document.getElementById("main_bar").setAttribute('data-value', val.toString(10));
 }
 
