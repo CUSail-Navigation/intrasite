@@ -96,7 +96,7 @@ function addGoalToMilestone(ret_data) {
   }
   add_html += '</p></div>';
 
-  console("here g then c");
+  console.log("here g then c");
   console.log(milestone_goals);
   console.log(milestone_completed)
   const i = mapMilestoneStrToIdx(ret_data.milestone.title);
