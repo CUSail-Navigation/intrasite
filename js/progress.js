@@ -46,6 +46,7 @@ function makeNewGoal() {
 
 function updateMilestoneHeader(i) {
   let complete_num = document.getElementById(milestone_str[i] + '_complete_num');
+  console.log(complete_num);
   let percentage = Math.floor((milestone_completed[i] * 1.0 / milestone_goals[i]) * 100.0);
   complete_num.innerText = '' + percentage + '% Complete';
 }
@@ -264,6 +265,7 @@ function updateGoal(issue_id) {
     let fun = 'submitGoalUpdate(' + issue_id + ', ' + ret_data.milestone.title + ', ' + incl + ')';
     console.log(fun);
     document.getElementById('sub_new_button').setAttribute("onclick", fun);
+    console.log(document.getElementById('sub_new_button').getAttribute("onclick"));
 
     // scroll to view it
     $("html, body").delay(150).animate({
