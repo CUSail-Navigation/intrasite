@@ -96,7 +96,9 @@ function addGoalToMilestone(ret_data) {
   }
   add_html += '</p></div>';
 
+  console("here g then c");
   console.log(milestone_goals);
+  console.log(milestone_completed)
   const i = mapMilestoneStrToIdx(ret_data.milestone.title);
   milestone_goals[i]++;
   console.log(milestone_goals);
@@ -109,6 +111,8 @@ function addGoalToMilestone(ret_data) {
     add_html += '<button onclick="markComplete(' + ret_data.number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
   }
   add_html += '</div>';
+
+  console.log(milestone_completed);
 
   var people = '';
   var k;
