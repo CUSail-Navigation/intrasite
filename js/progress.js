@@ -378,7 +378,10 @@ function displayExistingGoals() {
     add_html += '<div class="milestone_progress" id="' + milestone_num[i] + '_progress"></div>';
     add_html += '<div class="goal_sublayout" id="milestone_' + milestone_str[i] + '"><ul id="ul_' + milestone_str[i] + '">';
     add_html += '</ul></div>';
+  }
+  goals.innerHTML = add_html;
 
+  for (i = 0; i < milestone_num.length; i++) {
     // make a get request for those issues
     var xhr = new XMLHttpRequest();
     var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
@@ -403,8 +406,6 @@ function displayExistingGoals() {
     };
     xhr.send();
   }
-
-  goals.innerHTML = add_html;
 
 
   // for (i = 0; i < milestone_num.length; i++) {
