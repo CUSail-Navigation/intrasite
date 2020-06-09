@@ -253,7 +253,6 @@ table {
   flex-wrap: wrap;
   margin-top: 10px;
   margin-bottom: 20px;
-  padding: 10px;
 }
 
 #guides_layout a {
@@ -261,6 +260,7 @@ table {
   margin-left: 1.5vw;
   margin-right: 1.5vw;
   border-radius: 30px;
+  padding: 10px;
 }
 
 #guides_layout a h4 {
@@ -270,8 +270,8 @@ table {
 }
 
 #guides_layout a img {
-  width: 150px;
-  height: 150px;
+  width: 125px;
+  height: 125px;
   border-radius: 30px;
   transition: 0.5s;
 }
