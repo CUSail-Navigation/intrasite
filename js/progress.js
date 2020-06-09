@@ -49,6 +49,9 @@ function getQueryVariable(variable) {
  * @returns {string} the date as DD/MM/YYYY
  */
 function parseDate(date_str) {
+  var date = new Date(date_str);
+  console.log(date);
+  console.log(date.toLocaleString());
   var year = date_str.substring(0, 4);
   var date = date_str.substring(5, 7);
   var month = date_str.substring(8, 10);
