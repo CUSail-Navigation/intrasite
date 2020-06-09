@@ -1,7 +1,11 @@
 const milestone_str = ['August 2020', 'September 2020', 'October 2020', 'November 2020', 'December 2020', 'January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021'];
 const milestone_num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+
+// the number of goals within each milestone
 var milestone_goals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+// the number of completed goals within each milestone
 var milestone_completed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+// the progress bar
 var prog_bar = new ldBar(".main_bar", {
   "type": 'fill',
   "img": './images/BoatLogo.svg',
@@ -408,17 +412,17 @@ function displayExistingGoals() {
   }
 
 
-  // for (i = 0; i < milestone_num.length; i++) {
-  //   let prog_layout = document.getElementById(milestone_num[i] + '_progress');
-  //   add_html = '<h2>' + milestone_str[i] + '</h2>';
-  //   if (milestone_goals[i] === 0) {
-  //     add_html += '<h2 id="' + milestone_str[i] + '_complete_num">0% Complete</h2>';
-  //   } else {
-  //     let percentage = Math.floor((milestone_completed[i] * 1.0 / milestone_goals[i]) * 100.0);
-  //     add_html += '<h2 id="' + milestone_str[i] + '_complete_num">' + percentage + '% Complete</h2>';
-  //   }
-  //   prog_layout.innerHTML = add_html;
-  // }
+  for (i = 0; i < milestone_num.length; i++) {
+    let prog_layout = document.getElementById(milestone_num[i] + '_progress');
+    add_html = '<h2>' + milestone_str[i] + '</h2>';
+    if (milestone_goals[i] === 0) {
+      add_html += '<h2 id="' + milestone_str[i] + '_complete_num">0% Complete</h2>';
+    } else {
+      let percentage = Math.floor((milestone_completed[i] * 1.0 / milestone_goals[i]) * 100.0);
+      add_html += '<h2 id="' + milestone_str[i] + '_complete_num">' + percentage + '% Complete</h2>';
+    }
+    prog_layout.innerHTML = add_html;
+  }
 
   // set the number of days until competition
   let header = document.getElementById('goal_header');
