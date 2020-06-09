@@ -176,6 +176,7 @@ function submitNewGoal() {
   var token = 'token ' + auth_code;
   xhr.setRequestHeader('Authorization', token);
   xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Time-Zone', 'America/New_York');
 
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
@@ -213,6 +214,7 @@ function submitGoalUpdate(issue_id, prev_mil, closed) {
   var token = 'token ' + auth_code;
   xhr.setRequestHeader('Authorization', token);
   xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Time-Zone', 'America/New_York');
 
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -244,6 +246,7 @@ function markComplete(issue_id, mark) {
   var token = 'token ' + auth_code;
   xhr.setRequestHeader('Authorization', token);
   xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Time-Zone', 'America/New_York');
 
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -260,6 +263,7 @@ function updateGoal(issue_id) {
   var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
   get_url += issue_id;
   xhr.open('GET', get_url, true);
+  xhr.setRequestHeader('Time-Zone', 'America/New_York');
 
   xhr.onload = function () {
     let ret_data = JSON.parse(this.responseText);
@@ -393,6 +397,7 @@ function displayExistingGoals() {
     get_url += '&state=all';
     xhr.open('GET', get_url, true);
     xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
+    xhr.setRequestHeader('Time-Zone', 'America/New_York');
 
     xhr.onload = function () {
       var ret_data = JSON.parse(this.responseText);
@@ -433,7 +438,4 @@ function displayExistingGoals() {
   dayDif = Math.round(dayDif);
   dayDif = Math.max(0, dayDif);
   header.innerText = 'Progress Tracker • ' + dayDif + ' Days Until Competition';
-
-  var load_icon = document.getElementById('loadIcon');
-  load_icon.style.visibility = 'hidden';
 }
