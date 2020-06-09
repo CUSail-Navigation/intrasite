@@ -170,7 +170,7 @@ nav a:not(.nav_logo):hover {
 }
 
 #parallax {
-  background-image: url('../images/boat_wide.png');
+  background-image: url('../images/boat_wide.jpg');
   background-size: cover;
   border-bottom: 1px solid #65C8D0;
 }
