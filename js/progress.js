@@ -371,7 +371,7 @@ function setupNewGoalForm(edit_data) {
 
   add_html += '<div id="goal_adder_overall">';
   add_html += '<div id="goal_adder_top">';
-  add_html += '<input id="goal_title_input" type="text" placeholder="New Goal Title...">';
+  add_html += '<input id="goal_title_input" type="text" placeholder="New Goal Title..." autocomplete="off">';
 
   add_html += '<label for="milestone">Due Date:</label>';
   add_html += '<select id="milestone_selector" name="milestone">';

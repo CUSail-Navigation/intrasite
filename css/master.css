@@ -10,6 +10,10 @@ html {
   background: white;
 }
 
+[contenteditable="true"]:focus {
+  outline: none;
+}
+
 a {
   text-decoration: none;
 }
@@ -45,6 +49,7 @@ nav ul {
   margin: 0;
   padding: 0;
   display: flex;
+  align-items: center;
 }
 
 nav ul li {
@@ -113,7 +118,7 @@ nav a:not(.nav_logo):hover {
   border-color: #002D5F;
   border-width: 1px;
   border-style: solid;
-
+  padding: 2px;
 }
 
 #nav_search {
@@ -125,9 +130,6 @@ nav a:not(.nav_logo):hover {
   /* border-radius: 2px; */
   font-family: 'Lato', sans-serif;
   padding-left: 2px;
-}
-
-.scrolled ul li form #nav_search {
   background-color: transparent;
 }
 
