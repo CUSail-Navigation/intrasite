@@ -182,6 +182,10 @@ nav a:not(.nav_logo):hover {
   width: 75%;
   text-align: center;
   color: #65C8D0;
+  padding-left: 10vw;
+  padding-right: 10vw;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
 }
 
 .headline h1 {
