@@ -8,6 +8,13 @@
   </div>
 
   <ul>
+    <li id="search_bar">
+      <form action="{{ site.baseurl }}/search.html" method="get">
+        <input id="nav_search" type="text" name="query" placeholder="Search Guides">
+        <input id="search_button" style="display: none;" type="submit" value="search">
+      </form>
+      <i class="fa fa-search"></i>
+    </li>
     <li><a href="https://cusail.engineering.cornell.edu/">About CUSail</a></li>
     <li><a href="{{ site.baseurl }}/progress_gateway.html">Progress</a></li>
     <li><a href="https://www.sailbot.org/">Competition</a>
@@ -23,13 +30,6 @@
         {% endif %}
         {% endfor %}
       </ul>
-    </li>
-    <li id="search_bar">
-      <form action="{{ site.baseurl }}/search.html" method="get">
-        <input id="nav_search" type="text" name="query" placeholder="Search Guides">
-        <input id="search_button" style="display: none;" type="submit" value="search">
-      </form>
-      <i class="fa fa-search"></i>
     </li>
   </ul>
 </nav>
