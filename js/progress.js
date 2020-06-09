@@ -1,6 +1,3 @@
-const milestone_str = ['August 2020', 'September 2020', 'October 2020', 'November 2020', 'December 2020', 'January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021'];
-const milestone_num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-
 // the number of goals within each milestone
 var milestone_goals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 // the number of completed goals within each milestone
@@ -16,7 +13,7 @@ var prog_bar = new ldBar(".main_bar", {
 
 /**
  * Map the name of a milestone to its index
- * @param {string} name 
+ * @param {string} name - the name of a milestone
  * @returns {number} the index of the milestone
  */
 function mapMilestoneStrToIdx(name) {
@@ -30,7 +27,7 @@ function mapMilestoneStrToIdx(name) {
 
 /**
  * Decodes the url to get the requested parameter (for this page, 'auth')
- * @param {string} variable 
+ * @param {string} variable - the variable name
  * @returns {string} the requested parameter
  */
 function getQueryVariable(variable) {
@@ -46,8 +43,12 @@ function getQueryVariable(variable) {
   }
 }
 
+/**
+ * Parse the date given by the Github API into a prettier format
+ * @param {string} date_str - something like "2020-06-05T19:13:40Z"
+ * @returns {string} the date as DD/MM/YYYY
+ */
 function parseDate(date_str) {
-  // input is something like "2020-06-05T19:13:40Z"
   var year = date_str.substring(0, 4);
   var date = date_str.substring(5, 7);
   var month = date_str.substring(8, 10);
@@ -176,7 +177,6 @@ function submitNewGoal() {
   var token = 'token ' + auth_code;
   xhr.setRequestHeader('Authorization', token);
   xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.setRequestHeader('Time-Zone', 'America/New_York');
 
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
@@ -214,7 +214,6 @@ function submitGoalUpdate(issue_id, prev_mil, closed) {
   var token = 'token ' + auth_code;
   xhr.setRequestHeader('Authorization', token);
   xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.setRequestHeader('Time-Zone', 'America/New_York');
 
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -246,7 +245,6 @@ function markComplete(issue_id, mark) {
   var token = 'token ' + auth_code;
   xhr.setRequestHeader('Authorization', token);
   xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.setRequestHeader('Time-Zone', 'America/New_York');
 
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -263,7 +261,6 @@ function updateGoal(issue_id) {
   var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
   get_url += issue_id;
   xhr.open('GET', get_url, true);
-  xhr.setRequestHeader('Time-Zone', 'America/New_York');
 
   xhr.onload = function () {
     let ret_data = JSON.parse(this.responseText);
@@ -361,6 +358,17 @@ function setupNewGoalForm(edit_data) {
   xhr.send();
 }
 
+function dispDaysToComp() {
+  let header = document.getElementById('goal_header');
+  let curDate = new Date();
+  let compDate = new Date("06/01/2021");
+  let timeDif = compDate.getTime() - curDate.getTime();
+  let dayDif = timeDif / (1000 * 3600 * 24);
+  dayDif = Math.round(dayDif);
+  dayDif = Math.max(0, dayDif);
+  header.innerText = 'Progress Tracker • ' + dayDif + ' Days Until Competition';
+}
+
 function resetBar() {
   // set the main progress bar
   let total_goals = milestone_goals.reduce(function (a, b) {
@@ -397,7 +405,6 @@ function displayExistingGoals() {
     get_url += '&state=all';
     xhr.open('GET', get_url, true);
     xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
-    xhr.setRequestHeader('Time-Zone', 'America/New_York');
 
     xhr.onload = function () {
       var ret_data = JSON.parse(this.responseText);
@@ -429,13 +436,5 @@ function displayExistingGoals() {
     prog_layout.innerHTML = add_html;
   }
 
-  // set the number of days until competition
-  let header = document.getElementById('goal_header');
-  let curDate = new Date();
-  let compDate = new Date("06/01/2021");
-  let timeDif = compDate.getTime() - curDate.getTime();
-  let dayDif = timeDif / (1000 * 3600 * 24);
-  dayDif = Math.round(dayDif);
-  dayDif = Math.max(0, dayDif);
-  header.innerText = 'Progress Tracker • ' + dayDif + ' Days Until Competition';
+  dispDaysToComp();
 }
