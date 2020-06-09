@@ -280,7 +280,7 @@ function markComplete(issue_id, mark) {
         document.getElementById('edit_button_' + ret_data.number.toString(10)).remove();
         document.getElementById('complete_button_' + ret_data.number.toString(10)).innerText = 'Reopen';
         let fun = 'markComplete(' + ret_data.number.toString(10) + ', ' + false + ')';
-        document.getElementById('complete_button').setAttribute("onclick", fun);
+        document.getElementById('complete_button_' + ret_data.number.toString(10)).setAttribute("onclick", fun);
         let compl_anno = 'Created by ' + ret_data.user.login + ' on ' + parseDate(ret_data.created_at);
         compl_anno += ' • Completed on ' + parseDate(ret_data.closed_at);
         document.getElementById('create_complete_' + ret_data.number.toString(10)).innerText = compl_anno;
