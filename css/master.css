@@ -42,7 +42,7 @@ nav .logo {
   height: 90%;
   width: 20%;
   float: left;
-  align-content: flex-start;
+  align-content: center;
   justify-content: left;
   font-weight: bold;
 }
@@ -78,6 +78,12 @@ nav a:not(.nav_logo):hover {
   background-color: #e7e7e7;
   border-radius: 15px;
   text-decoration: none;
+}
+
+.main_nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .main_nav li:hover .subnav {
@@ -252,6 +258,7 @@ table {
   margin-top: 15px;
   margin-left: 1.5vw;
   margin-right: 1.5vw;
+  border-radius: 30px;
 }
 
 #guides_layout a h4 {
@@ -267,9 +274,8 @@ table {
   transition: 0.5s;
 }
 
-#guides_layout a img:hover {
-  width: 175px;
-  height: 175px;
+#guides_layout a:hover {
+  background-color: #e7e7e7;
 }
 
 /* end index.html requirements */
