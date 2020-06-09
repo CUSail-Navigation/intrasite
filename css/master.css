@@ -253,6 +253,7 @@ table {
   flex-wrap: wrap;
   margin-top: 10px;
   margin-bottom: 20px;
+  padding: 10px;
 }
 
 #guides_layout a {
@@ -277,6 +278,7 @@ table {
 
 #guides_layout a:hover {
   background-color: #e7e7e7;
+  text-decoration: none;
 }
 
 /* end index.html requirements */
