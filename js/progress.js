@@ -113,7 +113,7 @@ function addGoalToMilestone(ret_data) {
 
   add_html += '<div id="goal_creator">';
   add_html += '<h4>' + ret_data.title + '</h4>';
-  add_html += '<p>Created by ' + ret_data.user.login + ' on ' + parseDate(ret_data.created_at);
+  add_html += '<p id="create_and_complete">Created by ' + ret_data.user.login + ' on ' + parseDate(ret_data.created_at);
   if (ret_data.state.includes("closed")) {
     add_html += ' • Completed on ' + parseDate(ret_data.closed_at);
   }
@@ -123,11 +123,11 @@ function addGoalToMilestone(ret_data) {
   milestone_goals[i]++;
 
   if (ret_data.state.includes("open")) {
-    add_html += '<button onclick="updateGoal(' + ret_data.number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
-    add_html += '<button onclick="markComplete(' + ret_data.number.toString(10) + ', ' + true + ')" type="button">Mark Complete</button>';
+    add_html += '<button id="edit_button" onclick="updateGoal(' + ret_data.number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
+    add_html += '<button id="complete_button" onclick="markComplete(' + ret_data.number.toString(10) + ', ' + true + ')" type="button">Mark Complete</button>';
   } else {
     milestone_completed[i]++;
-    add_html += '<button onclick="markComplete(' + ret_data.number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
+    add_html += '<button id="complete_button" onclick="markComplete(' + ret_data.number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
   }
   add_html += '</div>';
 
@@ -264,7 +264,22 @@ function markComplete(issue_id, mark) {
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       var ret_data = JSON.parse(this.responseText);
-      updateGoalLocation(ret_data, ret_data.milestone.title, !mark);
+      const i = mapMilestoneStrToIdx(ret_data.milestone.title);
+
+      // if marking closed, remove the edit button and change the text on 
+      // the mark complete button to reopen, add 'completed on' annotation
+      if (mark) {
+        document.getElementById('edit_button').remove();
+        document.getElementById('complete_button').innerText = 'Reopen';
+        let fun = 'markComplete(' + ret_data.number.toString(10) + ', ' + false + ')';
+        document.getElementById('complete_button').setAttribute("onclick", fun);
+        let compl_anno = '<p id="create_and_complete">Created by ' + ret_data.user.login + ' on ' + parseDate(ret_data.created_at);
+        compl_anno += ' • Completed on ' + parseDate(ret_data.closed_at);
+        document.getElementById('create_and_complete').innerText = compl_anno;
+      } else {
+        updateGoalLocation(ret_data, ret_data.milestone.title, !mark);
+      }
+
     }
   }
   xhr.send(jsonString);
