@@ -111,7 +111,7 @@ function addGoalToMilestone(ret_data) {
   add_html += '<div class="goal_top" id="top_' + ret_data.number.toString(10) + '">';
   add_html += '<img src="' + ret_data.user.avatar_url + '" />';
 
-  add_html += '<div id="goal_creator">';
+  add_html += '<div class="goal_creator">';
   add_html += '<h4>' + ret_data.title + '</h4>';
   add_html += '<p id="create_complete_' + ret_data.number.toString(10) + '">Created by ';
   add_html += ret_data.user.login + ' on ' + parseDate(ret_data.created_at);
@@ -141,15 +141,15 @@ function addGoalToMilestone(ret_data) {
     people += ret_data.assignees[k].login + ', ';
   }
   if (ret_data.assignees.length < 1) {
-    add_html += '<p id="goal_assignees">';
+    add_html += '<p class="goal_assignees">';
     people += 'No one is assigned to this goal. Edit this goal to add someone.';
   } else {
-    add_html += '<p id="goal_assignees">Assigned Team Members: ';
+    add_html += '<p class="goal_assignees">Assigned Team Members: ';
     people = people.substring(0, people.length - 2);
   }
   add_html += people + '</p>';
 
-  add_html += '<p id="goal_body"><b>' + ret_data.body + '</b></p>';
+  add_html += '<p class="goal_body"><b>' + ret_data.body + '</b></p>';
   add_html += '</li>';
 
   ul_layout.innerHTML += add_html;
