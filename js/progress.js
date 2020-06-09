@@ -108,7 +108,7 @@ function addGoalToMilestone(ret_data) {
   var add_html = '';
 
   add_html += '<li id="goal_num_' + ret_data.number.toString(10) + '">';
-  add_html += '<div id="goal_top">';
+  add_html += '<div class="goal_top" id="top_' + ret_data.number.toString(10) + '">';
   add_html += '<img src="' + ret_data.user.avatar_url + '" />';
 
   add_html += '<div id="goal_creator">';
@@ -126,11 +126,12 @@ function addGoalToMilestone(ret_data) {
   if (ret_data.state.includes("open")) {
     add_html += '<button id="edit_button_' + ret_data.number.toString(10) + '" onclick="updateGoal(';
     add_html += ret_data.number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
-    add_html += '<button id="complete_button' + ret_data.number.toString(10) + '" onclick="markComplete(';
+    add_html += '<button id="complete_button_' + ret_data.number.toString(10) + '" onclick="markComplete(';
     add_html += ret_data.number.toString(10) + ', ' + true + ')" type="button">Mark Complete</button>';
   } else {
     milestone_completed[i]++;
-    add_html += '<button id="complete_button" onclick="markComplete(' + ret_data.number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
+    add_html += '<button id="complete_button_' + ret_data.number.toString(10) + '" onclick="markComplete(';
+    add_html += ret_data.number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
   }
   add_html += '</div>';
 
@@ -275,8 +276,6 @@ function markComplete(issue_id, mark) {
       // the reopen button to mark complete, remove the 'completed on' annotation
       if (mark) {
         milestone_completed[i]++
-        updateMilestoneHeader(i);
-        resetBar();
         document.getElementById('edit_button_' + ret_data.number.toString(10)).remove();
         document.getElementById('complete_button_' + ret_data.number.toString(10)).innerText = 'Reopen';
         let fun = 'markComplete(' + ret_data.number.toString(10) + ', ' + false + ')';
@@ -285,9 +284,30 @@ function markComplete(issue_id, mark) {
         compl_anno += ' • Completed on ' + parseDate(ret_data.closed_at);
         document.getElementById('create_complete_' + ret_data.number.toString(10)).innerText = compl_anno;
       } else {
-        updateGoalLocation(ret_data, ret_data.milestone.title, !mark);
+        milestone_completed[i]--;
+        // remove the mark complete button so that the order will be correct
+        document.getElementById('complete_button_' + ret_data.number.toString(10)).remove();
+        // put back the edit button
+        let edit_button = document.createElement("button");
+        edit_button.setAttribute("id", 'edit_button_' + ret_data.number.toString(10));
+        edit_button.setAttribute("type", "button");
+        edit_button.setAttribute("onclick", 'updateGoal(' + ret_data.number.toString(10) + ')');
+        edit_button.innerText = "Edit Goal";
+        document.getElementById('top_' + ret_data.number.toString(10)).appendChild(edit_button);
+        // put back the complete button
+        let complete_button = document.createElement("button");
+        complete_button.setAttribute("id", 'complete_button_' + ret_data.number.toString(10));
+        complete_button.setAttribute("type", "button");
+        complete_button.setAttribute("onclick", 'markComplete(' + ret_data.number.toString(10) + ', ' + true + ')');
+        complete_button.innerText = "Mark Complete";
+        document.getElementById('top_' + ret_data.number.toString(10)).appendChild(complete_button);
+        // reset the annotation
+        let compl_anno = 'Created by ' + ret_data.user.login + ' on ' + parseDate(ret_data.created_at);
+        document.getElementById('create_complete_' + ret_data.number.toString(10)).innerText = compl_anno;
       }
-
+      // update progress markers
+      updateMilestoneHeader(i);
+      resetBar();
     }
   }
   xhr.send(jsonString);

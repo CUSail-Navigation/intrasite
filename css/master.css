@@ -375,7 +375,7 @@ table {
   text-align: left;
 }
 
-#goal_top {
+.goal_top {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -393,7 +393,7 @@ table {
   list-style: none;
 }
 
-#goal_top img {
+.goal_top img {
   width: 50px;
   height: 50px;
   flex-basis: min-content;
@@ -414,7 +414,7 @@ table {
   margin-bottom: 0px;
 }
 
-#goal_top p {
+.goal_top p {
   margin-bottom: auto;
 }
 
@@ -425,7 +425,7 @@ table {
   margin-bottom: 10px;
 }
 
-#goal_top button {
+.goal_top button {
   margin-left: 10px;
   margin-right: 0px;
   margin-top: auto;
