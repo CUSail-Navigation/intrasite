@@ -366,9 +366,10 @@ function resetBar() {
   if (total_goals > 0) {
     val = (total_completed * 1.0 / total_goals) * 100.0;
   }
+  console.log(val);
 
   // rerender the bar
-  prog_bar.set(val);
+  prog_bar.set(val, true);
 }
 
 function displayExistingGoals() {
