@@ -339,7 +339,7 @@ table {
   padding: 20px;
 }
 
-#main_bar {
+.main_bar {
   float: right;
   margin-right: 20px;
 }

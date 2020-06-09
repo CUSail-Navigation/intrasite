@@ -2,6 +2,13 @@ const milestone_str = ['August 2020', 'September 2020', 'October 2020', 'Novembe
 const milestone_num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 var milestone_goals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var milestone_completed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var prog_bar = new ldBar(".main_bar", {
+  "type": 'fill',
+  "img": './images/BoatLogo.svg',
+  "value": 0,
+  "img-size": "110,110",
+  "fill-background": '#e7e7e7'
+});
 
 /**
  * Map the name of a milestone to its index
@@ -215,7 +222,6 @@ function submitGoalUpdate(issue_id, prev_mil, closed) {
 
 // mark is true for mark closed, false for mark open
 function markComplete(issue_id, mark) {
-  console.log("MARK COMPLETE");
   var auth_code = getQueryVariable('auth');
   var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
   patch_url += issue_id;
@@ -362,10 +368,7 @@ function resetBar() {
   }
 
   // rerender the bar
-  document.getElementById('main_bar').remove();
-  var add_html = '<div id="main_bar" class="ldBar label-center" data-type="fill" data-img="./images/BoatLogo.svg" ';
-  add_html += 'data-value="' + val + '" data-img-size="110,110" data-fill-background="#e7e7e7"></div>';
-  document.getElementById('left_sidebar').innerHTML = add_html;
+  prog_bar.set(val);
 }
 
 function displayExistingGoals() {
