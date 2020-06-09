@@ -388,7 +388,7 @@ function displayExistingGoals() {
     xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
 
     xhr.onload = function () {
-      var ret_data = JSON.parse(xhr.responseText);
+      var ret_data = JSON.parse(this.responseText);
       milestone_goals[i] = ret_data.length;
 
       var j;
