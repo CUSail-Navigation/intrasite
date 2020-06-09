@@ -10,8 +10,11 @@ html {
   background: white;
 }
 
-[contenteditable="true"]:focus {
-  outline: none;
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
 }
 
 a {
@@ -151,6 +154,7 @@ nav a:not(.nav_logo):hover {
 
 .fa-search {
   margin-right: 10px;
+  margin-left: 5px;
   color: #002D5F;
   border-color: #002D5F;
   transition: 0.5s;
