@@ -52,7 +52,7 @@ nav ul {
   margin: 0;
   padding: 0;
   display: flex;
-  align-items: center;
+  align-items: baseline;
 }
 
 nav ul li {
@@ -84,6 +84,7 @@ nav a:not(.nav_logo):hover {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 
 .main_nav li:hover .subnav {
