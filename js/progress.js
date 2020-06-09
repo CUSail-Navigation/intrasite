@@ -367,7 +367,7 @@ function setupNewGoalForm(edit_data) {
   var add_html = '';
 
   add_html += '<h2 id="goal_adder_label">Add a New Goal</h2>';
-  add_html += '<p>Note: Any member can add or edit a goal, but only an admin (Courtney) can delete one.</p>';
+  add_html += '<p>Note: Any member can add or edit a goal, but only an admin can delete one.</p>';
 
   add_html += '<div id="goal_adder_overall">';
   add_html += '<div id="goal_adder_top">';
