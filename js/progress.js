@@ -355,7 +355,6 @@ function setupNewGoalForm(edit_data) {
 
 function resetBar() {
   // set the main progress bar
-  console.log("RESET BAR");
   let total_goals = milestone_goals.reduce(function (a, b) {
     return a + b;
   }, 0);
@@ -366,19 +365,19 @@ function resetBar() {
   if (total_goals > 0) {
     val = (total_completed * 1.0 / total_goals) * 100.0;
   }
-  console.log(val);
-
-  // rerender the bar
   prog_bar.set(val, true);
 }
 
 function displayExistingGoals() {
   var goals = document.getElementById('goals_layout');
 
+  var ret_req = 0;
   var add_html = '';
   var i;
   for (i = 0; i < milestone_num.length; i++) {
     add_html += '<div class="milestone_progress" id="' + milestone_num[i] + '_progress"></div>';
+    add_html += '<div class="goal_sublayout" id="milestone_' + milestone_str[i] + '"><ul id="ul_' + milestone_str[i] + '">';
+    add_html += '</ul></div>';
 
     // make a get request for those issues
     var xhr = new XMLHttpRequest();
@@ -387,74 +386,37 @@ function displayExistingGoals() {
     get_url += '&state=all';
     xhr.open('GET', get_url, false); // synch is deprecated, but screw it
     xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
-    xhr.send();
 
-    if (xhr.status === 200) {
+    xhr.onload = function () {
       var ret_data = JSON.parse(xhr.responseText);
-      add_html += '<div class="goal_sublayout" id="milestone_' + milestone_str[i] + '"><ul id="ul_' + milestone_str[i] + '">';
-
       milestone_goals[i] = ret_data.length;
 
       var j;
       for (j = 0; j < ret_data.length; j++) {
-        local_complete = 0;
-        add_html += '<li id="goal_num_' + ret_data[j].number.toString(10) + '">';
-
-        add_html += '<div id="goal_top">';
-        add_html += '<img src="' + ret_data[j].user.avatar_url + '" />';
-
-        add_html += '<div id="goal_creator">';
-        add_html += '<h4>' + ret_data[j].title + '</h4>';
-        add_html += '<p>Created by ' + ret_data[j].user.login + ' on ' + parseDate(ret_data[j].created_at);
-        if (ret_data[j].state.includes("closed")) {
-          add_html += ' • Completed on ' + parseDate(ret_data[j].closed_at);
-        }
-        add_html += '</p></div>';
-
-        if (ret_data[j].state.includes("open")) {
-          add_html += '<button onclick="updateGoal(' + ret_data[j].number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
-          add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ', ' + true + ')" type="button">Mark Complete</button>';
-        } else {
-          milestone_completed[i]++;
-          add_html += '<button onclick="markComplete(' + ret_data[j].number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
-        }
-        add_html += '</div>';
-
-        var people = '';
-        var k;
-        for (k = 0; k < ret_data[j].assignees.length; k++) {
-          people += ret_data[j].assignees[k].login + ', ';
-        }
-        if (ret_data[j].assignees.length < 1) {
-          add_html += '<p id="goal_assignees">';
-          people += 'No one is assigned to this goal. Edit this goal to add someone.';
-        } else {
-          add_html += '<p id="goal_assignees">Assigned Team Members: ';
-          people = people.substring(0, people.length - 2);
-        }
-        add_html += people + '</p>';
-
-        add_html += '<p id="goal_body"><b>' + ret_data[j].body + '</b></p>';
-        add_html += '</li>';
+        addGoalToMilestone(ret_data[j]);
       }
-      add_html += '</ul></div>';
-    }
+
+      if (ret_req === milestone_num.length) {
+        resetBar();
+      }
+    };
+    xhr.send();
   }
+
   goals.innerHTML = add_html;
 
-  for (i = 0; i < milestone_num.length; i++) {
-    let prog_layout = document.getElementById(milestone_num[i] + '_progress');
-    add_html = '<h2>' + milestone_str[i] + '</h2>';
-    if (milestone_goals[i] === 0) {
-      add_html += '<h2 id="' + milestone_str[i] + '_complete_num">0% Complete</h2>';
-    } else {
-      let percentage = Math.floor((milestone_completed[i] * 1.0 / milestone_goals[i]) * 100.0);
-      add_html += '<h2 id="' + milestone_str[i] + '_complete_num">' + percentage + '% Complete</h2>';
-    }
-    prog_layout.innerHTML = add_html;
-  }
 
-  resetBar();
+  // for (i = 0; i < milestone_num.length; i++) {
+  //   let prog_layout = document.getElementById(milestone_num[i] + '_progress');
+  //   add_html = '<h2>' + milestone_str[i] + '</h2>';
+  //   if (milestone_goals[i] === 0) {
+  //     add_html += '<h2 id="' + milestone_str[i] + '_complete_num">0% Complete</h2>';
+  //   } else {
+  //     let percentage = Math.floor((milestone_completed[i] * 1.0 / milestone_goals[i]) * 100.0);
+  //     add_html += '<h2 id="' + milestone_str[i] + '_complete_num">' + percentage + '% Complete</h2>';
+  //   }
+  //   prog_layout.innerHTML = add_html;
+  // }
 
   // set the number of days until competition
   let header = document.getElementById('goal_header');
