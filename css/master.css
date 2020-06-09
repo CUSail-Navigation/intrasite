@@ -111,7 +111,6 @@ nav a:not(.nav_logo):hover {
 #search_bar {
   margin-top: 10px;
   transition: 0.5s;
-  flex-basis: 100%;
 }
 
 #search_bar:hover > form #nav_search {
@@ -156,7 +155,7 @@ nav a:not(.nav_logo):hover {
 
 .fa-search {
   margin-right: 10px;
-  color: #65C8D0;
+  color: #002D5F;
   transition: 0.5s;
 }
 
@@ -176,11 +175,9 @@ nav a:not(.nav_logo):hover {
 }
 
 .headline {
-  display: block;
+  display: flex;
   align-content: center;
   justify-content: center;
-  /* height: 30%;
-  width: 75%; */
   text-align: center;
   color: #65C8D0;
   padding-left: 10vw;
