@@ -113,16 +113,16 @@ nav a:not(.nav_logo):hover {
   transition: 0.5s;
 }
 
-#search_bar:hover > form #nav_search {
+#search_bar form #nav_search {
   display: inline-flex;
   border-color: #002D5F;
   border-width: 1px;
   border-style: solid;
 }
 
-#search_bar:hover .fa-search{
+/* #search_bar:hover .fa-search{
   display:none;
-}
+} */
 
 #nav_search {
   color: #002D5F;
@@ -156,6 +156,7 @@ nav a:not(.nav_logo):hover {
 .fa-search {
   margin-right: 10px;
   color: #002D5F;
+  border-color: #002D5F;
   transition: 0.5s;
 }
 
@@ -180,10 +181,6 @@ nav a:not(.nav_logo):hover {
   justify-content: center;
   text-align: center;
   color: #65C8D0;
-  padding-left: 10vw;
-  padding-right: 10vw;
-  padding-top: 10vh;
-  padding-bottom: 10vh;
 }
 
 .headline h1 {
