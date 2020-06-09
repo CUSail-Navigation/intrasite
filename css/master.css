@@ -198,6 +198,10 @@ nav a:not(.nav_logo):hover {
   font-weight: normal;
 }
 
+.headline img {
+  width: 80vw;
+}
+
 .section_headline {
   text-align: center;
   font-size: 25pt;
