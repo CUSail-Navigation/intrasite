@@ -384,7 +384,7 @@ function displayExistingGoals() {
     var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
     get_url += '?milestone=' + milestone_num[i];
     get_url += '&state=all';
-    xhr.open('GET', get_url, false); // synch is deprecated, but screw it
+    xhr.open('GET', get_url, true);
     xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
 
     xhr.onload = function () {
