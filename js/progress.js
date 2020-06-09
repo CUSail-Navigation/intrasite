@@ -46,16 +46,11 @@ function getQueryVariable(variable) {
 /**
  * Parse the date given by the Github API into a prettier format
  * @param {string} date_str - something like "2020-06-05T19:13:40Z"
- * @returns {string} the date as DD/MM/YYYY
+ * @returns {string} the date as DD/MM/YYYY, HH:MM:SS AM/PM
  */
 function parseDate(date_str) {
   var date = new Date(date_str);
-  console.log(date);
-  console.log(date.toLocaleString());
-  var year = date_str.substring(0, 4);
-  var date = date_str.substring(5, 7);
-  var month = date_str.substring(8, 10);
-  return date + "/" + month + "/" + year;
+  return date.toLocaleString();
 }
 
 /**
@@ -104,6 +99,10 @@ function updateGoalLocation(ret_data, prev_mil, closed) {
   addGoalToMilestone(ret_data);
 }
 
+/**
+ * Add a goal to the milestone specified in its representation
+ * @param {Object} ret_data - the goal object returned from the api request
+ */
 function addGoalToMilestone(ret_data) {
   var ul_layout = document.getElementById('ul_' + ret_data.milestone.title);
   var add_html = '';
@@ -155,6 +154,9 @@ function addGoalToMilestone(ret_data) {
   resetBar();
 }
 
+/**
+ * Submit a new goal to the Github API
+ */
 function submitNewGoal() {
   var auth_code = getQueryVariable('auth');
   var post_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
@@ -191,6 +193,12 @@ function submitNewGoal() {
   xhr.send(jsonString);
 }
 
+/**
+ * Submit an update to a goal using a PATCH request
+ * @param {number} issue_id - the number associated with the goal
+ * @param {string} prev_mil - the milestone that the goal was initially in
+ * @param {boolean} closed - whether the issue was previously closed
+ */
 function submitGoalUpdate(issue_id, prev_mil, closed) {
   var auth_code = getQueryVariable('auth');
   var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
@@ -228,7 +236,11 @@ function submitGoalUpdate(issue_id, prev_mil, closed) {
   xhr.send(jsonString);
 }
 
-// mark is true for mark closed, false for mark open
+/**
+ * Mark a goal as being completed or open
+ * @param {number} issue_id - the number associated with the goal
+ * @param {boolean} mark - true if the goal is being marked closed
+ */
 function markComplete(issue_id, mark) {
   var auth_code = getQueryVariable('auth');
   var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
@@ -258,6 +270,10 @@ function markComplete(issue_id, mark) {
   xhr.send(jsonString);
 }
 
+/**
+ * Change the "add goal" form to edit an existing goal
+ * @param {number} issue_id - the number associated with the goal to be updated
+ */
 function updateGoal(issue_id) {
   // load the current goal information into 
   var xhr = new XMLHttpRequest();
@@ -297,6 +313,10 @@ function updateGoal(issue_id) {
   xhr.send();
 }
 
+/**
+ * Setup or reset the "add goal" form
+ * @param {Object} edit_data - the object associated with the form (if editing) or null
+ */
 function setupNewGoalForm(edit_data) {
   var milestone_str = ['August 2020', 'September 2020', 'October 2020', 'November 2020', 'December 2020', 'January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021'];
   var milestone_num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
@@ -361,6 +381,9 @@ function setupNewGoalForm(edit_data) {
   xhr.send();
 }
 
+/**
+ * Add a header that displays the number of goals until competition
+ */
 function dispDaysToComp() {
   let header = document.getElementById('goal_header');
   let curDate = new Date();
@@ -372,6 +395,9 @@ function dispDaysToComp() {
   header.innerText = 'Progress Tracker • ' + dayDif + ' Days Until Competition';
 }
 
+/**
+ * Update the progress bar - this is kinda finicky, but whatever
+ */
 function resetBar() {
   // set the main progress bar
   let total_goals = milestone_goals.reduce(function (a, b) {
@@ -387,6 +413,9 @@ function resetBar() {
   prog_bar.set(val, true);
 }
 
+/**
+ * Display all goals - THIS MUST BE CALLED BEFORE ANYTHING ELSE
+ */
 function displayExistingGoals() {
   var goals = document.getElementById('goals_layout');
 
