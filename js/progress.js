@@ -396,6 +396,7 @@ function displayExistingGoals() {
         addGoalToMilestone(ret_data[j]);
       }
 
+      ret_req++;
       if (ret_req === milestone_num.length) {
         resetBar();
       }
