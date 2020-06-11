@@ -6,3 +6,8 @@ input.addEventListener("keyup", function (event) {
     document.getElementById("search_button").click();
   }
 });
+
+// resize nav bar if necessary
+$(document).ready(function () {
+  console.log($(window).width());
+});

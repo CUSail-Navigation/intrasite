@@ -2,6 +2,6 @@
  defaults:
   -
     scope:
-      path: "/documentation/"
+      path: ""
     values:
       layout: none
