@@ -1,7 +1,2 @@
- permalink: none
- defaults:
-  -
-    scope:
-      path: ""
-    values:
-      layout: none
+permalink: none
+exclude: documentation/
