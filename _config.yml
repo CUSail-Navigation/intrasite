@@ -1,1 +1,3 @@
 permalink: none
+include:
+  - documentation/_static
