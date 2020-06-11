@@ -16,9 +16,9 @@ $(document).ready(function () {
 
 window.onresize = (function () {
   var nav_elem = document.getElementById("overall_nav");
-  if ($(window).width() < 1420 && nav_elem.classList.includes("small")) {
+  if ($(window).width() < 1420 && nav_elem.classList.contains("small")) {
     nav_elem.classList.add("small");
-  } else if ($(window).width() >= 1420 && nav_elem.classList.includes("small")) {
+  } else if ($(window).width() >= 1420 && nav_elem.classList.contains("small")) {
     nav_elem.classList.remove("small");
   }
 });
