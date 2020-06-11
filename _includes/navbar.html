@@ -8,7 +8,7 @@
   </div>
 
   <ul>
-    <li id="search_bar" class="large_only">
+    <li id="search_bar">
       <i class="fa fa-search"></i>
       <form action="{{ site.baseurl }}/search.html" method="get" autocomplete="off">
         <input id="nav_search" type="text" name="query" placeholder="Search Guides">
@@ -23,7 +23,7 @@
         <li><a href="{{ site.baseurl }}/index.html#events_table">Events</a></li>
       </ul>
     </li>
-    <li><a href="{{ site.baseurl }}/index.html#guides">How-To Guides</a>
+    <li class="large_only"><a href="{{ site.baseurl }}/index.html#guides">How-To Guides</a>
       <ul class="subnav no_scroll">
         {% for post in site.posts %}
         {% if post.layout == "landing"%}
