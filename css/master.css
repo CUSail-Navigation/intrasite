@@ -275,6 +275,7 @@ table {
 }
 
 #guides_layout a:hover {
+  transition: 0.5s;
   background-color: #e7e7e7;
   text-decoration: none;
 }
