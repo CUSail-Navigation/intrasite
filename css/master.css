@@ -167,6 +167,10 @@ nav a:not(.nav_logo):hover {
   transition: 0.5s;
 }
 
+.small .large_only {
+  display: none;
+}
+
 /* main page */
 .full {
   align-items: center;

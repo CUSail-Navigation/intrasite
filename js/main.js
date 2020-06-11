@@ -9,5 +9,16 @@ input.addEventListener("keyup", function (event) {
 
 // resize nav bar if necessary
 $(document).ready(function () {
-  console.log($(window).width());
+  if ($(window).width() < 1420) {
+    document.getElementById("overall_nav").classList.add("small");
+  }
+});
+
+window.onresize = (function () {
+  var nav_elem = document.getElementById("overall_nav");
+  if ($(window).width() < 1420 && nav_elem.classList.includes("small")) {
+    nav_elem.classList.add("small");
+  } else if ($(window).width() >= 1420 && nav_elem.classList.includes("small")) {
+    nav_elem.classList.remove("small");
+  }
 });
