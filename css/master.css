@@ -274,7 +274,7 @@ table {
 #guides_layout a img {
   width: 125px;
   height: 125px;
-  border-radius: 30px;
+  /* border-radius: 30px; */
   transition: 0.5s;
 }
 
