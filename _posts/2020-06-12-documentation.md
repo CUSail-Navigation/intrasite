@@ -72,7 +72,7 @@ examples.
 </code>
 </pre>
 
-Next, there should be a class-level docstring for each class (outer and inner) in your file. If you're overwritting the __init__ method, you should also describe the arguments and possible raised exceptions for that method here using 'Args' and 'Raises', which are coved in more detail below. Here's one class-level docstring that I wrote for the NMEA parser:
+Next, there should be a class-level docstring for each class (outer and inner) in your file. If you're overwritting the *\_\_init\_\_* method, you should also describe the arguments and possible raised exceptions for that method here using *Args* and *Raises*, which are coved in more detail below. Here's one class-level docstring that I wrote for the NMEA parser:
 
 <pre>
 <code class="python">
