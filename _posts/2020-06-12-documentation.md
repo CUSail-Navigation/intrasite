@@ -17,7 +17,7 @@ Most important to remember is that Sphinx will run all _module-level_ code (not 
 
 <pre>
 <code class="python">
-import whatever from somewhere
+from somewhere import whatever
 
 s = "This is module-level code..."
 print(s)
@@ -34,7 +34,7 @@ You should write something like this:
 
 <pre>
 <code class="python">
-import whatever from somewhere
+from somewhere import whatever
 
 class Useless:
   pass
@@ -160,7 +160,7 @@ First, you must be inside of the _sphinx_ directory (use *cd spinx* from the ter
 
 <pre>
 <code class="shell">
-sphinx-apidoc -f -o . ..
+sphinx-apidoc -f -o . .. ../nav_algo/tests --separate
 </code>
 </pre>
 
