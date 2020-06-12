@@ -6,7 +6,7 @@ logo: sphinx_logo.png
 title: Updating the Documentation
 ---
 
-<link rel="stylesheet" href="{{site.baseurl}}/css/code_styles/github-gist.css">
+<link rel="stylesheet" href="{{site.baseurl}}/css/code_styles/googlecode.css">
 <script src="{{site.baseurl}}/js/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
