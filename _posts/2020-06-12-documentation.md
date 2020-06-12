@@ -156,7 +156,7 @@ Now, you're ready to generate the documenation files!
 ## Generating the Updated HTML
 Spinx generates HTML, CSS, and JavaScript files that I've setup to be hosted on our GitHub Pages site [here](https://cusail-navigation.github.io/raspberrypi/html/index.html). It's also linked to under _Documentation_ in the navigation bar of the [intrasite](https://cusail-navigation.github.io/intrasite/). This gets updated everytime that someone pushes to the *raspberrypi* repository with updated documentation files. These files are stored in the _docs/_ directory, but you don't need to know that. Here's how you generate updated files:
 
-First, you must be inside of the _sphinx_ directory (use `cd spinx` on mac, or `chdir` on Windows, but hopefully you already knew that). Now, generate the source files - the text files that Sphinx will use to generate HTML. Run the following command (don't omit the periods, these represent directories):
+First, you must be inside of the _sphinx_ directory (use *cd spinx* from the terminal on mac, or *chdir sphinx* from command prompt on Windows, but hopefully you already knew that). Now, generate the source files - the text files that Sphinx will use to generate HTML. Run the following command (don't omit the periods, these represent directories):
 
 <pre>
 <code class="shell">

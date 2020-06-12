@@ -4,17 +4,17 @@
   margin: 0;
 }
 
-html:not(.highlighter-rouge) {
+html {
   font-family: 'Lato', sans-serif;
   color: #002D5F;
   background: white;
   /* margin-top: 10px; */
 }
 
-.highlighter-rouge {
+code {
+  padding-top: 0px;
+  margin-top: 10px;
   text-align: left;
-  justify-self: left;
-  background-color: #e7e7e7;
 }
 
 input:focus,
