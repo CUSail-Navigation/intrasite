@@ -6,12 +6,17 @@ logo: sphinx_logo.png
 title: Updating the Documentation
 ---
 
+<link rel="stylesheet" href="{{site.baseurl}}/css/code_styles/github.css">
+<script src="{{site.baseurl}}/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
 ## Writing Documentation
 To make sure that future Navigation team members can easily understand and work on our project, it is important that we clearly document our code. I've setup our Raspberry Pi codebase to use Sphinx, a Python documentation generator, to make this easy for us. The version of Sphinx that we use, Napoleon, requires our docstrings to be written according to the [Google Style Guide](https://github.com/google/styleguide/blob/gh-pages/pyguide.md#38-comments-and-docstrings). I'll summarize the important points below.
 
 Most important to remember is that Sphinx will run all _module-level_ code (not within a function or class) when generating its HTML files. This is something we want to avoid. So, instead of writing something like this:
 
-```python
+<pre>
+<code class="python">
 import whatever from somewhere
 
 s = "This is module-level code..."
@@ -22,11 +27,13 @@ class Useless:
 
 def something():
   pass
-```
+</code>
+</pre>
 
 You should write something like this:
 
-```python
+<pre>
+<code class="python">
 import whatever from somewhere
 
 class Useless:
@@ -41,13 +48,15 @@ def main():
 
 if __name__ == '__main__':
   main()
-```
+</code>
+</pre>
 
 Enclosing the previous module-level code within the main method will not change how you run the code from the command line, but will prevent Sphinx from running it. It's a little stylistically nicer too.
 
 Now, let's consider how we should write the docstrings that will be turned into our documentation. First, let's consider modules. If you're writing a test file, or some file that is not just a class definition, you should include a module-level docstring that explains the purpose of the code included in that file. Here's an example:
 
-```python
+<pre>
+<code class="python">
 """A one line summary of the module or program, terminated by a period.
 
 Leave one blank line.  The rest of this docstring should contain an
@@ -60,11 +69,13 @@ examples.
   foo = ClassFoo()
   bar = foo.FunctionBar()
 """
-```
+</code>
+</pre>
 
 Next, there should be a class-level docstring for each class (outer and inner) in your file. If you're overwritting the __init__ method, you should also describe the arguments and possible raised exceptions for that method here using 'Args' and 'Raises', which are coved in more detail below. Here's one class-level docstring that I wrote for the NMEA parser:
 
-```python
+<pre>
+<code class="python">
 class NMEA:
     """A parser for National Marine Electronics Association (NMEA) sentences.
 
@@ -96,11 +107,13 @@ class NMEA:
 
     """
     pass
-```
+</code>
+</pre>
 
 The docstrings that you're likely encounter the most are function-level. These should again include a description of their purpose. They should also include specifications of their arguments and return values, as well as whatever exceptions they may raise. You can omit any of these specifications if they do not apply. When writing a docstring for a class method, you do not have to include a description of the 'self' argument. The types of the arguments are given as shown below:
 
-```python
+<pre>
+<code class="python">
 def func(arg1, arg2):
     """Summary line.
 
@@ -118,20 +131,25 @@ def func(arg1, arg2):
 
     """
     pass
-```
+</code>
+</pre>
 
 ## Installing Sphinx
 Spinx is a Python extention, so you'll need to install it before building any documentation files. You can do this using pip. Remember that we are using Python 3, so you may need to use 'pip3' instead of pip if you also have Python 2 installed. If you are using a virtual environment, remember to activate it before installing.
 
-```
+<pre>
+<code class="shell">
 pip install -U sphinx
-```
+</code>
+</pre>
 
 We are using a third-party Sphinx theme for our HTML files because it looks marginally better than the pre-installed ones. (Sidenote, if anyone has time to make a nicer looking theme, you'll earn my eternal gratitude.) This can also be installed using pip.
 
-```
+<pre>
+<code class="shell">
 pip install sphinx_rtd_theme
-```
+</code>
+</pre>
 
 Now, you're ready to generate the documenation files!
 
@@ -140,14 +158,18 @@ Spinx generates HTML, CSS, and JavaScript files that I've setup to be hosted on 
 
 First, you must be inside of the _sphinx_ directory (use `cd spinx` on mac, or `chdir` on Windows, but hopefully you already knew that). Now, generate the source files - the text files that Sphinx will use to generate HTML. Run the following command (don't omit the periods, these represent directories):
 
-```
+<pre>
+<code class="shell">
 sphinx-apidoc -f -o . ..
-```
+</code>
+</pre>
 
 The final step is to actually generate the HTML. Do this by running:
 
-```
+<pre>
+<code class="shell">
 make html
-```
+</code>
+</pre>
 
 If you get errors in any of these steps, you probably either didn't install Sphinx, the Sphinx theme we use, or you have module-level code in one of your files.
