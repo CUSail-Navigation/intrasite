@@ -160,7 +160,7 @@ First, you must be inside of the _sphinx_ directory (use *cd spinx* from the ter
 
 <pre>
 <code class="shell">
-sphinx-apidoc -f -o . .. ../nav_algo/tests --separate
+sphinx-apidoc -f -e -o . .. ../nav_algo/tests
 </code>
 </pre>
 

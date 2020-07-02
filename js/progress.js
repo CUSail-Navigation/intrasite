@@ -144,7 +144,7 @@ function addGoalToMilestone(ret_data) {
     add_html += '<p class="goal_assignees">';
     people += 'No one is assigned to this goal. Edit this goal to add someone.';
   } else {
-    add_html += '<p class="goal_assignees">Assigned Team Members: ';
+    add_html += '<p class="goal_assignees">Assigned Team Member(s): ';
     people = people.substring(0, people.length - 2);
   }
   add_html += people + '</p>';
