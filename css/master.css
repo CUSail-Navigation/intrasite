@@ -448,7 +448,7 @@ table {
   margin-bottom: 10px;
 }
 
-.goal_top button {
+.goal_top button, .comment_button {
   margin-left: 10px;
   margin-right: 0px;
   margin-top: auto;

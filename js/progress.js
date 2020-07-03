@@ -152,8 +152,8 @@ function addGoalToMilestone(ret_data) {
   add_html += '<p class="goal_body"><b>' + ret_data.body + '</b></p>';
 
   // for comments
-  add_html += '<button id="comment_button_' + ret_data.number.toString(10);
-  add_html += ' type="button">Comments</button>';
+  add_html += '<div id="comments_layout_' + ret_data.number.toString(10);
+  add_html += '"></div>';
 
   add_html += '</li>';
 
@@ -521,7 +521,41 @@ function displayExistingGoals() {
 }
 
 /**
- * Display the comments on a goal (if they exist)
+ * Display a 'view comments' button if there are comments to view, or an 'add
+ * a comment' view if there are none so far
+ * @param {number} issue_id 
+ */
+function setCommentButton(issue_id) {
+  var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
+  get_url += issue_id + '/comments';
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', get_url, true);
+  xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
+  xhr.setRequestHeader('Accept', 'application/vnd.github.v3+json');
+
+  xhr.onload = function () {
+    var ret_data = JSON.parse(this.responseText);
+    var layout = document.getElementById('comments_layout_' + issue_id.toString(10));
+    var add_html = '';
+
+    // if there are existing comments, display them and add an input for 
+    // adding a new comment
+    if (ret_data.length > 0) {
+      add_html += '<button class="comment_button" type="button" onclick="displayComments(';
+      add_html += issue_id.toString(10) + ')"></button>';
+    } else {
+      add_html += '<input type="text" id="comment_input_' + issue_id.toString(10);
+      add_html += '"></input><button type="button" id="comment_submit_' + issue_id.toString(10);
+      add_html += '" class="comment_button" onclick="submitComment(' + issue_id.toString(10) + ')"></button>';
+    }
+    layout.innerHTML = add_html;
+  };
+  xhr.send();
+}
+
+/**
+ * Display the comments on a goal (if they exist) FINISH
  */
 function displayComments(issue_id) {
   var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
@@ -534,7 +568,13 @@ function displayComments(issue_id) {
 
   xhr.onload = function () {
     var ret_data = JSON.parse(this.responseText);
-    console.log(ret_data.length);
+    var layout = document.getElementById('comments_layout_' + issue_id.toString(10));
+    var add_html = ''; // finish
+
   };
   xhr.send();
+}
+
+function submitComment(issue_id) {
+  console.log("submitting on issue" + issue_id);
 }
