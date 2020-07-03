@@ -611,6 +611,7 @@ table {
 
 .comments_layout {
   margin-top: 20px;
+  transition: all 0.5s ease;
 }
 
 .comment_button {
