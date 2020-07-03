@@ -325,6 +325,12 @@ table {
   text-align: left;
   border: #002D5F 1px solid;
   border-collapse: collapse;
+  padding: 5px;
+}
+
+.post_table {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .main_content img {
