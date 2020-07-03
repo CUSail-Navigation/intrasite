@@ -604,7 +604,7 @@ table {
   resize: none;
   font-family: 'Lato', sans-serif;
   padding: 2px;
-  height: 50px;
+  height: 60px;
 }
 
 .comment {
@@ -640,11 +640,17 @@ table {
   align-items: center;
 }
 
+.comment_adder button {
+  flex-basis: 80px;
+}
+
 .comment_top p {
+  padding-top: 5px;
   margin-top: auto;
   margin-bottom: auto;
 }
 
 .comment_body {
   font-size: large;
+  margin-bottom: 0px;
 }
