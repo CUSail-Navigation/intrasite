@@ -114,7 +114,7 @@ function addGoalToMilestone(ret_data) {
 
   add_html += '<div class="goal_creator">';
   add_html += '<h4>' + ret_data.title + '</h4>';
-  add_html += '<p class="goal_creator_tag" id="create_complete_' + ret_data.number.toString(10) + '">Created by <a href=">';
+  add_html += '<p class="goal_creator_tag" id="create_complete_' + ret_data.number.toString(10) + '">Created by <a href="';
   add_html += ret_data.user.html_url + '">';
   add_html += ret_data.user.login + '</a> on ' + parseDate(ret_data.created_at);
   if (ret_data.state.includes("closed")) {
@@ -140,7 +140,7 @@ function addGoalToMilestone(ret_data) {
   var people = '';
   var k;
   for (k = 0; k < ret_data.assignees.length; k++) {
-    people += ret_data.assignees[k].login + ', ';
+    people += '<a href="' + ret_data.assignees[k].html_url + '">' + ret_data.assignees[k].login + '</a>, ';
   }
   if (ret_data.assignees.length < 1) {
     add_html += '<p class="goal_assignees">';
@@ -573,9 +573,11 @@ function displayComments(issue_id) {
     add_html += '<div id="comments_' + issue_id.toString(10) + '">';
     let i;
     for (i = 0; i < ret_data.length; i++) {
-      add_html += '<div class="comment"><div class="comment_top">';
-      add_html += '<img src="' + ret_data[i].user.avatar_url + '" />';
-      add_html += '<p>Posted by ' + ret_data[i].user.login + " on " + parseDate(ret_data[i].created_at);
+      add_html += '<div class="comment"><div class="comment_top"><a href="';
+      add_html += ret_data[i].user.html_url + '">';
+      add_html += '<img src="' + ret_data[i].user.avatar_url + '" /></a>';
+      add_html += '<p>Posted by <a href="' + ret_data[i].user.html_url + '">' + ret_data[i].user.login;
+      add_html += '</a> on ' + parseDate(ret_data[i].created_at);
       add_html += '</p></div>';
       add_html += '<p class="comment_body"><b>' + ret_data[i].body + '</b></p></div>';
     }
@@ -632,9 +634,11 @@ function submitComment(issue_id) {
       var layout = document.getElementById('comments_' + issue_id.toString(10));
 
       // add in the new comment
-      add_html = '<div class="comment"><div class="comment_top">';
-      add_html += '<img src="' + ret_data.user.avatar_url + '" />';
-      add_html += '<p>Posted by ' + ret_data.user.login + " on " + parseDate(ret_data.created_at);
+      add_html += '<div class="comment"><div class="comment_top"><a href="';
+      add_html += ret_data.user.html_url + '">';
+      add_html += '<img src="' + ret_data.user.avatar_url + '" /></a>';
+      add_html += '<p>Posted by <a href="' + ret_data.user.html_url + '">' + ret_data.user.login;
+      add_html += '</a> on ' + parseDate(ret_data.created_at);
       add_html += '</p></div>';
       add_html += '<p class="comment_body"><b>' + ret_data.body + '</b></p></div>';
 
