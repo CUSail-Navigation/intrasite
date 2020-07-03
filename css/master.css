@@ -599,6 +599,11 @@ table {
   margin-right: 10px;
   font-size: medium;
   color: #002D5F;
+  flex-basis: 100%;
+  resize: none;
+  font-family: 'Lato', sans-serif;
+  padding: 2px;
+  height: 80px;
 }
 
 .comment {
@@ -616,4 +621,9 @@ table {
 
 .comment_button {
   margin-left: 0px;
+}
+
+.comment_top {
+  display: flex;
+  flex-direction: row;
 }
