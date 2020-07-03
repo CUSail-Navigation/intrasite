@@ -661,4 +661,5 @@ table {
   font-size: medium;
   margin-bottom: 0px;
   padding-bottom: 0px;
+  white-space: pre-line;
 }
