@@ -597,9 +597,12 @@ table {
   border: #002D5F 1px solid;
   flex-basis: 100%;
   margin-right: 10px;
+  font-size: large;
 }
 
 .comment {
+  margin-bottom: 10px;
+  margin-top: 10px;
   border: #002D5F 1px solid;
   border-radius: 20px;
   padding: 20px;
