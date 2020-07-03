@@ -631,7 +631,7 @@ function submitComment(issue_id) {
       let i;
       for (i = 0; i < 2; i++) {
         var children = layout.childNodes;
-        children[children.length].remove
+        children[children.length].remove();
       }
 
       // add in the new comment
