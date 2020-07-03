@@ -634,7 +634,7 @@ function submitComment(issue_id) {
       var layout = document.getElementById('comments_' + issue_id.toString(10));
 
       // add in the new comment
-      add_html += '<div class="comment"><div class="comment_top"><a href="';
+      add_html = '<div class="comment"><div class="comment_top"><a href="';
       add_html += ret_data.user.html_url + '">';
       add_html += '<img src="' + ret_data.user.avatar_url + '" /></a>';
       add_html += '<p>Posted by <a href="' + ret_data.user.html_url + '">' + ret_data.user.login;
