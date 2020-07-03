@@ -593,11 +593,12 @@ table {
   margin-right: 0px;
 }
 
-.comments_layout input[type="text"] {
+.comments_layout textarea {
   border: #002D5F 1px solid;
   flex-basis: 100%;
   margin-right: 10px;
-  font-size: large;
+  font-size: medium;
+  color: #002D5F;
 }
 
 .comment {

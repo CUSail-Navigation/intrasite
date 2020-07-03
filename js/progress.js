@@ -537,8 +537,8 @@ function setCommentButton(issue_id, num_comments) {
     add_html += 'class="comment_button" type="button" onclick="displayComments(';
     add_html += issue_id.toString(10) + ')">View Comments</button>';
   } else {
-    add_html += '<input type="text" id="comment_input_' + issue_id.toString(10);
-    add_html += '" placeholder="Leave a comment..." autocomplete="off"></input>';
+    add_html += '<textarea id="comment_input_' + issue_id.toString(10);
+    add_html += '" name="comment_body" placeholder="Leave the first comment..."></textarea>';
     add_html += '<button type="button" id="comment_submit_' + issue_id.toString(10);
     add_html += '" class="comment_button" ';
     add_html += 'onclick="submitComment(' + issue_id.toString(10) + ')">Reply</button>';
@@ -580,8 +580,8 @@ function displayComments(issue_id) {
     }
 
     // input a new comment
-    add_html += '<input type="text" id="comment_input_' + issue_id.toString(10);
-    add_html += '" placeholder="Leave a comment..." autocomplete="off"></input>';
+    add_html += '<textarea id="comment_input_' + issue_id.toString(10);
+    add_html += '" name="comment_body" placeholder="Leave the first comment..."></textarea>';
     add_html += '<button type="button" id="comment_submit_' + issue_id.toString(10);
     add_html += '" class="comment_button" ';
     add_html += 'onclick="submitComment(' + issue_id.toString(10) + ')">Reply</button>';
