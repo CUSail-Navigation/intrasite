@@ -625,8 +625,30 @@ function submitComment(issue_id) {
       var ret_data = JSON.parse(this.responseText);
 
       // add created comment to the existing comments (if any)
-      console.log(ret_data.body);
-      //FINISH
+      var layout = document.getElementById('comments_layout_' + issue_id.toString(10));
+
+      // remove the input and submit button
+      let i;
+      for (i = 0; i < 2; i++) {
+        var children = layout.childNodes;
+        children[children.length].remove
+      }
+
+      // add in the new comment
+      add_html = '<div class="comment"><div class="comment_top">';
+      add_html += '<img src="' + ret_data.user.avatar_url + '" />';
+      add_html += '<p><b>' + ret_data.body + '</b></p></div>';
+      add_html += '<p>Posted by ' + ret_data.user.login + " on " + parseDate(ret_data[i].created_at);
+      add_html += '</p></div>';
+
+      // add back in the input and submit
+      add_html += '<input type="text" id="comment_input_' + issue_id.toString(10);
+      add_html += '" placeholder="Leave a comment..." autocomplete="off"></input>';
+      add_html += '<button type="button" id="comment_submit_' + issue_id.toString(10);
+      add_html += '" class="comment_button" ';
+      add_html += 'onclick="submitComment(' + issue_id.toString(10) + ')">Reply</button>';
+
+      layout.innerHTML += add_html;
     }
   }
   xhr.send(jsonString);
