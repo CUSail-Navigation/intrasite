@@ -113,7 +113,7 @@ function addGoalToMilestone(ret_data) {
 
   add_html += '<div class="goal_creator">';
   add_html += '<h4>' + ret_data.title + '</h4>';
-  add_html += '<p id="create_complete_' + ret_data.number.toString(10) + '">Created by ';
+  add_html += '<p class="goal_creator" id="create_complete_' + ret_data.number.toString(10) + '">Created by ';
   add_html += ret_data.user.login + ' on ' + parseDate(ret_data.created_at);
   if (ret_data.state.includes("closed")) {
     add_html += ' • Completed on ' + parseDate(ret_data.closed_at);

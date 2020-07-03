@@ -465,6 +465,10 @@ table {
   flex-basis: 150px;
 }
 
+.goal_assignees, .goal_creator {
+  font-size: x-small;
+}
+
 #make_new_goal {
   margin-top: 50px;
   text-align: left;
@@ -638,6 +642,7 @@ table {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-top: 10px;
 }
 
 .comment_adder button {
