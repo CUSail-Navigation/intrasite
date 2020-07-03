@@ -540,13 +540,6 @@ function setCommentButton(issue_id, num_comments) {
     add_html += '<button id="view_comments_' + issue_id.toString(10) + '" ';
     add_html += 'class="comment_button" type="button" onclick="displayComments(';
     add_html += issue_id.toString(10) + ')">Add a Comment</button>';
-    // add_html += '<div class="comment_adder">';
-    // add_html += '<textarea id="comment_input_' + issue_id.toString(10);
-    // add_html += '" name="comment_body" placeholder="Leave the first comment..."></textarea>';
-    // add_html += '<button type="button" id="comment_submit_' + issue_id.toString(10);
-    // add_html += '" class="comment_button" ';
-    // add_html += 'onclick="submitComment(' + issue_id.toString(10) + ', true)">Reply</button>';
-    // add_html += '</div>';
   }
   layout.innerHTML = add_html;
 }
@@ -571,8 +564,8 @@ function displayComments(issue_id) {
 
     // change view to hide
     add_html += '<button id="view_comments_' + issue_id.toString(10) + '" ';
-    add_html += 'class="comment_button" type="button" onclick="hideComments(';
-    add_html += issue_id.toString(10) + ')">Hide Comments</button>';
+    add_html += 'class="comment_button" type="button" onclick="setCommentButton(';
+    add_html += issue_id.toString(10) + ', ' + ret_data.length + ')">Hide Comments</button>';
 
     // existing comments
     add_html += '<div id="comments_' + issue_id.toString(10) + '">';
@@ -645,49 +638,6 @@ function submitComment(issue_id) {
 
       layout.innerHTML += add_html;
       document.getElementById('comment_input_' + issue_id.toString(10)).value = '';
-
-      // if (!first) {
-      //   // add created comment to the existing comments (if any)
-      //   var layout = document.getElementById('comments_' + issue_id.toString(10));
-
-      //   // add in the new comment
-      //   add_html = '<div class="comment"><div class="comment_top">';
-      //   add_html += '<img src="' + ret_data.user.avatar_url + '" />';
-      //   add_html += '<p>Posted by ' + ret_data.user.login + " on " + parseDate(ret_data.created_at);
-      //   add_html += '</p></div>';
-      //   add_html += '<p class="comment_body"><b>' + ret_data.body + '</b></p></div>';
-
-      //   layout.innerHTML += add_html;
-      //   document.getElementById('comment_input_' + issue_id.toString(10)).value = '';
-      // } else {
-      //   var layout = document.getElementById('comments_layout_' + issue_id.toString(10));
-      //   var add_html = '';
-
-      //   // change view to hide
-      //   add_html += '<button id="view_comments_' + issue_id.toString(10) + '" ';
-      //   add_html += 'class="comment_button" type="button" onclick="hideComments(';
-      //   add_html += issue_id.toString(10) + ')">Hide Comments</button>';
-
-      //   // existing comments
-      //   add_html += '<div id="comments_' + issue_id.toString(10) + '">';
-      //   add_html += '<div class="comment"><div class="comment_top">';
-      //   add_html += '<img src="' + ret_data.user.avatar_url + '" />';
-      //   add_html += '<p>Posted by ' + ret_data.user.login + " on " + parseDate(ret_data.created_at);
-      //   add_html += '</p></div>';
-      //   add_html += '<p class="comment_body"><b>' + ret_data.body + '</b></p></div>';
-      //   add_html += '</div>';
-
-      //   // input a new comment
-      //   add_html += '<div class="comment_adder">';
-      //   add_html += '<textarea id="comment_input_' + issue_id.toString(10);
-      //   add_html += '" name="comment_body" placeholder="Leave a comment..."></textarea>';
-      //   add_html += '<button type="button" id="comment_submit_' + issue_id.toString(10);
-      //   add_html += '" class="comment_button" ';
-      //   add_html += 'onclick="submitComment(' + issue_id.toString(10) + ', false)">Reply</button>';
-      //   add_html += '</div>';
-
-      //   layout.innerHTML = add_html;
-      // }
     }
   }
   xhr.send(jsonString);
