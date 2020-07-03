@@ -447,6 +447,7 @@ table {
   font-size: larger;
   margin-top: auto;
   margin-bottom: 10px;
+  padding-top: 5px;
 }
 
 .goal_top button, .comment_button {
@@ -616,7 +617,7 @@ table {
   margin-top: 10px;
   border: #002D5F 1px solid;
   border-radius: 20px;
-  padding: 20px;
+  padding: 10px;
 }
 
 .comments_layout {
@@ -650,12 +651,12 @@ table {
 }
 
 .comment_top p {
-  padding-top: 5px;
+  padding-top: 8px;
   margin-top: auto;
   margin-bottom: auto;
 }
 
 .comment_body {
-  font-size: large;
+  font-size: medium;
   margin-bottom: 0px;
 }
