@@ -576,3 +576,35 @@ table {
   margin-right: 15px;
   text-align: center;
 }
+
+/* comments layout */
+
+.comment_top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.comment_top img {
+  height: 30px;
+  width: 30px;
+}
+
+.comments_layout input[type="text"] {
+  border: #002D5F 1px solid;
+}
+
+.comment {
+  border: #002D5F 1px solid;
+  border-radius: 20px;
+  padding: 50px;
+}
+
+.comments_layout {
+  margin-top: 20px;
+}
+
+.comment_button {
+  margin-left: 0px;
+}

@@ -152,7 +152,7 @@ function addGoalToMilestone(ret_data) {
   add_html += '<p class="goal_body"><b>' + ret_data.body + '</b></p>';
 
   // for comments
-  add_html += '<div id="comments_layout_' + ret_data.number.toString(10);
+  add_html += '<div class="comments_layout" id="comments_layout_' + ret_data.number.toString(10);
   add_html += '"></div>';
 
   add_html += '</li>';
@@ -539,7 +539,8 @@ function setCommentButton(issue_id, num_comments) {
   } else {
     add_html += '<input type="text" id="comment_input_' + issue_id.toString(10);
     add_html += '"></input><button type="button" id="comment_submit_' + issue_id.toString(10);
-    add_html += '" class="comment_button" onclick="submitComment(' + issue_id.toString(10) + ')">Reply</button>';
+    add_html += '" placeholder="Leave a comment..." class="comment_button" ';
+    add_html += 'onclick="submitComment(' + issue_id.toString(10) + ')">Reply</button>';
   }
   layout.innerHTML = add_html;
 }
@@ -570,9 +571,9 @@ function displayComments(issue_id) {
     // existing comments
     let i;
     for (i = 0; i < ret_data.length; i++) {
-      add_html += '<div class="comment">';
+      add_html += '<div class="comment"><div class="comment_top">';
       add_html += '<img src="' + ret_data[i].user.avatar_url + '" />';
-      add_html += '<p>' + ret_data[i].body + '</p>';
+      add_html += '<p><b>' + ret_data[i].body + '</b></p></div>';
       add_html += '<p>Posted by ' + ret_data[i].user.login + " on " + parseDate(ret_data[i].created_at);
       add_html += '</p></div>';
     }
@@ -580,7 +581,8 @@ function displayComments(issue_id) {
     // input a new comment
     add_html += '<input type="text" id="comment_input_' + issue_id.toString(10);
     add_html += '"></input><button type="button" id="comment_submit_' + issue_id.toString(10);
-    add_html += '" class="comment_button" onclick="submitComment(' + issue_id.toString(10) + ')">Reply</button>';
+    add_html += '" placeholder="Leave a comment..." class="comment_button" ';
+    add_html += 'onclick="submitComment(' + issue_id.toString(10) + ')">Reply</button>';
 
     layout.innerHTML = add_html;
   };
