@@ -14,6 +14,7 @@ See the [datasheet]({{ site.baseurl }}/pdfs/anemometer_datasheet.pdf) or [user m
 
 The anemometer has four wires as shown in the table below.
 
+{:.post_table}
 | Wire      | Connection    |
 | --------- | ------------- |
 | Red       | Ground        |

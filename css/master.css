@@ -321,6 +321,12 @@ table {
   text-align: left;
 }
 
+.post_table * {
+  justify-content: left;
+  border: #002D5F 1px solid;
+  border-collapse: collapse;
+}
+
 .main_content img {
   max-width: 30vw;
   display: block;
@@ -409,7 +415,7 @@ table {
 .goal_creator {
   display: block;
   flex-basis: 100%;
-  margin-left: 20px;
+  margin-left: 15px;
   padding: 10px;
 }
 
