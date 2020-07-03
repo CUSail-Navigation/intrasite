@@ -150,10 +150,16 @@ function addGoalToMilestone(ret_data) {
   add_html += people + '</p>';
 
   add_html += '<p class="goal_body"><b>' + ret_data.body + '</b></p>';
+
+  // for comments
+  add_html += '<button id="comment_button_' + ret_data.number.toString(10);
+  add_html += ' type="button">Comments</button>';
+
   add_html += '</li>';
 
   ul_layout.innerHTML += add_html;
 
+  displayComments(ret_data.number);
   updateMilestoneHeader(i);
   resetBar();
 }
@@ -512,4 +518,23 @@ function displayExistingGoals() {
   }
 
   dispDaysToComp();
+}
+
+/**
+ * Display the comments on a goal (if they exist)
+ */
+function displayComments(issue_id) {
+  var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
+  get_url += issue_id + '/comments';
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', get_url, true);
+  xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
+  xhr.setRequestHeader('Accept', 'application/vnd.github.v3+json');
+
+  xhr.onload = function () {
+    var ret_data = JSON.parse(this.responseText);
+    console.log(ret_data.length);
+  };
+  xhr.send();
 }
