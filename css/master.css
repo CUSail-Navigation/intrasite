@@ -410,6 +410,7 @@ table {
   display: block;
   flex-basis: 100%;
   margin-left: 20px;
+  padding: 10px;
 }
 
 .goal_sublayout ul {
@@ -617,7 +618,7 @@ table {
   margin-top: 10px;
   border: #002D5F 1px solid;
   border-radius: 20px;
-  padding: 10px;
+  padding: 20px;
 }
 
 .comments_layout {
@@ -659,4 +660,5 @@ table {
 .comment_body {
   font-size: medium;
   margin-bottom: 0px;
+  padding-bottom: 0px;
 }
