@@ -425,6 +425,7 @@ table {
   margin-right: 0px;
   margin-top: auto;
   margin-bottom: auto;
+  border: #65C8D0 1px solid;
 }
 
 .goal_sublayout p:not(.goal_body), .goal_sublayout h4 {
@@ -437,6 +438,7 @@ table {
 .goal_body {
   margin-bottom: 0px;
   font-size: large;
+  white-space: pre-line;
 }
 
 .goal_top p {
@@ -598,6 +600,7 @@ table {
   width: 20px;
   margin-left: 0px;
   margin-right: 10px;
+  border: #65C8D0 1px solid;
 }
 
 .comments_layout textarea {
