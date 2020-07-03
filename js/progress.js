@@ -538,8 +538,9 @@ function setCommentButton(issue_id, num_comments) {
     add_html += issue_id.toString(10) + ')">View Comments</button>';
   } else {
     add_html += '<input type="text" id="comment_input_' + issue_id.toString(10);
-    add_html += '"></input><button type="button" id="comment_submit_' + issue_id.toString(10);
-    add_html += '" placeholder="Leave a comment..." class="comment_button" ';
+    add_html += '" placeholder="Leave a comment..." autocomplete="off"></input>';
+    add_html += '<button type="button" id="comment_submit_' + issue_id.toString(10);
+    add_html += '" class="comment_button" ';
     add_html += 'onclick="submitComment(' + issue_id.toString(10) + ')">Reply</button>';
   }
   layout.innerHTML = add_html;
@@ -580,8 +581,9 @@ function displayComments(issue_id) {
 
     // input a new comment
     add_html += '<input type="text" id="comment_input_' + issue_id.toString(10);
-    add_html += '"></input><button type="button" id="comment_submit_' + issue_id.toString(10);
-    add_html += '" placeholder="Leave a comment..." class="comment_button" ';
+    add_html += '" placeholder="Leave a comment..." autocomplete="off"></input>';
+    add_html += '<button type="button" id="comment_submit_' + issue_id.toString(10);
+    add_html += '" class="comment_button" ';
     add_html += 'onclick="submitComment(' + issue_id.toString(10) + ')">Reply</button>';
 
     layout.innerHTML = add_html;
@@ -604,5 +606,28 @@ function hideComments(issue_id) {
 }
 
 function submitComment(issue_id) {
-  console.log("submitting on issue" + issue_id);
+  var req_data = new Object();
+  req_data.body = document.getElementById('comment_input_' + issue_id.toString(10)).value;
+
+  var auth_code = getQueryVariable('auth');
+  var jsonString = JSON.stringify(req_data);
+  var post_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
+  post_url += issue_id + '/comments';
+
+  xhr = new XMLHttpRequest();
+  xhr.open("POST", post_url, true);
+  var token = 'token ' + auth_code;
+  xhr.setRequestHeader('Authorization', token);
+  xhr.setRequestHeader('Content-Type', 'application/vnd.github.v3+json');
+
+  xhr.onreadystatechange = function () {
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
+      var ret_data = JSON.parse(this.responseText);
+
+      // add created comment to the existing comments (if any)
+      console.log(ret_data.body);
+      //FINISH
+    }
+  }
+  xhr.send(jsonString);
 }

@@ -488,18 +488,18 @@ table {
   flex-direction: column;
 }
 
-#goal_adder_overall ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+#goal_adder_overall ::placeholder, .comments_layout ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   padding-left: 2px;
   color: #002D5F;
   opacity: 1; /* Firefox */
 }
 
-#goal_adder_overall :-ms-input-placeholder { /* Internet Explorer 10-11 */
+#goal_adder_overall :-ms-input-placeholder, .comments_layout :-ms-input-placeholder { /* Internet Explorer 10-11 */
   padding-left: 2px;
   color: #002D5F;
 }
 
-#goal_adder_overall ::-ms-input-placeholder { /* Microsoft Edge */
+#goal_adder_overall ::-ms-input-placeholder, .comments_layout ::-ms-input-placeholder { /* Microsoft Edge */
   padding-left: 2px;
   color: #002D5F;
 }
@@ -589,16 +589,20 @@ table {
 .comment_top img {
   height: 30px;
   width: 30px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .comments_layout input[type="text"] {
   border: #002D5F 1px solid;
+  flex-basis: 100%;
+  margin-right: 10px;
 }
 
 .comment {
   border: #002D5F 1px solid;
   border-radius: 20px;
-  padding: 50px;
+  padding: 20px;
 }
 
 .comments_layout {
