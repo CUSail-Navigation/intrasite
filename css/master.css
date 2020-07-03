@@ -321,8 +321,8 @@ table {
   text-align: left;
 }
 
-.post_table * {
-  justify-content: left;
+.post_table, .post_table * {
+  text-align: left;
   border: #002D5F 1px solid;
   border-collapse: collapse;
 }
