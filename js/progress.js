@@ -159,7 +159,7 @@ function addGoalToMilestone(ret_data) {
 
   ul_layout.innerHTML += add_html;
 
-  displayComments(ret_data.number);
+  setCommentButton(ret_data.number);
   updateMilestoneHeader(i);
   resetBar();
 }
