@@ -542,8 +542,9 @@ function setCommentButton(issue_id) {
     // if there are existing comments, display them and add an input for 
     // adding a new comment
     if (ret_data.length > 0) {
-      add_html += '<button class="comment_button" type="button" onclick="displayComments(';
-      add_html += issue_id.toString(10) + ')"></button>';
+      add_html += '<button id="view_comments_' + issue_id.toString(10) + '" ';
+      add_html += 'class="comment_button" type="button" onclick="displayComments(';
+      add_html += issue_id.toString(10) + ')">View Comments</button>';
     } else {
       add_html += '<input type="text" id="comment_input_' + issue_id.toString(10);
       add_html += '"></input><button type="button" id="comment_submit_' + issue_id.toString(10);
@@ -555,7 +556,8 @@ function setCommentButton(issue_id) {
 }
 
 /**
- * Display the comments on a goal (if they exist) FINISH
+ * Display the existing comments for a specific issue and an input for a new reply
+ * @param {number} issue_id 
  */
 function displayComments(issue_id) {
   var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
@@ -569,10 +571,45 @@ function displayComments(issue_id) {
   xhr.onload = function () {
     var ret_data = JSON.parse(this.responseText);
     var layout = document.getElementById('comments_layout_' + issue_id.toString(10));
-    var add_html = ''; // finish
+    var add_html = '';
 
+    // change view to hide
+    var view_button = document.getElementById('view_comments_' + issue_id.toString(10));
+    view_button.innerText = 'Hide Comments';
+    view_button.setAttribute('onclick', 'hideComments(' + issue_id + ')');
+
+    // existing comments
+    let i;
+    for (i = 0; i < ret_data.length; i++) {
+      add_html += '<div class="comment">';
+      add_html += '<img src="' + ret_data[i].user.avatar_url + '" />';
+      add_html += '<p>' + ret_data[i].body + '</p>';
+      add_html += '<p>Posted by ' + ret_data[i].user.login + " at " + parseDate(ret_data[i].created_at);
+      add_html += '</p></div>';
+    }
+
+    // input a new comment
+    add_html += '<input type="text" id="comment_input_' + issue_id.toString(10);
+    add_html += '"></input><button type="button" id="comment_submit_' + issue_id.toString(10);
+    add_html += '" class="comment_button" onclick="submitComment(' + issue_id.toString(10) + ')"></button>';
+
+    layout.innerHTML = add_html;
   };
   xhr.send();
+}
+
+/**
+ * Hide comments for a goal (assumes that there is at least one)
+ * @param {number} issue_id 
+ */
+function hideComments(issue_id) {
+  var layout = document.getElementById('comments_layout_' + issue_id.toString(10));
+
+  var add_html = '<button id="view_comments_' + issue_id.toString(10) + '" ';
+  add_html += 'class="comment_button" type="button" onclick="displayComments(';
+  add_html += issue_id.toString(10) + ')">View Comments</button>';
+
+  layout.innerHTML = add_html;
 }
 
 function submitComment(issue_id) {
