@@ -159,7 +159,7 @@ function addGoalToMilestone(ret_data) {
 
   ul_layout.innerHTML += add_html;
 
-  setCommentButton(ret_data.number);
+  setCommentButton(ret_data.number, ret_data.comments);
   updateMilestoneHeader(i);
   resetBar();
 }
@@ -524,35 +524,24 @@ function displayExistingGoals() {
  * Display a 'view comments' button if there are comments to view, or an 'add
  * a comment' view if there are none so far
  * @param {number} issue_id 
+ * @param {number} num_comments
  */
-function setCommentButton(issue_id) {
-  var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
-  get_url += issue_id + '/comments';
+function setCommentButton(issue_id, num_comments) {
+  var layout = document.getElementById('comments_layout_' + issue_id.toString(10));
+  var add_html = '';
 
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', get_url, true);
-  xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
-  xhr.setRequestHeader('Accept', 'application/vnd.github.v3+json');
-
-  xhr.onload = function () {
-    var ret_data = JSON.parse(this.responseText);
-    var layout = document.getElementById('comments_layout_' + issue_id.toString(10));
-    var add_html = '';
-
-    // if there are existing comments, display them and add an input for 
-    // adding a new comment
-    if (ret_data.length > 0) {
-      add_html += '<button id="view_comments_' + issue_id.toString(10) + '" ';
-      add_html += 'class="comment_button" type="button" onclick="displayComments(';
-      add_html += issue_id.toString(10) + ')">View Comments</button>';
-    } else {
-      add_html += '<input type="text" id="comment_input_' + issue_id.toString(10);
-      add_html += '"></input><button type="button" id="comment_submit_' + issue_id.toString(10);
-      add_html += '" class="comment_button" onclick="submitComment(' + issue_id.toString(10) + ')"></button>';
-    }
-    layout.innerHTML = add_html;
-  };
-  xhr.send();
+  // if there are existing comments, display them and add an input for 
+  // adding a new comment
+  if (num_comments > 0) {
+    add_html += '<button id="view_comments_' + issue_id.toString(10) + '" ';
+    add_html += 'class="comment_button" type="button" onclick="displayComments(';
+    add_html += issue_id.toString(10) + ')">View Comments</button>';
+  } else {
+    add_html += '<input type="text" id="comment_input_' + issue_id.toString(10);
+    add_html += '"></input><button type="button" id="comment_submit_' + issue_id.toString(10);
+    add_html += '" class="comment_button" onclick="submitComment(' + issue_id.toString(10) + ')">Reply</button>';
+  }
+  layout.innerHTML = add_html;
 }
 
 /**
@@ -574,9 +563,9 @@ function displayComments(issue_id) {
     var add_html = '';
 
     // change view to hide
-    var view_button = document.getElementById('view_comments_' + issue_id.toString(10));
-    view_button.innerText = 'Hide Comments';
-    view_button.setAttribute('onclick', 'hideComments(' + issue_id + ')');
+    add_html += '<button id="view_comments_' + issue_id.toString(10) + '" ';
+    add_html += 'class="comment_button" type="button" onclick="hideComments(';
+    add_html += issue_id.toString(10) + ')">Hide Comments</button>';
 
     // existing comments
     let i;
@@ -584,14 +573,14 @@ function displayComments(issue_id) {
       add_html += '<div class="comment">';
       add_html += '<img src="' + ret_data[i].user.avatar_url + '" />';
       add_html += '<p>' + ret_data[i].body + '</p>';
-      add_html += '<p>Posted by ' + ret_data[i].user.login + " at " + parseDate(ret_data[i].created_at);
+      add_html += '<p>Posted by ' + ret_data[i].user.login + " on " + parseDate(ret_data[i].created_at);
       add_html += '</p></div>';
     }
 
     // input a new comment
     add_html += '<input type="text" id="comment_input_' + issue_id.toString(10);
     add_html += '"></input><button type="button" id="comment_submit_' + issue_id.toString(10);
-    add_html += '" class="comment_button" onclick="submitComment(' + issue_id.toString(10) + ')"></button>';
+    add_html += '" class="comment_button" onclick="submitComment(' + issue_id.toString(10) + ')">Reply</button>';
 
     layout.innerHTML = add_html;
   };
