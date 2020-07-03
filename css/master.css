@@ -435,6 +435,7 @@ table {
 
 .goal_body {
   margin-bottom: 0px;
+  font-size: large;
 }
 
 .goal_top p {
@@ -630,4 +631,20 @@ table {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.comment_adder {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.comment_top p {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.comment_body {
+  font-size: large;
 }

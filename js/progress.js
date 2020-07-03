@@ -579,7 +579,7 @@ function displayComments(issue_id) {
       add_html += '<img src="' + ret_data[i].user.avatar_url + '" />';
       add_html += '<p>Posted by ' + ret_data[i].user.login + " on " + parseDate(ret_data[i].created_at);
       add_html += '</p></div>';
-      add_html += '<p><b>' + ret_data[i].body + '</b></p></div>';
+      add_html += '<p class="comment_body"><b>' + ret_data[i].body + '</b></p></div>';
     }
     add_html += '</div>';
 
@@ -639,7 +639,7 @@ function submitComment(issue_id, first) {
         add_html += '<img src="' + ret_data.user.avatar_url + '" />';
         add_html += '<p>Posted by ' + ret_data.user.login + " on " + parseDate(ret_data.created_at);
         add_html += '</p></div>';
-        add_html += '<p><b>' + ret_data.body + '</b></p></div>';
+        add_html += '<p class="comment_body"><b>' + ret_data.body + '</b></p></div>';
 
         layout.innerHTML += add_html;
         document.getElementById('comment_input_' + issue_id.toString(10)).value = '';
@@ -658,7 +658,7 @@ function submitComment(issue_id, first) {
         add_html += '<img src="' + ret_data.user.avatar_url + '" />';
         add_html += '<p>Posted by ' + ret_data.user.login + " on " + parseDate(ret_data.created_at);
         add_html += '</p></div>';
-        add_html += '<p><b>' + ret_data.body + '</b></p></div>';
+        add_html += '<p class="comment_body"><b>' + ret_data.body + '</b></p></div>';
         add_html += '</div>';
 
         // input a new comment
