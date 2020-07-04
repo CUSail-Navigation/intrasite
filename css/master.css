@@ -234,7 +234,7 @@ nav a:not(.nav_logo):hover {
   text-align: center;
 }
 
-.main_content p a {
+.main_content p a, .main_content .post_table a {
   color: #65C8D0;
 }
 
