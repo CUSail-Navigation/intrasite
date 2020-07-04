@@ -38,7 +38,7 @@ It's worth noting that measuring the wind speed is only necessary if the polar d
 
 The documentation provided for the anemometer includes this nowhere (thanks Davis Instruments!), but the wind speed circuit is NOT connected to the power input for the wind direction sensor. If you miss this, you might spend days in the lab wondering why your output signal is so weak and noisy. No, it's not because the cable is so long; the o-scope isn't broken either. You just need to put a pull-up resistor on the wind speed output (see circuit below). 
 
-![Anemometer Pullup]({{ site.baseurl }}/images/wind-with-pullup.png "Pullup Resistor Cirucuit")
+![Anemometer Pullup]({{ site.baseurl }}/images/wind-with-pullup.png "Pull-up Resistor Circuit")
 
 The output is a series of pulses. One pulse corresponds to one rotation of the wind cups about their axis. The easiest way to receive this is to use an interrupt pin on a rising edge. The specifics of configuring this depend on the microcontroller used. Track the time of the current pulse and the previous pulse (or more if you want a better average) and use the time difference to calculate the wind speed according to the only useful thing provided in the datasheet, this formula: speed (mph) = P * 2.25 / T, where P is the number of pulses recorded (typically 1) and T is the time period in which those pulses were recorded. You'll probably want to convert this from mph to m/s.
 
