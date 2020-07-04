@@ -321,7 +321,7 @@ table {
   text-align: left;
 }
 
-.post_table, .post_table * {
+.post_table, .post_table td, .post_table th {
   text-align: left;
   border: #002D5F 1px solid;
   border-collapse: collapse;
