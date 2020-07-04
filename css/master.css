@@ -261,7 +261,7 @@ table {
 #guides_layout {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
   margin-top: 20px;
   margin-bottom: 20px;
