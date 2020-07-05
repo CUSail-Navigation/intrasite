@@ -438,7 +438,6 @@ function setupNewGoalForm(edit_data) {
 function dispDaysToComp() {
   let header = document.getElementById('goal_header');
   let curDate = new Date();
-  let compDate = new Date("06/01/2021");
   let timeDif = compDate.getTime() - curDate.getTime();
   let dayDif = timeDif / (1000 * 3600 * 24);
   dayDif = Math.round(dayDif);
@@ -611,6 +610,10 @@ function hideComments(issue_id) {
   layout.innerHTML = add_html;
 }
 
+/**
+ * Submit a new comment and display it
+ * @param {number} issue_id 
+ */
 function submitComment(issue_id) {
   var req_data = new Object();
   req_data.body = document.getElementById('comment_input_' + issue_id.toString(10)).value;

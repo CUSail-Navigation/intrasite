@@ -26,6 +26,9 @@ title: Progress Tracker '20 - '21
     var milestone_str = ['August 2020', 'September 2020', 'October 2020', 'November 2020', 'December 2020', 'January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021'];
     var milestone_num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
+    // competition date (for the date tracker at the top of the page)
+    var compDate = new Date("06/01/2021");
+
     // make sure that auth is present, else send back
     var acc_code = getQueryVariable('auth');
     if (typeof acc_code === "undefined") {
