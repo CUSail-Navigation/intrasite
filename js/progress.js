@@ -479,6 +479,8 @@ function displayExistingGoals() {
   }
   goals.innerHTML = add_html;
 
+  let auth_token = getQueryVariable('auth');
+
   for (i = 0; i < milestone_num.length; i++) {
     // make a get request for those issues
     var xhr = new XMLHttpRequest();
@@ -486,7 +488,7 @@ function displayExistingGoals() {
     get_url += '?milestone=' + milestone_num[i];
     get_url += '&state=all';
     xhr.open('GET', get_url, true);
-    xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
+    xhr.setRequestHeader('Authorization', 'token ' + auth_token);
 
     xhr.onload = function () {
       var ret_data = JSON.parse(this.responseText);
@@ -508,7 +510,9 @@ function displayExistingGoals() {
 
   for (i = 0; i < milestone_num.length; i++) {
     let prog_layout = document.getElementById(milestone_num[i] + '_progress');
-    add_html = '<h2>' + milestone_str[i] + '</h2>';
+    add_html += '<div class="milestone_name">';
+    add_html += '<div id="' + milestone_num[i] + '_hide_button"></div>';
+    add_html = '<h2>' + milestone_str[i] + '</h2></div>';
     if (milestone_goals[i] === 0) {
       add_html += '<h2 id="' + milestone_str[i] + '_complete_num">0% Complete</h2>';
     } else {
@@ -519,6 +523,20 @@ function displayExistingGoals() {
   }
 
   dispDaysToComp();
+}
+
+/**
+ * Toggle the hide button and either hide or show goals
+ * @param {str} num the milestone number
+ * @param {boolean} hide whether to hide or show the milestones
+ */
+function setHideButton(num, hide) {
+  let layout = document.getElementById(num + '_hide_button');
+  if (hide) {
+    layout.innerHTML = '<i class="fas fa-plus" onclick="setHideButton(' + num + ', ' + false + ')"></i>';
+  } else {
+    layout.innerHTML = '<i class="fas fa-minus" onclick="setHideButton(' + num + ', ' + true + ')"></i>';
+  }
 }
 
 /**
