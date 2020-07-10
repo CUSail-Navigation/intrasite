@@ -511,7 +511,8 @@ function displayExistingGoals() {
   for (i = 0; i < milestone_num.length; i++) {
     let prog_layout = document.getElementById(milestone_num[i] + '_progress');
     add_html += '<div class="milestone_name">';
-    add_html += '<div id="' + milestone_num[i] + '_hide_button"></div>';
+    add_html += '<div id="' + milestone_num[i] + '_hide_button">';
+    add_html += '<i class="fas fa-minus" onclick="setHideButton(' + milestone_num[i] + ', ' + true + ')"></i></div >';
     add_html = '<h2>' + milestone_str[i] + '</h2></div>';
     if (milestone_goals[i] === 0) {
       add_html += '<h2 id="' + milestone_str[i] + '_complete_num">0% Complete</h2>';
