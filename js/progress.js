@@ -459,6 +459,10 @@ function resetBar() {
   prog_bar.set(val, true);
 }
 
+function displayMilestone(num) {
+
+}
+
 /**
  * Display all goals - THIS MUST BE CALLED BEFORE ANYTHING ELSE
  */
@@ -490,11 +494,11 @@ function displayExistingGoals() {
 
       var j;
       for (j = 0; j < ret_data.length; j++) {
-        goals[i].push(ret_data[j]);
+        all_goals[i].push(ret_data[j]);
         addGoalToMilestone(ret_data[j]);
       }
 
-      console.log(goals);
+      console.log(all_goals);
 
       ret_req++;
       if (ret_req === milestone_num.length) {
