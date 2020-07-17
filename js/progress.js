@@ -490,8 +490,11 @@ function displayExistingGoals() {
 
       var j;
       for (j = 0; j < ret_data.length; j++) {
+        goals[i].push(ret_data[j]);
         addGoalToMilestone(ret_data[j]);
       }
+
+      console.log(goals);
 
       ret_req++;
       if (ret_req === milestone_num.length) {

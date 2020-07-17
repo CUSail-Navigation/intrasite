@@ -40,6 +40,9 @@ title: Progress Tracker '20 - '21
       window.location.replace('https://cusail-navigation.github.io/intrasite/progress_gateway');
     }
 
+    // stores all goals (indexed by milestone)
+    var goals = new Array(milestone_str.length).fill([]);
+
     displayExistingGoals();
     setupNewGoalForm();
   </script>
