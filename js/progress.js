@@ -1,8 +1,3 @@
-// the number of goals within each milestone
-var milestone_goals = new Array(milestone_str.length).fill(0);
-// the number of completed goals within each milestone
-var milestone_completed = new Array(milestone_str.length).fill(0);
-
 // the progress bar
 var prog_bar = new ldBar(".main_bar", {
   "type": 'fill',

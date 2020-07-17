@@ -29,6 +29,11 @@ title: Progress Tracker '20 - '21
     // competition date (for the date tracker at the top of the page)
     var compDate = new Date("06/01/2021");
 
+    // the number of goals within each milestone
+    var milestone_goals = new Array(milestone_str.length).fill(0);
+    // the number of completed goals within each milestone
+    var milestone_completed = new Array(milestone_str.length).fill(0);
+
     // make sure that auth is present, else send back
     var acc_code = getQueryVariable('auth');
     if (typeof acc_code === "undefined") {
