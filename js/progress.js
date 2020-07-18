@@ -460,7 +460,70 @@ function resetBar() {
 }
 
 function displayMilestone(num) {
+  var ul_layout = document.getElementById('ul_' + milestone_str[num]);
+  var add_html = '';
 
+  let i;
+  for (i = 0; i < all_goals[num].length; i++) {
+    // add goal to milestone
+    add_html += '<li id="goal_num_' + all_goals[num][i].number.toString(10) + '">';
+    add_html += '<div class="goal_top" id="top_' + all_goals[num][i].toString(10) + '">';
+    add_html += '<a href="' + all_goals[num][i].user.html_url + '">';
+    add_html += '<img src="' + all_goals[num][i].avatar_url + '" /></a>';
+
+    add_html += '<div class="goal_creator">';
+    add_html += '<h4>' + ret_data.title + '</h4>';
+    add_html += '<p class="goal_creator_tag" id="create_complete_' + ret_data.number.toString(10) + '">Created by <a href="';
+    add_html += ret_data.user.html_url + '">';
+    add_html += ret_data.user.login + '</a> on ' + parseDate(ret_data.created_at);
+    if (ret_data.state.includes("closed")) {
+      add_html += ' • Completed on ' + parseDate(ret_data.closed_at);
+    }
+    add_html += '</p></div>';
+
+    const i = mapMilestoneStrToIdx(ret_data.milestone.title);
+    milestone_goals[i]++;
+
+    if (ret_data.state.includes("open")) {
+      add_html += '<button id="edit_button_' + ret_data.number.toString(10) + '" onclick="updateGoal(';
+      add_html += ret_data.number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
+      add_html += '<button id="complete_button_' + ret_data.number.toString(10) + '" onclick="markComplete(';
+      add_html += ret_data.number.toString(10) + ', ' + true + ')" type="button">Mark Complete</button>';
+    } else {
+      milestone_completed[i]++;
+      add_html += '<button id="complete_button_' + ret_data.number.toString(10) + '" onclick="markComplete(';
+      add_html += ret_data.number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
+    }
+    add_html += '</div>';
+
+    var people = '';
+    var k;
+    for (k = 0; k < ret_data.assignees.length; k++) {
+      people += '<a href="' + ret_data.assignees[k].html_url + '">' + ret_data.assignees[k].login + '</a>, ';
+    }
+    if (ret_data.assignees.length < 1) {
+      add_html += '<p class="goal_assignees">';
+      people += 'No one is assigned to this goal. Edit this goal to add someone.';
+    } else {
+      add_html += '<p class="goal_assignees">Assigned Team Member(s): ';
+      people = people.substring(0, people.length - 2);
+    }
+    add_html += people + '</p>';
+
+    add_html += '<p class="goal_body"><b>' + ret_data.body + '</b></p>';
+
+    // for comments
+    add_html += '<div class="comments_layout" id="comments_layout_' + ret_data.number.toString(10);
+    add_html += '"></div>';
+
+    add_html += '</li>';
+
+    ul_layout.innerHTML += add_html;
+
+    setCommentButton(ret_data.number, ret_data.comments);
+    updateMilestoneHeader(i);
+    resetBar();
+  }
 }
 
 /**
@@ -492,9 +555,10 @@ function displayExistingGoals() {
       var ret_data = JSON.parse(this.responseText);
       milestone_goals[i] = ret_data.length;
 
+      all_goals[i] = ret_data;
+
       var j;
       for (j = 0; j < ret_data.length; j++) {
-        all_goals[i].push(ret_data[j]);
         addGoalToMilestone(ret_data[j]);
       }
 
