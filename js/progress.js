@@ -543,7 +543,7 @@ function displayExistingGoals() {
   goals.innerHTML = add_html;
 
   for (i = 0; i < milestone_num.length; i++) {
-    all_goals.push([]);
+    all_goals.push(new Array());
 
     // make a get request for those issues
     var xhr = new XMLHttpRequest();
