@@ -472,36 +472,36 @@ function displayMilestone(num) {
     add_html += '<img src="' + all_goals[num][i].avatar_url + '" /></a>';
 
     add_html += '<div class="goal_creator">';
-    add_html += '<h4>' + ret_data.title + '</h4>';
-    add_html += '<p class="goal_creator_tag" id="create_complete_' + ret_data.number.toString(10) + '">Created by <a href="';
-    add_html += ret_data.user.html_url + '">';
-    add_html += ret_data.user.login + '</a> on ' + parseDate(ret_data.created_at);
-    if (ret_data.state.includes("closed")) {
-      add_html += ' • Completed on ' + parseDate(ret_data.closed_at);
+    add_html += '<h4>' + all_goals[num][i].title + '</h4>';
+    add_html += '<p class="goal_creator_tag" id="create_complete_' + all_goals[num][i].number.toString(10) + '">Created by <a href="';
+    add_html += all_goals[num][i].user.html_url + '">';
+    add_html += all_goals[num][i].user.login + '</a> on ' + parseDate(all_goals[num][i].created_at);
+    if (all_goals[num][i].state.includes("closed")) {
+      add_html += ' • Completed on ' + parseDate(all_goals[num][i].closed_at);
     }
     add_html += '</p></div>';
 
-    const i = mapMilestoneStrToIdx(ret_data.milestone.title);
-    milestone_goals[i]++;
+    const i = mapMilestoneStrToIdx(all_goals[num][i].milestone.title);
+    milestone_goals[i]++; // elim
 
-    if (ret_data.state.includes("open")) {
-      add_html += '<button id="edit_button_' + ret_data.number.toString(10) + '" onclick="updateGoal(';
-      add_html += ret_data.number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
-      add_html += '<button id="complete_button_' + ret_data.number.toString(10) + '" onclick="markComplete(';
-      add_html += ret_data.number.toString(10) + ', ' + true + ')" type="button">Mark Complete</button>';
+    if (all_goals[num][i].state.includes("open")) {
+      add_html += '<button id="edit_button_' + all_goals[num][i].number.toString(10) + '" onclick="updateGoal(';
+      add_html += all_goals[num][i].number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
+      add_html += '<button id="complete_button_' + all_goals[num][i].number.toString(10) + '" onclick="markComplete(';
+      add_html += all_goals[num][i].number.toString(10) + ', ' + true + ')" type="button">Mark Complete</button>';
     } else {
       milestone_completed[i]++;
-      add_html += '<button id="complete_button_' + ret_data.number.toString(10) + '" onclick="markComplete(';
-      add_html += ret_data.number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
+      add_html += '<button id="complete_button_' + all_goals[num][i].number.toString(10) + '" onclick="markComplete(';
+      add_html += all_goals[num][i].number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
     }
     add_html += '</div>';
 
     var people = '';
     var k;
-    for (k = 0; k < ret_data.assignees.length; k++) {
-      people += '<a href="' + ret_data.assignees[k].html_url + '">' + ret_data.assignees[k].login + '</a>, ';
+    for (k = 0; k < all_goals[num][i].assignees.length; k++) {
+      people += '<a href="' + all_goals[num][i].assignees[k].html_url + '">' + all_goals[num][i].assignees[k].login + '</a>, ';
     }
-    if (ret_data.assignees.length < 1) {
+    if (all_goals[num][i].assignees.length < 1) {
       add_html += '<p class="goal_assignees">';
       people += 'No one is assigned to this goal. Edit this goal to add someone.';
     } else {
@@ -510,20 +510,23 @@ function displayMilestone(num) {
     }
     add_html += people + '</p>';
 
-    add_html += '<p class="goal_body"><b>' + ret_data.body + '</b></p>';
+    add_html += '<p class="goal_body"><b>' + all_goals[num][i].body + '</b></p>';
 
     // for comments
-    add_html += '<div class="comments_layout" id="comments_layout_' + ret_data.number.toString(10);
+    add_html += '<div class="comments_layout" id="comments_layout_' + all_goals[num][i].number.toString(10);
     add_html += '"></div>';
 
     add_html += '</li>';
-
-    ul_layout.innerHTML += add_html;
-
-    setCommentButton(ret_data.number, ret_data.comments);
-    updateMilestoneHeader(i);
-    resetBar();
   }
+
+  ul_layout.innerHTML = add_html;
+
+  for (i = 0; i < all_goals[num].length; i++) {
+    setCommentButton(all_goals[num][i].number, all_goals[num][i].comments);
+  }
+
+  updateMilestoneHeader(i);
+  resetBar();
 }
 
 /**
@@ -555,10 +558,11 @@ function displayExistingGoals() {
       var ret_data = JSON.parse(this.responseText);
       milestone_goals[i] = ret_data.length;
 
-      all_goals[i] = ret_data;
+      //all_goals[i] = ret_data;
 
       var j;
       for (j = 0; j < ret_data.length; j++) {
+        all_goals[i].push(Object.assign({}, ret_data[j]));
         addGoalToMilestone(ret_data[j]);
       }
 
