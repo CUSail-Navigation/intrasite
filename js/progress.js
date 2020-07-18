@@ -68,7 +68,7 @@ function makeNewGoal() {
  */
 function updateMilestoneHeader(i) {
   let complete_num = document.getElementById(milestone_str[i] + '_complete_num');
-  let percentage = Math.floor((milestone_completed[i] * 1.0 / milestone_goals[i]) * 100.0);
+  let percentage = Math.floor((milestone_completed[i] * 1.0 / all_goals[i].length) * 100.0);
   complete_num.innerText = '' + percentage + '% Complete';
 }
 
@@ -481,16 +481,13 @@ function displayMilestone(num) {
     }
     add_html += '</p></div>';
 
-    const i = mapMilestoneStrToIdx(all_goals[num][i].milestone.title);
-    milestone_goals[i]++; // elim
-
     if (all_goals[num][i].state.includes("open")) {
       add_html += '<button id="edit_button_' + all_goals[num][i].number.toString(10) + '" onclick="updateGoal(';
       add_html += all_goals[num][i].number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
       add_html += '<button id="complete_button_' + all_goals[num][i].number.toString(10) + '" onclick="markComplete(';
       add_html += all_goals[num][i].number.toString(10) + ', ' + true + ')" type="button">Mark Complete</button>';
     } else {
-      milestone_completed[i]++;
+      milestone_completed[num]++;
       add_html += '<button id="complete_button_' + all_goals[num][i].number.toString(10) + '" onclick="markComplete(';
       add_html += all_goals[num][i].number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
     }
@@ -525,7 +522,7 @@ function displayMilestone(num) {
     setCommentButton(all_goals[num][i].number, all_goals[num][i].comments);
   }
 
-  updateMilestoneHeader(i);
+  updateMilestoneHeader(num);
   resetBar();
 }
 
@@ -556,7 +553,6 @@ function displayExistingGoals() {
 
     xhr.onload = function () {
       var ret_data = JSON.parse(this.responseText);
-      milestone_goals[i] = ret_data.length;
 
       //all_goals[i] = ret_data;
 
