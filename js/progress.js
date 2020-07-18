@@ -473,6 +473,7 @@ function displayMilestone(num) {
   var ul_layout = document.getElementById('ul_' + milestone_str[num]);
   var add_html = '';
   console.log(all_goals[num]);
+  console.log(all_goals);
 
   let i;
   for (i = 0; i < all_goals[num].length; i++) {
@@ -566,16 +567,17 @@ function displayExistingGoals() {
 
     xhr.onload = function () {
       var ret_data = JSON.parse(this.responseText);
-      all_goals[i] = new Array(ret_data.length);
-
-      var j;
-      for (j = 0; j < ret_data.length; j++) {
-        all_goals[i][j] = Object.assign({}, ret_data[j]);
-        //addGoalToMilestone(ret_data[j]);
-      }
 
       if (ret_data.length > 0) {
-        displayMilestone(mapMilestoneStrToIdx(ret_data[0].milestone.title));
+        milestone_idx = mapMilestoneStrToIdx(ret_data[0].milestone.title);
+        all_goals[milestone_idx] = new Array(ret_data.length);
+
+        let j;
+        for (j = 0; j < ret_data.length; j++) {
+          all_goals[milestone_idx][j] = Object.assign({}, ret_data[j]);
+        }
+
+        displayMilestone(milestone_idx);
       }
 
       ret_req++;
