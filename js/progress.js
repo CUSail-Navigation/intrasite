@@ -57,7 +57,7 @@ function makeNewGoal() {
   setupNewGoalForm(null);
   var layout = document.getElementById('make_new_goal');
   layout.style.visibility = 'visible';
-  $("html, body").delay(150).animate({
+  $("html, body").animate({
     scrollTop: $('#make_new_goal').offset().top
   }, 1000);
 }
@@ -68,7 +68,7 @@ function makeNewGoal() {
  */
 function updateMilestoneHeader(i) {
   let complete_num = document.getElementById(milestone_str[i] + '_complete_num');
-  let percentage = Math.floor((milestone_completed[i] * 1.0 / all_goals[i].length) * 100.0);
+  let percentage = all_goals[i].length > 0 ? Math.floor((milestone_completed[i] * 1.0 / all_goals[i].length) * 100.0) : 0;
   complete_num.innerText = '' + percentage + '% Complete';
 }
 
@@ -543,6 +543,8 @@ function displayExistingGoals() {
   goals.innerHTML = add_html;
 
   for (i = 0; i < milestone_num.length; i++) {
+    all_goals.push([]);
+
     // make a get request for those issues
     var xhr = new XMLHttpRequest();
     var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
