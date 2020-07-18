@@ -68,7 +68,7 @@ function makeNewGoal() {
  */
 function updateMilestoneHeader(i) {
   let complete_num = document.getElementById(milestone_str[i] + '_complete_num');
-  let percentage = all_goals[i].length > 0 ? Math.floor((milestone_completed[i] * 1.0 / all_goals[i].length) * 100.0) : 0;
+  let percentage = all_goals[i] ? (all_goals[i].length > 0 ? Math.floor((milestone_completed[i] * 1.0 / all_goals[i].length) * 100.0) : 0) : 0;
   complete_num.innerText = '' + percentage + '% Complete';
 }
 
@@ -449,7 +449,7 @@ function resetBar() {
   let total_goals = 0;
   let i;
   for (i = 0; i < all_goals.length; i++) {
-    total_goals += all_goals[i].length;
+    total_goals += all_goals[i] ? all_goals[i].length : 0;
   }
 
   let total_completed = milestone_completed.reduce(function (a, b) {
@@ -468,7 +468,7 @@ function displayMilestone(num) {
   var add_html = '';
 
   let i;
-  for (i = 0; i < all_goals[num].length; i++) {
+  for (i = 0; i < all_goals[num] ? all_goals[num].length : 0; i++) {
     // add goal to milestone
     add_html += '<li id="goal_num_' + all_goals[num][i].number.toString(10) + '">';
     add_html += '<div class="goal_top" id="top_' + all_goals[num][i].toString(10) + '">';
@@ -522,7 +522,7 @@ function displayMilestone(num) {
 
   ul_layout.innerHTML = add_html;
 
-  for (i = 0; i < all_goals[num].length; i++) {
+  for (i = 0; i < all_goals[num] ? all_goals[num].length : 0; i++) {
     setCommentButton(all_goals[num][i].number, all_goals[num][i].comments);
   }
 
@@ -561,14 +561,9 @@ function displayExistingGoals() {
 
       var j;
       for (j = 0; j < ret_data.length; j++) {
-        console.log(Object.assign({}, ret_data[j]));
-        console.log(all_goals[i]);
-        console.log(all_goals);
         all_goals[i][j] = Object.assign({}, ret_data[j]);
         addGoalToMilestone(ret_data[j]);
       }
-
-      console.log(all_goals);
 
       ret_req++;
       if (ret_req === milestone_num.length) {
