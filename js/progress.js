@@ -568,7 +568,7 @@ function displayExistingGoals() {
       }
 
       if (ret_data.length > 0) {
-        displayMilestone(mapMilestoneStrToIdx(ret_data.milestone.title));
+        displayMilestone(mapMilestoneStrToIdx(ret_data[0].milestone.title));
       }
 
       ret_req++;
