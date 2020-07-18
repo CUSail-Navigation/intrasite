@@ -562,8 +562,10 @@ function displayExistingGoals() {
       var j;
       for (j = 0; j < ret_data.length; j++) {
         all_goals[i][j] = Object.assign({}, ret_data[j]);
-        addGoalToMilestone(ret_data[j]);
+        //addGoalToMilestone(ret_data[j]);
       }
+
+      displayMilestone(i);
 
       ret_req++;
       if (ret_req === milestone_num.length) {
