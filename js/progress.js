@@ -464,6 +464,8 @@ function resetBar() {
 }
 
 function displayMilestone(num) {
+  console.log(num);
+  console.log(milestone_str[num]);
   var ul_layout = document.getElementById('ul_' + milestone_str[num]);
   var add_html = '';
 
