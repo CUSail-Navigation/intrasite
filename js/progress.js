@@ -463,14 +463,19 @@ function resetBar() {
   prog_bar.set(val, true);
 }
 
+/**
+ * Requires that a milestone has at least one goal
+ * @param {num} num 
+ */
 function displayMilestone(num) {
   console.log(num);
   console.log(milestone_str[num]);
   var ul_layout = document.getElementById('ul_' + milestone_str[num]);
   var add_html = '';
+  console.log(all_goals[num]);
 
   let i;
-  for (i = 0; i < all_goals[num] ? all_goals[num].length : 0; i++) {
+  for (i = 0; i < all_goals[num].length; i++) {
     console.log("adding to " + num);
     console.log(all_goals[num][i]);
     // add goal to milestone
