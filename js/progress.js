@@ -559,6 +559,8 @@ function displayExistingGoals() {
       var j;
       for (j = 0; j < ret_data.length; j++) {
         console.log(Object.assign({}, ret_data[j]));
+        console.log(all_goals[i]);
+        console.log(all_goals);
         all_goals[i].push(Object.assign({}, ret_data[j]));
         addGoalToMilestone(ret_data[j]);
       }
