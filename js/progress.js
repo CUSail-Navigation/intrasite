@@ -483,7 +483,7 @@ function displayMilestone(num) {
     add_html += '<li id="goal_num_' + all_goals[num][i].number.toString(10) + '">';
     add_html += '<div class="goal_top" id="top_' + all_goals[num][i].toString(10) + '">';
     add_html += '<a href="' + all_goals[num][i].user.html_url + '">';
-    add_html += '<img src="' + all_goals[num][i].avatar_url + '" /></a>';
+    add_html += '<img src="' + all_goals[num][i].user.avatar_url + '" /></a>';
 
     add_html += '<div class="goal_creator">';
     add_html += '<h4>' + all_goals[num][i].title + '</h4>';
