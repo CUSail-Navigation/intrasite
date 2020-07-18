@@ -446,12 +446,16 @@ function dispDaysToComp() {
  */
 function resetBar() {
   // set the main progress bar
-  let total_goals = milestone_goals.reduce(function (a, b) {
-    return a + b;
-  }, 0);
+  let total_goals = 0;
+  let i;
+  for (i = 0; i < all_goals.length; i++) {
+    total_goals += all_goals[i].length;
+  }
+
   let total_completed = milestone_completed.reduce(function (a, b) {
     return a + b;
   }, 0);
+
   let val = 0;
   if (total_goals > 0) {
     val = (total_completed * 1.0 / total_goals) * 100.0;
@@ -543,8 +547,6 @@ function displayExistingGoals() {
   goals.innerHTML = add_html;
 
   for (i = 0; i < milestone_num.length; i++) {
-    all_goals.push(new Array());
-
     // make a get request for those issues
     var xhr = new XMLHttpRequest();
     var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
@@ -555,15 +557,14 @@ function displayExistingGoals() {
 
     xhr.onload = function () {
       var ret_data = JSON.parse(this.responseText);
-
-      //all_goals[i] = ret_data;
+      all_goals[i] = new Array(ret_data.length);
 
       var j;
       for (j = 0; j < ret_data.length; j++) {
         console.log(Object.assign({}, ret_data[j]));
         console.log(all_goals[i]);
         console.log(all_goals);
-        all_goals[i].push(Object.assign({}, ret_data[j]));
+        all_goals[i][j] = Object.assign({}, ret_data[j]);
         addGoalToMilestone(ret_data[j]);
       }
 
