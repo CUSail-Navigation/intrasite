@@ -471,6 +471,8 @@ function displayMilestone(num) {
 
   let i;
   for (i = 0; i < all_goals[num] ? all_goals[num].length : 0; i++) {
+    console.log("adding to " + num);
+    console.log(all_goals[num][i]);
     // add goal to milestone
     add_html += '<li id="goal_num_' + all_goals[num][i].number.toString(10) + '">';
     add_html += '<div class="goal_top" id="top_' + all_goals[num][i].toString(10) + '">';
