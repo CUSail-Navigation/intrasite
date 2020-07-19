@@ -478,7 +478,7 @@ function displayExistingGoals() {
 
   for (i = 0; i < milestone_num.length; i++) {
     // make a get request for those issues
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues';
     get_url += '?milestone=' + milestone_num[i];
     get_url += '&state=all';
