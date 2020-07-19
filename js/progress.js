@@ -336,7 +336,8 @@ function setupNewGoalForm(edit_data) {
   for (j = 0; j < all_members.length; j++) {
     inner_sel += '<div id="login_checkbox">';
     inner_sel += '<input type="checkbox" id="' + all_members[j].login + '_checkbox" value="' + all_members[j].login + '" name="login_check">';
-    inner_sel += '<label for="' + all_members[j].login + '_checkbox">' + all_members[j].login + '</label>';
+    inner_sel += '<label for="' + all_members[j].login + '_checkbox">';
+    inner_sel += '<a href="' + all_members[j].html_url + '" target="_blank">' + all_members[j].login + '</a></label>';
     inner_sel += '</div>';
   }
   sel_layout.innerHTML = inner_sel;
