@@ -169,11 +169,11 @@ function addGoalToMilestone(ret_data) {
     add_html += '<button id="edit_button_' + ret_data.number.toString(10) + '" onclick="updateGoal(';
     add_html += ret_data.number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
     add_html += '<button id="complete_button_' + ret_data.number.toString(10) + '" onclick="markComplete(';
-    add_html += ret_data.number.toString(10) + ', ' + true + ')" type="button">Mark Complete</button>';
+    add_html += ret_data.number.toString(10) + ')" type="button">Mark Complete</button>';
   } else {
     milestone_completed[i]++;
     add_html += '<button id="complete_button_' + ret_data.number.toString(10) + '" onclick="markComplete(';
-    add_html += ret_data.number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
+    add_html += ret_data.number.toString(10) + ')" type="button">Reopen</button>';
   }
   add_html += '</div>';
 
@@ -301,9 +301,8 @@ function submitGoalUpdate(issue_id, prev_mil, closed) {
  * TODO
  * Mark a goal as being completed or open
  * @param {number} issue_id - the number associated with the goal
- * @param {boolean} mark - true if the goal is being marked closed
  */
-function markComplete(issue_id, mark) {
+function markComplete(issue_id) {
   var auth_code = getQueryVariable('auth');
   var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
   patch_url += issue_id;
@@ -331,45 +330,6 @@ function markComplete(issue_id, mark) {
       let goal_idx = mapIssueNumToIndices(ret_data.number);
       all_goals[goal_idx.milestone_num][goal_idx.goal_num] = Object.assign({}, ret_data);
       displayMilestone(milestone_idx);
-
-      // // if marking closed, remove the edit button and change the text on 
-      // // the mark complete button to reopen, add 'completed on' annotation
-      // // if marking open, put back the edit button and change the text on 
-      // // the reopen button to mark complete, remove the 'completed on' annotation
-      // if (mark) {
-      //   milestone_completed[i]++
-      //   document.getElementById('edit_button_' + ret_data.number.toString(10)).remove();
-      //   document.getElementById('complete_button_' + ret_data.number.toString(10)).innerText = 'Reopen';
-      //   let fun = 'markComplete(' + ret_data.number.toString(10) + ', ' + false + ')';
-      //   document.getElementById('complete_button_' + ret_data.number.toString(10)).setAttribute("onclick", fun);
-      //   let compl_anno = 'Created by ' + ret_data.user.login + ' on ' + parseDate(ret_data.created_at);
-      //   compl_anno += ' • Completed on ' + parseDate(ret_data.closed_at);
-      //   document.getElementById('create_complete_' + ret_data.number.toString(10)).innerText = compl_anno;
-      // } else {
-      //   milestone_completed[i]--;
-      //   // remove the mark complete button so that the order will be correct
-      //   document.getElementById('complete_button_' + ret_data.number.toString(10)).remove();
-      //   // put back the edit button
-      //   let edit_button = document.createElement("button");
-      //   edit_button.setAttribute("id", 'edit_button_' + ret_data.number.toString(10));
-      //   edit_button.setAttribute("type", "button");
-      //   edit_button.setAttribute("onclick", 'updateGoal(' + ret_data.number.toString(10) + ')');
-      //   edit_button.innerText = "Edit Goal";
-      //   document.getElementById('top_' + ret_data.number.toString(10)).appendChild(edit_button);
-      //   // put back the complete button
-      //   let complete_button = document.createElement("button");
-      //   complete_button.setAttribute("id", 'complete_button_' + ret_data.number.toString(10));
-      //   complete_button.setAttribute("type", "button");
-      //   complete_button.setAttribute("onclick", 'markComplete(' + ret_data.number.toString(10) + ', ' + true + ')');
-      //   complete_button.innerText = "Mark Complete";
-      //   document.getElementById('top_' + ret_data.number.toString(10)).appendChild(complete_button);
-      //   // reset the annotation
-      //   let compl_anno = 'Created by ' + ret_data.user.login + ' on ' + parseDate(ret_data.created_at);
-      //   document.getElementById('create_complete_' + ret_data.number.toString(10)).innerText = compl_anno;
-      // }
-      // // update progress markers
-      // updateMilestoneHeader(i);
-      // resetBar();
     }
   }
   xhr.send(jsonString);
@@ -518,6 +478,7 @@ function resetBar() {
  */
 function displayMilestone(num) {
   var ul_layout = document.getElementById('ul_' + milestone_str[num]);
+  milestone_completed[num] = 0;
   var add_html = '';
 
   let i;
@@ -542,11 +503,11 @@ function displayMilestone(num) {
       add_html += '<button id="edit_button_' + all_goals[num][i].number.toString(10) + '" onclick="updateGoal(';
       add_html += all_goals[num][i].number.toString(10) + ')" ' + 'type="button">Edit Goal</button>';
       add_html += '<button id="complete_button_' + all_goals[num][i].number.toString(10) + '" onclick="markComplete(';
-      add_html += all_goals[num][i].number.toString(10) + ', ' + true + ')" type="button">Mark Complete</button>';
+      add_html += all_goals[num][i].number.toString(10) + ')" type="button">Mark Complete</button>';
     } else {
       milestone_completed[num]++;
       add_html += '<button id="complete_button_' + all_goals[num][i].number.toString(10) + '" onclick="markComplete(';
-      add_html += all_goals[num][i].number.toString(10) + ', ' + false + ')" type="button">Reopen</button>';
+      add_html += all_goals[num][i].number.toString(10) + ')" type="button">Reopen</button>';
     }
     add_html += '</div>';
 
@@ -589,7 +550,6 @@ function displayMilestone(num) {
 function displayExistingGoals() {
   var goals = document.getElementById('goals_layout');
 
-  var ret_req = 0;
   var add_html = '';
   var i;
   for (i = 0; i < milestone_num.length; i++) {
@@ -621,11 +581,6 @@ function displayExistingGoals() {
         }
 
         displayMilestone(milestone_idx);
-      }
-
-      ret_req++;
-      if (ret_req === milestone_num.length) {
-        resetBar();
       }
     };
     xhr.send();
