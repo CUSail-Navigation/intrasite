@@ -604,6 +604,10 @@ table {
   justify-content: flex-start;
 }
 
+#sub_new_button {
+  margin-right: 20px;
+}
+
 /* comments layout */
 
 .comment_top {
