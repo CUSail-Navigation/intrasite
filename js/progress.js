@@ -21,6 +21,20 @@ function mapMilestoneStrToIdx(name) {
   }
 }
 
+function mapIssueNumToObject(issue_id) {
+  console.log(typeof issue_id);
+
+  let i;
+  let j;
+  for (i = 0; i < all_goals.length; i++) {
+    for (j = 0; j < all_goals[i].length; j++) {
+      if (all_goals[i][j].number === issue_id) {
+        return all_goals[i][j];
+      }
+    }
+  }
+}
+
 /**
  * Decodes the url to get the requested parameter (for this page, 'auth')
  * @param {string} variable - the variable name
@@ -73,6 +87,7 @@ function updateMilestoneHeader(i) {
 }
 
 /**
+ * TODO
  * Move an updated goal from one milestone to another (possibly the same)
  * @param {Object} ret_data - the object representing the new goal
  * @param {string} prev_mil - the name of the previous milestone
@@ -96,6 +111,7 @@ function updateGoalLocation(ret_data, prev_mil, closed) {
 }
 
 /**
+ * TODO delete?
  * Add a goal to the milestone specified in its representation
  * @param {Object} ret_data - the goal object returned from the api request
  */
@@ -163,6 +179,7 @@ function addGoalToMilestone(ret_data) {
 }
 
 /**
+ * TODO
  * Submit a new goal to the Github API
  */
 function submitNewGoal() {
@@ -202,6 +219,7 @@ function submitNewGoal() {
 }
 
 /**
+ * TODO
  * Submit an update to a goal using a PATCH request
  * @param {number} issue_id - the number associated with the goal
  * @param {string} prev_mil - the milestone that the goal was initially in
@@ -245,6 +263,7 @@ function submitGoalUpdate(issue_id, prev_mil, closed) {
 }
 
 /**
+ * TODO
  * Mark a goal as being completed or open
  * @param {number} issue_id - the number associated with the goal
  * @param {boolean} mark - true if the goal is being marked closed
@@ -318,10 +337,13 @@ function markComplete(issue_id, mark) {
 }
 
 /**
+ * TODO
  * Change the "add goal" form to edit an existing goal
  * @param {number} issue_id - the number associated with the goal to be updated
  */
 function updateGoal(issue_id) {
+  console.log(mapIssueNumToObject(issue_id));
+
   // load the current goal information into 
   var xhr = new XMLHttpRequest();
   var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
@@ -361,6 +383,7 @@ function updateGoal(issue_id) {
 }
 
 /**
+ * TODO
  * Setup or reset the "add goal" form
  * @param {Object} edit_data - the object associated with the form (if editing) or null
  */
@@ -465,7 +488,7 @@ function resetBar() {
 
 /**
  * Requires that a milestone has at least one goal
- * @param {num} num 
+ * @param {number} num 
  */
 function displayMilestone(num) {
   console.log(num);
