@@ -6,7 +6,7 @@ logo: sphinx_logo.png
 title: Updating the Documentation
 ---
 
-<link rel="stylesheet" href="{{site.baseurl}}/css/code_styles/dracula.css">
+<link rel="stylesheet" href="{{site.baseurl}}/css/code_styles/hybrid.css">
 <script src="{{site.baseurl}}/js/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
@@ -27,6 +27,7 @@ class Useless:
 
 def something():
   pass
+
 </code>
 </pre>
 
@@ -48,6 +49,7 @@ def main():
 
 if __name__ == '__main__':
   main()
+
 </code>
 </pre>
 
@@ -69,6 +71,7 @@ examples.
   foo = ClassFoo()
   bar = foo.FunctionBar()
 """
+
 </code>
 </pre>
 
@@ -107,6 +110,7 @@ class NMEA:
 
     """
     pass
+
 </code>
 </pre>
 
@@ -131,6 +135,7 @@ def func(arg1, arg2):
 
     """
     pass
+
 </code>
 </pre>
 
@@ -140,6 +145,7 @@ Spinx is a Python extention, so you'll need to install it before building any do
 <pre>
 <code class="shell">
 pip install -U sphinx
+
 </code>
 </pre>
 
@@ -148,6 +154,7 @@ We are using a third-party Sphinx theme for our HTML files because it looks marg
 <pre>
 <code class="shell">
 pip install sphinx_rtd_theme
+
 </code>
 </pre>
 
@@ -161,6 +168,7 @@ First, you must be inside of the _sphinx_ directory (use *cd spinx* from the ter
 <pre>
 <code class="shell">
 sphinx-apidoc -f -e -o . .. ../nav_algo/tests
+
 </code>
 </pre>
 
@@ -169,6 +177,7 @@ The final step is to actually generate the HTML. Do this by running:
 <pre>
 <code class="shell">
 make html
+
 </code>
 </pre>
 
