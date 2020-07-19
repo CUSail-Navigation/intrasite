@@ -403,13 +403,13 @@ function displayMilestone(num) {
     // add goal to milestone
     add_html += '<li id="goal_num_' + all_goals[num][i].number.toString(10) + '">';
     add_html += '<div class="goal_top" id="top_' + all_goals[num][i].toString(10) + '">';
-    add_html += '<a href="' + all_goals[num][i].user.html_url + '">';
+    add_html += '<a href="' + all_goals[num][i].user.html_url + '" target="_blank">';
     add_html += '<img src="' + all_goals[num][i].user.avatar_url + '" /></a>';
 
     add_html += '<div class="goal_creator">';
     add_html += '<h4>' + all_goals[num][i].title + '</h4>';
     add_html += '<p class="goal_creator_tag" id="create_complete_' + all_goals[num][i].number.toString(10) + '">Created by <a href="';
-    add_html += all_goals[num][i].user.html_url + '">';
+    add_html += all_goals[num][i].user.html_url + '" target="_blank">';
     add_html += all_goals[num][i].user.login + '</a> on ' + parseDate(all_goals[num][i].created_at);
     if (all_goals[num][i].state.includes("closed")) {
       add_html += ' • Completed on ' + parseDate(all_goals[num][i].closed_at);
@@ -431,7 +431,7 @@ function displayMilestone(num) {
     var people = '';
     var k;
     for (k = 0; k < all_goals[num][i].assignees.length; k++) {
-      people += '<a href="' + all_goals[num][i].assignees[k].html_url + '">' + all_goals[num][i].assignees[k].login + '</a>, ';
+      people += '<a href="' + all_goals[num][i].assignees[k].html_url + '" target="_blank">' + all_goals[num][i].assignees[k].login + '</a>, ';
     }
     if (all_goals[num][i].assignees.length < 1) {
       add_html += '<p class="goal_assignees">';
