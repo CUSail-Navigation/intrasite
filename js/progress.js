@@ -532,6 +532,7 @@ function displayExistingGoals() {
     for (j = 0; j < ret_data.length; j++) {
       all_members[j] = Object.assign({}, ret_data[j]);
     }
+    setupNewGoalForm();
     console.log(all_members);
   };
 
