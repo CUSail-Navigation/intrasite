@@ -7,6 +7,9 @@ var prog_bar = new ldBar(".main_bar", {
   "fill-background": '#e7e7e7'
 });
 
+// all members that can be assigned to a goal
+var all_members;
+
 /**
  * Map the name of a milestone to its index
  * @param {string} name - the name of a milestone
@@ -329,34 +332,26 @@ function setupNewGoalForm(edit_data) {
   let sel_layout = document.getElementById("members_selector");
   let inner_sel = '';
 
-  let xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.github.com/orgs/cusail-navigation/members', true);
-  xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
+  let j;
+  for (j = 0; j < all_members.length; j++) {
+    inner_sel += '<div id="login_checkbox">';
+    inner_sel += '<input type="checkbox" id="' + all_members[j].login + '_checkbox" value="' + all_members[j].login + '" name="login_check">';
+    inner_sel += '<label for="' + all_members[j].login + '_checkbox">' + all_members[j].login + '</label>';
+    inner_sel += '</div>';
+  }
+  sel_layout.innerHTML = inner_sel;
 
-  xhr.onload = function () {
-    let ret_data = JSON.parse(this.responseText);
-    let j;
-    for (j = 0; j < ret_data.length; j++) {
-      inner_sel += '<div id="login_checkbox">';
-      inner_sel += '<input type="checkbox" id="' + ret_data[j].login + '_checkbox" value="' + ret_data[j].login + '" name="login_check">';
-      inner_sel += '<label for="' + ret_data[j].login + '_checkbox">' + ret_data[j].login + '</label>';
-      inner_sel += '</div>';
-    }
-    sel_layout.innerHTML = inner_sel;
-
-    // if this is to setup for an edit, add stuff to the forms
-    if (edit_data) {
-      // get assignees
-      let k;
-      for (k = 0; k < edit_data.assignees.length; k++) {
-        let box_id = edit_data.assignees[k].login + '_checkbox';
-        let checkbox = document.getElementById(box_id);
+  // if this is to setup for an edit, check the necessary boxes
+  if (edit_data) {
+    let k;
+    for (k = 0; k < edit_data.assignees.length; k++) {
+      let box_id = edit_data.assignees[k].login + '_checkbox';
+      let checkbox = document.getElementById(box_id);
+      if (checkbox) {
         checkbox.checked = true;
       }
     }
-  };
-
-  xhr.send();
+  }
 }
 
 /**
@@ -522,6 +517,24 @@ function displayExistingGoals() {
   }
 
   dispDaysToComp();
+
+  // update the list of members
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://api.github.com/orgs/cusail-navigation/members', true);
+  xhr.setRequestHeader('Authorization', 'token ' + getQueryVariable('auth'));
+
+  xhr.onload = function () {
+    let ret_data = JSON.parse(this.responseText);
+    all_members = new Array(ret_data.length);
+
+    let j;
+    for (j = 0; j < ret_data.length; j++) {
+      all_members[j] = Object.assign({}, ret_data[j]);
+    }
+    console.log(all_members);
+  };
+
+  xhr.send();
 }
 
 /**
