@@ -254,13 +254,10 @@ function submitNewGoal() {
 }
 
 /**
- * TODO
  * Submit an update to a goal using a PATCH request
  * @param {number} issue_id - the number associated with the goal
- * @param {string} prev_mil - the milestone that the goal was initially in
- * @param {boolean} closed - whether the issue was previously closed
  */
-function submitGoalUpdate(issue_id, prev_mil, closed) {
+function submitGoalUpdate(issue_id) {
   var auth_code = getQueryVariable('auth');
   var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
   patch_url += issue_id;
@@ -376,8 +373,7 @@ function updateGoal(issue_id) {
   document.getElementById('goal_body_input').value = goal_obj.body;
 
   // update the submit function
-  let incl = goal_obj.state.includes('closed');
-  let fun = 'submitGoalUpdate(' + issue_id + ', "' + goal_obj.milestone.title + '", ' + incl + ');';
+  let fun = 'submitGoalUpdate(' + issue_id + ');';
   document.getElementById('sub_new_button').setAttribute("onclick", fun);
 
   // scroll to view it
