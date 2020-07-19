@@ -215,9 +215,17 @@ function submitNewGoal() {
 
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
-      setupNewGoalForm(null);
+      setupNewGoalForm(null); // reset form
       var ret_data = JSON.parse(this.responseText);
-      addGoalToMilestone(ret_data);
+
+      let milestone_idx = mapMilestoneStrToIdx(ret_data.milestone.title);
+      if (typeof all_goals[milestone_idx] === 'undefined') {
+        all_goals[milestone_idx] = new Array(1);
+        all_goals[milestone_idx][0] = Object.assign({}, ret_data);
+      } else {
+        all_goals[milestone_idx].push(Object.assign({}, ret_data));
+      }
+      displayMilestone(milestone_idx);
     }
   }
   xhr.send(jsonString);
@@ -342,7 +350,6 @@ function markComplete(issue_id, mark) {
 }
 
 /**
- * TODO
  * Change the "add goal" form to edit an existing goal
  * @param {number} issue_id - the number associated with the goal to be updated
  */
@@ -373,46 +380,10 @@ function updateGoal(issue_id) {
   $("html, body").animate({
     scrollTop: $('#make_new_goal').offset().top
   }, 1000);
-
-  // var xhr = new XMLHttpRequest();
-  // var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
-  // get_url += issue_id;
-  // xhr.open('GET', get_url, true);
-
-  // xhr.onload = function () {
-  //   let ret_data = JSON.parse(this.responseText);
-
-  //   setupNewGoalForm(ret_data); // assign checkboxes
-  //   var layout = document.getElementById('make_new_goal');
-  //   var title = document.getElementById('goal_adder_label');
-  //   title.innerHTML = 'Edit Goal'
-  //   layout.style.visibility = 'visible';
-
-  //   document.getElementById('goal_title_input').value = ret_data.title;
-
-  //   // set the previous milestone
-  //   let q = 'option[value="' + ret_data.milestone.number + '"]';
-  //   let milestone_box = document.querySelector(q);
-  //   milestone_box.selected = true;
-
-  //   document.getElementById('goal_body_input').value = ret_data.body;
-
-  //   // update the submit function
-  //   let incl = ret_data.state.includes('closed');
-  //   let fun = 'submitGoalUpdate(' + issue_id + ', "' + ret_data.milestone.title + '", ' + incl + ');';
-  //   document.getElementById('sub_new_button').setAttribute("onclick", fun);
-
-  //   // scroll to view it
-  //   $("html, body").delay(150).animate({
-  //     scrollTop: $('#make_new_goal').offset().top
-  //   }, 1000);
-  // };
-
-  // xhr.send();
 }
 
 /**
- * TODO
+ * Possible refactor: get members list at page load to eliminate API calls
  * Setup or reset the "add goal" form
  * @param {Object} edit_data - the object associated with the form (if editing) or null
  */
