@@ -294,7 +294,6 @@ function updateGoal(issue_id) {
 }
 
 /**
- * Possible refactor: get members list at page load to eliminate API calls
  * Setup or reset the "add goal" form
  * @param {Object} edit_data - the object associated with the form (if editing) or null
  */
@@ -319,20 +318,20 @@ function setupNewGoalForm(edit_data) {
   }
   add_html += '</select></div>';
 
-  // add this in later so it can be asynch
+  // add this in later
   add_html += '<p><b>Assign Team Members:</b></p>';
   add_html += '<div id="members_selector"></div>';
 
   add_html += '<textarea id="goal_body_input" name="body" placeholder="A couple sentences about what this goal is, what you need to do to accomplish it, etc."></textarea>';
   add_html += '<button id="sub_new_button" onclick="submitNewGoal()" type="button">Submit Goal</button>';
+  add_html += '<button onclick="setupNewGoalForm(null)" type="button">Cancel</button>';
   add_html += '</div>';
   layout.innerHTML = add_html;
 
-  // now use a get request to get the org members
+  // now get the org members
   let sel_layout = document.getElementById("members_selector");
   let inner_sel = '';
 
-  console.log(all_members);
   let j;
   for (j = 0; j < all_members.length; j++) {
     inner_sel += '<div id="login_checkbox">';
@@ -533,7 +532,6 @@ function displayExistingGoals() {
       all_members[j] = Object.assign({}, ret_data[j]);
     }
     setupNewGoalForm();
-    console.log(all_members);
   };
 
   xhr.send();
