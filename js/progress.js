@@ -532,7 +532,7 @@ function displayMilestone(num) {
 
   ul_layout.innerHTML = add_html;
 
-  for (i = 0; i < all_goals[num] ? all_goals[num].length : 0; i++) {
+  for (i = 0; i < all_goals[num].length; i++) {
     setCommentButton(all_goals[num][i].number, all_goals[num][i].comments);
   }
 
