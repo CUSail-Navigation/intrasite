@@ -30,9 +30,11 @@ function mapIssueNumToObject(issue_id) {
   let i;
   let j;
   for (i = 0; i < all_goals.length; i++) {
-    for (j = 0; j < all_goals[i].length; j++) {
-      if (all_goals[i][j].number === issue_id) {
-        return all_goals[i][j];
+    if (typeof all_goals[i] !== 'undefined') {
+      for (j = 0; j < all_goals[i].length; j++) {
+        if (all_goals[i][j].number === issue_id) {
+          return all_goals[i][j];
+        }
       }
     }
   }
