@@ -323,9 +323,9 @@ function setupNewGoalForm(edit_data) {
   add_html += '<div id="members_selector"></div>';
 
   add_html += '<textarea id="goal_body_input" name="body" placeholder="A couple sentences about what this goal is, what you need to do to accomplish it, etc."></textarea>';
-  add_html += '<button id="sub_new_button" onclick="submitNewGoal()" type="button">Submit Goal</button>';
+  add_html += '<div id="inline_buttons"><button id="sub_new_button" onclick="submitNewGoal()" type="button">Submit Goal</button>';
   add_html += '<button onclick="setupNewGoalForm(null)" type="button">Cancel</button>';
-  add_html += '</div>';
+  add_html += '</div></div>';
   layout.innerHTML = add_html;
 
   // now get the org members
