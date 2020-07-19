@@ -278,8 +278,10 @@ function submitGoalUpdate(issue_id, prev_mil, closed) {
     people.push(checkboxes[i].value);
   }
   req.assignees = people;
-
   var jsonString = JSON.stringify(req);
+
+  let prev_goal = mapIssueNumToObject(issue_id);
+  let prev_idx = mapIssueNumToIndices(issue_id);
 
   xhr = new XMLHttpRequest();
   xhr.open("PATCH", patch_url, true);
@@ -291,14 +293,30 @@ function submitGoalUpdate(issue_id, prev_mil, closed) {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       setupNewGoalForm(null);
       var ret_data = JSON.parse(this.responseText);
-      updateGoalLocation(ret_data, prev_mil, closed);
+
+      if (ret_data.milestone.number === prev_goal.milestone.number) {
+        all_goals[prev_idx.milestone_num][prev_idx.goal_num] = Object.assign({}, ret_data);
+        displayMilestone(prev_idx.milestone_num);
+      } else {
+        all_goals[prev_idx.milestone_num].splice(prev_idx.goal_num, 1);
+
+        let milestone_idx = mapMilestoneStrToIdx(ret_data.milestone.title);
+        if (typeof all_goals[milestone_idx] === 'undefined') {
+          all_goals[milestone_idx] = new Array(1);
+          all_goals[milestone_idx][0] = Object.assign({}, ret_data);
+        } else {
+          all_goals[milestone_idx].push(Object.assign({}, ret_data));
+        }
+
+        displayMilestone(prev_idx.milestone_num);
+        displayMilestone(milestone_idx);
+      }
     }
   }
   xhr.send(jsonString);
 }
 
 /**
- * TODO
  * Mark a goal as being completed or open
  * @param {number} issue_id - the number associated with the goal
  */
