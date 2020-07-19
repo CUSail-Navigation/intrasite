@@ -25,6 +25,7 @@ function mapMilestoneStrToIdx(name) {
  * Map an issue id to a goal object (necessary because indices may change as things
  * are added or removed)
  * @param {number} issue_id - the number associated with a goal/issue
+ * @returns {Object} the object representing the desired goal
  */
 function mapIssueNumToObject(issue_id) {
   let i;
@@ -34,6 +35,28 @@ function mapIssueNumToObject(issue_id) {
       for (j = 0; j < all_goals[i].length; j++) {
         if (all_goals[i][j].number === issue_id) {
           return all_goals[i][j];
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Maps an issue number to indices within all_goals
+ * @param {number} issue_id - the number associated with a goal/issue
+ * @returns {Object} an objects which gives the indices
+ */
+function mapIssueNumToIndices(issue_id) {
+  let i;
+  let j;
+  for (i = 0; i < all_goals.length; i++) {
+    if (typeof all_goals[i] !== 'undefined') {
+      for (j = 0; j < all_goals[i].length; j++) {
+        if (all_goals[i][j].number === issue_id) {
+          let ret_data = new Object();
+          ret_data.milestone_num = i;
+          ret_data.goal_num = j;
+          return ret_data;
         }
       }
     }
@@ -184,7 +207,6 @@ function addGoalToMilestone(ret_data) {
 }
 
 /**
- * TODO
  * Submit a new goal to the Github API
  */
 function submitNewGoal() {
@@ -286,13 +308,13 @@ function markComplete(issue_id, mark) {
   var patch_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
   patch_url += issue_id;
 
+  let goal_obj = mapIssueNumToObject(issue_id);
   let update_req = new Object();
-  if (mark) {
+  if (goal_obj.state.includes("open")) {
     update_req.state = "closed";
   } else {
     update_req.state = "open";
   }
-
   var jsonString = JSON.stringify(update_req);
 
   var xhr = new XMLHttpRequest();
@@ -304,46 +326,50 @@ function markComplete(issue_id, mark) {
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       var ret_data = JSON.parse(this.responseText);
-      const i = mapMilestoneStrToIdx(ret_data.milestone.title);
+      const milestone_idx = mapMilestoneStrToIdx(ret_data.milestone.title);
 
-      // if marking closed, remove the edit button and change the text on 
-      // the mark complete button to reopen, add 'completed on' annotation
-      // if marking open, put back the edit button and change the text on 
-      // the reopen button to mark complete, remove the 'completed on' annotation
-      if (mark) {
-        milestone_completed[i]++
-        document.getElementById('edit_button_' + ret_data.number.toString(10)).remove();
-        document.getElementById('complete_button_' + ret_data.number.toString(10)).innerText = 'Reopen';
-        let fun = 'markComplete(' + ret_data.number.toString(10) + ', ' + false + ')';
-        document.getElementById('complete_button_' + ret_data.number.toString(10)).setAttribute("onclick", fun);
-        let compl_anno = 'Created by ' + ret_data.user.login + ' on ' + parseDate(ret_data.created_at);
-        compl_anno += ' • Completed on ' + parseDate(ret_data.closed_at);
-        document.getElementById('create_complete_' + ret_data.number.toString(10)).innerText = compl_anno;
-      } else {
-        milestone_completed[i]--;
-        // remove the mark complete button so that the order will be correct
-        document.getElementById('complete_button_' + ret_data.number.toString(10)).remove();
-        // put back the edit button
-        let edit_button = document.createElement("button");
-        edit_button.setAttribute("id", 'edit_button_' + ret_data.number.toString(10));
-        edit_button.setAttribute("type", "button");
-        edit_button.setAttribute("onclick", 'updateGoal(' + ret_data.number.toString(10) + ')');
-        edit_button.innerText = "Edit Goal";
-        document.getElementById('top_' + ret_data.number.toString(10)).appendChild(edit_button);
-        // put back the complete button
-        let complete_button = document.createElement("button");
-        complete_button.setAttribute("id", 'complete_button_' + ret_data.number.toString(10));
-        complete_button.setAttribute("type", "button");
-        complete_button.setAttribute("onclick", 'markComplete(' + ret_data.number.toString(10) + ', ' + true + ')');
-        complete_button.innerText = "Mark Complete";
-        document.getElementById('top_' + ret_data.number.toString(10)).appendChild(complete_button);
-        // reset the annotation
-        let compl_anno = 'Created by ' + ret_data.user.login + ' on ' + parseDate(ret_data.created_at);
-        document.getElementById('create_complete_' + ret_data.number.toString(10)).innerText = compl_anno;
-      }
-      // update progress markers
-      updateMilestoneHeader(i);
-      resetBar();
+      let goal_idx = mapIssueNumToIndices(ret_data.number);
+      all_goals[goal_idx.milestone_num][goal_idx.goal_num] = Object.assign({}, ret_data);
+      displayMilestone(milestone_idx);
+
+      // // if marking closed, remove the edit button and change the text on 
+      // // the mark complete button to reopen, add 'completed on' annotation
+      // // if marking open, put back the edit button and change the text on 
+      // // the reopen button to mark complete, remove the 'completed on' annotation
+      // if (mark) {
+      //   milestone_completed[i]++
+      //   document.getElementById('edit_button_' + ret_data.number.toString(10)).remove();
+      //   document.getElementById('complete_button_' + ret_data.number.toString(10)).innerText = 'Reopen';
+      //   let fun = 'markComplete(' + ret_data.number.toString(10) + ', ' + false + ')';
+      //   document.getElementById('complete_button_' + ret_data.number.toString(10)).setAttribute("onclick", fun);
+      //   let compl_anno = 'Created by ' + ret_data.user.login + ' on ' + parseDate(ret_data.created_at);
+      //   compl_anno += ' • Completed on ' + parseDate(ret_data.closed_at);
+      //   document.getElementById('create_complete_' + ret_data.number.toString(10)).innerText = compl_anno;
+      // } else {
+      //   milestone_completed[i]--;
+      //   // remove the mark complete button so that the order will be correct
+      //   document.getElementById('complete_button_' + ret_data.number.toString(10)).remove();
+      //   // put back the edit button
+      //   let edit_button = document.createElement("button");
+      //   edit_button.setAttribute("id", 'edit_button_' + ret_data.number.toString(10));
+      //   edit_button.setAttribute("type", "button");
+      //   edit_button.setAttribute("onclick", 'updateGoal(' + ret_data.number.toString(10) + ')');
+      //   edit_button.innerText = "Edit Goal";
+      //   document.getElementById('top_' + ret_data.number.toString(10)).appendChild(edit_button);
+      //   // put back the complete button
+      //   let complete_button = document.createElement("button");
+      //   complete_button.setAttribute("id", 'complete_button_' + ret_data.number.toString(10));
+      //   complete_button.setAttribute("type", "button");
+      //   complete_button.setAttribute("onclick", 'markComplete(' + ret_data.number.toString(10) + ', ' + true + ')');
+      //   complete_button.innerText = "Mark Complete";
+      //   document.getElementById('top_' + ret_data.number.toString(10)).appendChild(complete_button);
+      //   // reset the annotation
+      //   let compl_anno = 'Created by ' + ret_data.user.login + ' on ' + parseDate(ret_data.created_at);
+      //   document.getElementById('create_complete_' + ret_data.number.toString(10)).innerText = compl_anno;
+      // }
+      // // update progress markers
+      // updateMilestoneHeader(i);
+      // resetBar();
     }
   }
   xhr.send(jsonString);
