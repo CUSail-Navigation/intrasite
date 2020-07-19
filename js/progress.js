@@ -21,9 +21,12 @@ function mapMilestoneStrToIdx(name) {
   }
 }
 
+/**
+ * Map an issue id to a goal object (necessary because indices may change as things
+ * are added or removed)
+ * @param {number} issue_id - the number associated with a goal/issue
+ */
 function mapIssueNumToObject(issue_id) {
-  console.log(typeof issue_id);
-
   let i;
   let j;
   for (i = 0; i < all_goals.length; i++) {
@@ -342,44 +345,68 @@ function markComplete(issue_id, mark) {
  * @param {number} issue_id - the number associated with the goal to be updated
  */
 function updateGoal(issue_id) {
-  console.log(mapIssueNumToObject(issue_id));
+  // load the current goal information into the goal form
+  let goal_obj = mapIssueNumToObject(issue_id);
+  setupNewGoalForm(goal_obj); // assign checkboxes
+  var layout = document.getElementById('make_new_goal');
+  var title = document.getElementById('goal_adder_label');
+  title.innerHTML = 'Edit Goal'
+  layout.style.visibility = 'visible';
 
-  // load the current goal information into 
-  var xhr = new XMLHttpRequest();
-  var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
-  get_url += issue_id;
-  xhr.open('GET', get_url, true);
+  document.getElementById('goal_title_input').value = goal_obj.title;
 
-  xhr.onload = function () {
-    let ret_data = JSON.parse(this.responseText);
+  // set the currently assigned milestone
+  let q = 'option[value="' + goal_obj.milestone.number + '"]';
+  let milestone_box = document.querySelector(q);
+  milestone_box.selected = true;
 
-    setupNewGoalForm(ret_data); // assign checkboxes
-    var layout = document.getElementById('make_new_goal');
-    var title = document.getElementById('goal_adder_label');
-    title.innerHTML = 'Edit Goal'
-    layout.style.visibility = 'visible';
+  document.getElementById('goal_body_input').value = goal_obj.body;
 
-    document.getElementById('goal_title_input').value = ret_data.title;
+  // update the submit function
+  let incl = goal_obj.state.includes('closed');
+  let fun = 'submitGoalUpdate(' + issue_id + ', "' + goal_obj.milestone.title + '", ' + incl + ');';
+  document.getElementById('sub_new_button').setAttribute("onclick", fun);
 
-    // set the previous milestone
-    let q = 'option[value="' + ret_data.milestone.number + '"]';
-    let milestone_box = document.querySelector(q);
-    milestone_box.selected = true;
+  // scroll to view it
+  $("html, body").animate({
+    scrollTop: $('#make_new_goal').offset().top
+  }, 1000);
 
-    document.getElementById('goal_body_input').value = ret_data.body;
+  // var xhr = new XMLHttpRequest();
+  // var get_url = 'https://api.github.com/repos/cusail-navigation/intrasite/issues/';
+  // get_url += issue_id;
+  // xhr.open('GET', get_url, true);
 
-    // update the submit function
-    let incl = ret_data.state.includes('closed');
-    let fun = 'submitGoalUpdate(' + issue_id + ', "' + ret_data.milestone.title + '", ' + incl + ');';
-    document.getElementById('sub_new_button').setAttribute("onclick", fun);
+  // xhr.onload = function () {
+  //   let ret_data = JSON.parse(this.responseText);
 
-    // scroll to view it
-    $("html, body").delay(150).animate({
-      scrollTop: $('#make_new_goal').offset().top
-    }, 1000);
-  };
+  //   setupNewGoalForm(ret_data); // assign checkboxes
+  //   var layout = document.getElementById('make_new_goal');
+  //   var title = document.getElementById('goal_adder_label');
+  //   title.innerHTML = 'Edit Goal'
+  //   layout.style.visibility = 'visible';
 
-  xhr.send();
+  //   document.getElementById('goal_title_input').value = ret_data.title;
+
+  //   // set the previous milestone
+  //   let q = 'option[value="' + ret_data.milestone.number + '"]';
+  //   let milestone_box = document.querySelector(q);
+  //   milestone_box.selected = true;
+
+  //   document.getElementById('goal_body_input').value = ret_data.body;
+
+  //   // update the submit function
+  //   let incl = ret_data.state.includes('closed');
+  //   let fun = 'submitGoalUpdate(' + issue_id + ', "' + ret_data.milestone.title + '", ' + incl + ');';
+  //   document.getElementById('sub_new_button').setAttribute("onclick", fun);
+
+  //   // scroll to view it
+  //   $("html, body").delay(150).animate({
+  //     scrollTop: $('#make_new_goal').offset().top
+  //   }, 1000);
+  // };
+
+  // xhr.send();
 }
 
 /**
@@ -491,17 +518,11 @@ function resetBar() {
  * @param {number} num 
  */
 function displayMilestone(num) {
-  console.log(num);
-  console.log(milestone_str[num]);
   var ul_layout = document.getElementById('ul_' + milestone_str[num]);
   var add_html = '';
-  console.log(all_goals[num]);
-  console.log(all_goals);
 
   let i;
   for (i = 0; i < all_goals[num].length; i++) {
-    console.log("adding to " + num);
-    console.log(all_goals[num][i]);
     // add goal to milestone
     add_html += '<li id="goal_num_' + all_goals[num][i].number.toString(10) + '">';
     add_html += '<div class="goal_top" id="top_' + all_goals[num][i].toString(10) + '">';
