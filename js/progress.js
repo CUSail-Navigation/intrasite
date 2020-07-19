@@ -332,6 +332,7 @@ function setupNewGoalForm(edit_data) {
   let sel_layout = document.getElementById("members_selector");
   let inner_sel = '';
 
+  console.log(all_members);
   let j;
   for (j = 0; j < all_members.length; j++) {
     inner_sel += '<div id="login_checkbox">';
