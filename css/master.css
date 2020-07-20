@@ -361,6 +361,7 @@ table {
 
 /* progress goal layout */
 .load_icon {
+  display: block;
   margin-left: auto;
   margin-right: auto;
   height: 100vh;
