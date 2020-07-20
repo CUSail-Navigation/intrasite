@@ -361,8 +361,9 @@ table {
 
 /* progress goal layout */
 .load_icon {
-  width: 100vw;
-  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100vh;
 }
 
 #goal_header {
