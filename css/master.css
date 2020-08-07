@@ -342,6 +342,10 @@ table {
   margin-bottom: 10px;
 }
 
+code {
+  border-radius: 10px;
+}
+
 /* sidebar */
 #left_sidebar {
   position: fixed;
