@@ -15,6 +15,10 @@ In sailing, velocity made good (VMG) refers to the speed at which the sailboat i
 \[vmg = \vec{v_b} \cdot \vec{t_0} \]
 </p>
 
+In the example below, the difference between absolute velocity and velocity made good can be seen. Here, the target is directly upwind.
+
+![VMG]({{ site.baseurl }}/images/vmg.jpg "VMG")
+
 ## Polar Diagram
 
 TODO
