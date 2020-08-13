@@ -27,6 +27,12 @@ A polar diagram (or polar plot) is used to determine the maximum velocity of a s
 
 Each sailboat has its own unique polar diagram based on its size and shape. For most sailboats, a simplified polar diagram that does not rely on wind speed can be used without experiencing much difference.
 
+## Points of Sailing
+
+The points of sailing refer to the direction that a boat is sailing relative to the wind. Points where the wind is on the starboard (right) side of the boat are _starboard tacks_ (green below) and points where the wind is on the port (left) side of the boat are _port tacks_ (red below). Sailing directly upwind is not possible, so the region between starboard and port close haul is often referred to as the "no go zone".
+
+![Points of Sailing]({{ site.baseurl }}/images/points_of_sailing.jpg "Points of Sailing")
+
 ## Angle of Attack
 
 TODO
