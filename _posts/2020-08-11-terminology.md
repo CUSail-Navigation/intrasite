@@ -35,10 +35,10 @@ The points of sailing refer to the direction that a boat is sailing relative to 
 
 ## Angle of Attack
 
-Angle of attack refers to the angle between the wind and the sail.
+Angle of attack refers to the angle between the wind and the sail. Each point of sail requires its own angle of attack. When the boat is close hauled, the sail will be _in tight_ on the boat. As the point of sail progresses toward a dead run, the sail should be put further and further out.
 
 ![Angle of Attack]({{ site.baseurl }}/images/angle_of_attack.jpg "Angle of Attack")
 
-Ideally, the sail angle should be set so that the aspect ratio (the ratio of the coefficient of lift to the coefficient of drag) is maximized. Typically, this occurs at an angle of attack around 15 to 20 degrees.
+As the angle of attack increases, the sail progresses from being _attached_ (lift is maximized) to _separated_ and then _stalled_ (drag is maximized).
 
 ![Lift and Drag]({{ site.baseurl }}/images/lift_drag.png "Lift and Drag")
