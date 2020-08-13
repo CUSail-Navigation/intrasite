@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Courtney McBeth
-categories: ['Mathematics of Sailing']
+categories: ['Basics of Sailing']
 logo: glossary_logo.png
 title: Terminology
 ---
