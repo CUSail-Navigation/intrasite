@@ -21,7 +21,11 @@ In the example below, the difference between absolute velocity and velocity made
 
 ## Polar Diagram
 
-TODO
+A polar diagram (or polar plot) is used to determine the maximum velocity of a sailboat for a given apparent wind direction and wind speed. Here, the true wind angle is the wind angle experienced by the boat (or the relative wind direction).
+
+![Polar Diagram]({{ site.baseurl }}/images/polar_diagram.png "Polar Diagram")
+
+Each sailboat has its own unique polar diagram based on its size and shape. For most sailboats, a simplified polar diagram that does not rely on wind speed can be used without experiencing much difference.
 
 ## Angle of Attack
 
