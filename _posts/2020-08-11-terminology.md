@@ -42,3 +42,9 @@ Angle of attack refers to the angle between the wind and the sail. Each point of
 As the angle of attack increases, the sail progresses from being _attached_ (lift is maximized) to _separated_ and then _stalled_ (drag is maximized).
 
 ![Lift and Drag]({{ site.baseurl }}/images/lift_drag.png "Lift and Drag")
+
+## Tacking and Jibing
+
+Tacking and jibing are both sailing maneuvers which involve switching from a starboard to a port tack (or vice versa). In tacking, the boat is sailing upwind, while in jibing, the boat is sailing downwind.
+
+![Tacking and Jibing]({{ site.baseurl }}/images/tacking_jibing.gif"Tacking and Jibing")
