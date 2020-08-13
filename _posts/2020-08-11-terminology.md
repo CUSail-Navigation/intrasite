@@ -51,7 +51,7 @@ Tacking and jibing are both sailing maneuvers which involve switching from a sta
 
 ## Beating
 <p>
-Since no sailboat can sail directly upwind, the boat must sail in a zig-zag path while consistently tacking to make progress in this direction. This is called beating. The _beating parameter_ (often \(p_c\)) refers to the lateral (side-to-side) distance that the boat can sail before tacking (1/2 of the total width of the path).
+Since no sailboat can sail directly upwind, the boat must sail in a zig-zag path while consistently tacking to make progress in this direction. This is called beating. The <i>beating parameter</i> (often \(p_c\)) refers to the lateral (side-to-side) distance that the boat can sail before tacking (1/2 of the total width of the path).
 </p>
 
 ![Beating]({{ site.baseurl }}/images/beating.png "Beating")
