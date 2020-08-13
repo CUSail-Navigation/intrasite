@@ -29,10 +29,16 @@ Each sailboat has its own unique polar diagram based on its size and shape. For 
 
 ## Points of Sailing
 
-The points of sailing refer to the direction that a boat is sailing relative to the wind. Points where the wind is on the starboard (right) side of the boat are _starboard tacks_ (green below) and points where the wind is on the port (left) side of the boat are _port tacks_ (red below). Sailing directly upwind is not possible, so the region between starboard and port close haul is often referred to as the "no go zone".
+The points of sailing refer to the direction that a boat is sailing relative to the wind. Points where the wind is on the starboard (right) side of the boat are _starboard tacks_ (green below) and points where the wind is on the port (left) side of the boat are _port tacks_ (red below). Sailing directly upwind is not possible, so the region between starboard and port close hauled is often referred to as the "no go zone".
 
 ![Points of Sailing]({{ site.baseurl }}/images/points_of_sailing.jpg "Points of Sailing")
 
 ## Angle of Attack
 
-TODO
+Angle of attack refers to the angle between the wind and the sail.
+
+![Angle of Attack]({{ site.baseurl }}/images/angle_of_attack.jpg "Angle of Attack")
+
+Ideally, the sail angle should be set so that the aspect ratio (the ratio of the coefficient of lift to the coefficient of drag) is maximized. Typically, this occurs at an angle of attack around 15 to 20 degrees.
+
+![Lift and Drag]({{ site.baseurl }}/images/lift_drag.jpg "Lift and Drag")
