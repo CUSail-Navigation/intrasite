@@ -41,4 +41,4 @@ Angle of attack refers to the angle between the wind and the sail.
 
 Ideally, the sail angle should be set so that the aspect ratio (the ratio of the coefficient of lift to the coefficient of drag) is maximized. Typically, this occurs at an angle of attack around 15 to 20 degrees.
 
-![Lift and Drag]({{ site.baseurl }}/images/lift_drag.jpg "Lift and Drag")
+![Lift and Drag]({{ site.baseurl }}/images/lift_drag.png "Lift and Drag")
