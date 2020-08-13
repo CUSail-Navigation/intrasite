@@ -55,7 +55,3 @@ Since no sailboat can sail directly upwind, the boat must sail in a zig-zag path
 </p>
 
 ![Beating]({{ site.baseurl }}/images/beating.png "Beating")
-
-## Hysterisis
-
-TODO
