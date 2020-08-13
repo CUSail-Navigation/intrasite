@@ -47,4 +47,4 @@ As the angle of attack increases, the sail progresses from being _attached_ (lif
 
 Tacking and jibing are both sailing maneuvers which involve switching from a starboard to a port tack (or vice versa). In tacking, the boat is sailing upwind, while in jibing, the boat is sailing downwind.
 
-![Tacking and Jibing]({{ site.baseurl }}/images/tacking_jibing.gif"Tacking and Jibing")
+![Tacking and Jibing]({{ site.baseurl }}/images/tacking_jibing.gif "Tacking and Jibing")
