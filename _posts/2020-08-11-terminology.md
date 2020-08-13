@@ -48,3 +48,14 @@ As the angle of attack increases, the sail progresses from being _attached_ (lif
 Tacking and jibing are both sailing maneuvers which involve switching from a starboard to a port tack (or vice versa). In tacking, the boat is sailing upwind, while in jibing, the boat is sailing downwind.
 
 ![Tacking and Jibing]({{ site.baseurl }}/images/tacking_jibing.gif "Tacking and Jibing")
+
+## Beating
+<p>
+Since no sailboat can sail directly upwind, the boat must sail in a zig-zag path while consistently tacking to make progress in this direction. This is called beating. The _beating parameter_ (often \(p_c\)) refers to the lateral (side-to-side) distance that the boat can sail before tacking (1/2 of the total width of the path).
+</p>
+
+![Beating]({{ site.baseurl }}/images/beating.png "Beating")
+
+## Hysterisis
+
+TODO
