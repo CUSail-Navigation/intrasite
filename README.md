@@ -1,2 +1,3 @@
 # intrasite
-Navigation Subteam Compendium
+
+Published at https://cusail-navigation.github.io/intrasite/
