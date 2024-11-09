@@ -1,6 +1,6 @@
 ---
 layout: landing
-title: Sailbot, Everything ROS & Docker Related
+title: Sailbot ROS
 author: Nikil Shyamsunder
 categories: ['ROS']
 logo: ros-logo.jpg
