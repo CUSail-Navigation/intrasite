@@ -2,7 +2,7 @@
 layout: post
 author: Nikil Shyamsunder
 categories: ['ROS']
-logo: networking_icon.png
+logo: networking_icon.jpg
 title: Webserver Networking
 ---
 
