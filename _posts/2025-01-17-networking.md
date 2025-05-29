@@ -3,7 +3,7 @@ layout: post
 author: Nikil Shyamsunder
 categories: ['ROS']
 logo: networking_icon.jpg
-title: Webserver Networking
+title: Networking and NGROK
 ---
 
 <link rel="stylesheet" href="{{site.baseurl}}/css/code_styles/hybrid.css">
@@ -46,9 +46,7 @@ In addition to HTTP tunneling for `rosbridge`, the MiniPC onboard the sailboat a
 
 To SSH into the MiniPC:
 
-1. Go to the [NGROK Dashboard](https://dashboard.ngrok.com/endpoints), Log in with:  
-  - **Username:** `<the cusail email>`
-  - **Password:** `<you should know this>`
+1. Go to the [NGROK Dashboard](https://dashboard.ngrok.com/endpoints). Log in with: **Username:** `<the cusail email>`, **Password:** `<you should know this>`
 
 2. Look for an endpoint listed in the format: `tcp://<NGROK_TCP_ADDRESS>:<PORT>`
 3. On your own machine, open a terminal and run the following SSH command. This username is NOT the ngrok username, it's the username of the PC you are SSH-ing into.
@@ -61,12 +59,7 @@ ssh -p <PORT> cusail@{NGROK_TCP_ADDRESS}
 
 4. Enter the password (which you should know) on prompting. This is NOT the ngrok password, it's the password of the PC you are SSH-ing into.
 
-As an example, if the NGROK dashboard shows tcp://0.tcp.ngrok.io:16315, the SSH command would be:
-<pre>
-<code class="shell">
-ssh -p 16315 cusail@0.tcp.ngrok.io
-</code>
-</pre>
+As an example, if the NGROK dashboard shows tcp://0.tcp.ngrok.io:16315, the SSH command would be: `ssh -p 16315 cusail@0.tcp.ngrok.io`
 
 This provides full terminal access to the onboard MiniPC from any location, allowing you to monitor logs, restart nodes, or check system status as needed.
 
